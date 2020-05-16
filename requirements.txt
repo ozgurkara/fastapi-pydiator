@@ -1,0 +1,14 @@
+pydantic
+fastapi
+uvicorn
+redis
+pytest
+requests
+coverage
+
+
+
+
+
+
+
