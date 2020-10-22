@@ -1,5 +1,5 @@
 import asyncio
-from unittest import TestCase, mock
+from unittest import mock
 
 from app.data.todo.handlers.delete_todo_by_id_data_handler import DeleteTodoByIdDataResponse
 from app.pydiator.mediatr import pydiator

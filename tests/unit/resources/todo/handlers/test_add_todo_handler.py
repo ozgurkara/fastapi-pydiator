@@ -1,5 +1,5 @@
 import asyncio
-from unittest import TestCase, mock
+from unittest import mock
 from app.data.todo.handlers.add_todo_data_handler import AddTodoDataResponse
 from app.resources.todo.handlers.add_todo_handler import \
     AddTodoRequest, AddTodoResponse, AddTodoHandler

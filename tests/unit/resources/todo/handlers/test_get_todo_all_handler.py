@@ -1,5 +1,5 @@
 import asyncio
-from unittest import TestCase, mock
+from unittest import mock
 
 from app.data.todo.handlers.get_todo_all_data_handler import GetTodoAllDataResponse
 from app.pydiator.mediatr import pydiator

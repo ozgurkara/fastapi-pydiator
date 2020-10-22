@@ -1,16 +1,25 @@
 import asyncio
-from unittest import TestCase, mock
+from unittest import mock
 
 from app.data.todo.handlers.get_todo_all_data_handler import GetTodoAllDataRequest, GetTodoAllDataResponse, \
     GetTodoAllDataHandler
-from app.data.todo.handlers.get_todo_by_id_data_handler import GetTodoByIdDataHandler, GetTodoByIdDataRequest, \
-    GetTodoByIdDataResponse
+from app.pydiator.interfaces import CacheType
 from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
+from app.resources.todo.handlers.get_todo_all_handler import GetTodoAllRequest
 from tests.BaseTestCase import BaseTestCase
 
 
 class TestGetTodoByIdHandler(BaseTestCase):
+
+    def test_request_cache_parameter(self):
+        # When
+        request = GetTodoAllRequest()
+
+        # Then
+        assert request.get_cache_key() == "GetTodoAllRequest"
+        assert request.get_cache_duration() == 600
+        assert request.get_cache_type() == CacheType.DISTRIBUTED
 
     @mock.patch("app.data.todo.handlers.get_todo_all_data_handler.fake_todo_db")
     def test_handler_return_list(self, mock_fake_todo_db):
