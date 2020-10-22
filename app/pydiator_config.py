@@ -1,6 +1,6 @@
 from app.data.handlers.todo.delete_todo_by_id_data_handler import DeleteTodoByIdDataHandler, DeleteTodoByIdDataRequest
 from app.utils.environment import redis_key_prefix, cache_pipeline_is_active, distributed_cache_is_active
-from app.utils.client_factory import get_redis_client
+from app.utils.client_factory import get_distributed_cache_provider
 from app.utils.distributed_cache_provider import DistributedCacheProvider
 
 from app.pydiator.mediatr import pydiator
@@ -28,7 +28,7 @@ def set_up_pydiator():
     container = MediatrContainer()
     container.register_pipeline(LogPipeline())
     if cache_pipeline_is_active is True and distributed_cache_is_active is True:
-        cache_pipeline = CachePipeline(DistributedCacheProvider(get_redis_client()))
+        cache_pipeline = CachePipeline(get_distributed_cache_provider())
         container.register_pipeline(cache_pipeline)
 
     # Service handler mapping
@@ -45,6 +45,7 @@ def set_up_pydiator():
     container.register_request(DeleteTodoByIdDataRequest(), DeleteTodoByIdDataHandler())
     container.register_request(UpdateTodoDataRequest(), UpdateTodoDataHandler())
 
+    # Notification mapping
     container.register_notification(TodoChangeNotification(), [TodoCacheRemoveNotificationHandler()])
 
     pydiator.set_container(container)
