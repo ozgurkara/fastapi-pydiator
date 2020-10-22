@@ -5,7 +5,7 @@ from app.data.todo.handlers.get_todo_all_data_handler import GetTodoAllDataRespo
 from app.data.todo.handlers.get_todo_by_id_data_handler import GetTodoByIdDataResponse
 from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
-from app.resources.todo.handlers.get_todo_all_handler import GetTodoAllRequest, GetTodoAllHandler
+from app.resources.todo.handlers.get_todo_all_handler import GetTodoAllRequest, GetTodoAllHandler, GetTodoAllResponse
 from app.resources.todo.handlers.get_todo_by_id_handler import \
     GetTodoByIdRequest, GetTodoByIdResponse, GetTodoByIdHandler
 
@@ -29,7 +29,7 @@ class TestGetTodoByIdHandler(TestCase):
         mock_pydiator.send.side_effect = [self.async_return([GetTodoAllDataResponse(id=id_val, title=title_val)])]
 
         request = GetTodoAllRequest(id=id_val)
-        expected_response = [GetTodoByIdResponse(id=id_val, title=title_val)]
+        expected_response = [GetTodoAllResponse(id=id_val, title=title_val)]
         loop = asyncio.new_event_loop()
 
         # When

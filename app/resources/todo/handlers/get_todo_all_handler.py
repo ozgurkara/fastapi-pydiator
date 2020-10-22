@@ -26,7 +26,6 @@ class GetTodoAllHandler(BaseHandler):
     async def handle(self, req: GetTodoAllRequest) -> List[GetTodoAllResponse]:
         response = []
         data_response = await pydiator.send(GetTodoAllDataRequest())
-
         for d in data_response:
             response.append(GetTodoAllResponse(id=d.id, title=d.title))
 

@@ -11,7 +11,7 @@ def test_read_main():
 
 
 def test_get_todo_all():
-    response = client.get("/v1/handlers")
+    response = client.get("/v1/todo")
     items = response.json()
 
     assert response.status_code == 200
@@ -23,7 +23,7 @@ def test_get_todo_all():
 
 
 def test_get_todo_by_id():
-    response = client.get("/v1/handlers/1")
+    response = client.get("/v1/todo/1")
 
     assert response.status_code == 200
     assert response.json()["id"] == 1
@@ -31,7 +31,7 @@ def test_get_todo_by_id():
 
 
 def test_ad_todo():
-    response = client.post("/v1/handlers", json={
+    response = client.post("/v1/todo", json={
         "title": "title 3"
     })
 
@@ -40,7 +40,7 @@ def test_ad_todo():
 
 
 def test_update_todo():
-    response = client.put("/v1/handlers/1", json={
+    response = client.put("/v1/todo/1", json={
         "title": "title 1 updated"
     })
 
@@ -50,7 +50,7 @@ def test_update_todo():
 
 
 def test_delete_todo():
-    response = client.delete("/v1/handlers/3")
+    response = client.delete("/v1/todo/1")
 
     assert response.status_code == 200
     assert response.json()["success"]
