@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
-from app.pydiator.interfaces import BaseRequest, BaseResponse, BaseHandler, BaseCacheable, CacheType
-from app.db.fake_db import fake_todo_db
+from app.pydiator.interfaces import BaseRequest, BaseResponse, BaseHandler
+from app.pydiator.mediatr import pydiator
+from app.data.todo.handlers.get_todo_by_id_data_handler import GetTodoByIdDataRequest
 
 
 class GetTodoByIdRequest(BaseModel, BaseRequest):
@@ -15,8 +16,8 @@ class GetTodoByIdResponse(BaseModel, BaseResponse):
 class GetTodoByIdHandler(BaseHandler):
 
     async def handle(self, req: GetTodoByIdRequest) -> GetTodoByIdResponse:
-        for it in fake_todo_db:
-            if it["id"] == req.id:
-                return GetTodoByIdResponse(id=it["id"], title=it["title"])
+        todo_data = await pydiator.send(GetTodoByIdDataRequest(id=req.id))
+        if todo_data is not None:
+            return GetTodoByIdResponse(id=todo_data.id, title=todo_data.title)
 
         return None

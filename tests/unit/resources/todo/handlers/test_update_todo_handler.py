@@ -1,29 +1,29 @@
 import asyncio
-from unittest import TestCase, mock
+from unittest import mock
+
+from app.data.todo.handlers.update_todo_data_handler import UpdateTodoDataResponse
 from app.resources.todo.handlers.update_todo_handler import \
     UpdateTodoRequest, UpdateTodoResponse, UpdateTodoHandler
 from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
+from tests.base_test_case import BaseTestCase
 
 
-class TestAddTodoHandler(TestCase):
-
+class TestAddTodoHandler(BaseTestCase):
     @mock.patch("app.resources.todo.handlers.update_todo_handler.pydiator")
-    @mock.patch("app.resources.todo.handlers.update_todo_handler.fake_todo_db")
-    def test_handler_return_success(self, mock_fake_todo_db, mock_pydiator):
+    def test_handler_return_success(self, mock_pydiator):
         # Given
-        id = 1
-        mock_fake_todo_db.__iter__.return_value = [{"id": id, "title": "title 1"}]
-        f = asyncio.Future()
-        f.set_result(True)
-        mock_pydiator.publish.return_value = f
         container = MediatrContainer()
         container.register_request(UpdateTodoRequest(), UpdateTodoHandler())
         pydiator.set_container(container)
 
+        mock_pydiator.send.side_effect = [self.async_return(UpdateTodoDataResponse(success=True))]
+        mock_pydiator.publish.side_effect = [self.async_return(True)]
+
+        id_val = 1
         title_val = "title 1 updated"
         request = UpdateTodoRequest(title=title_val)
-        request.CustomFields.id = id
+        request.CustomFields.id = id_val
         expected_response = UpdateTodoResponse(success=True)
         loop = asyncio.new_event_loop()
 
@@ -33,21 +33,22 @@ class TestAddTodoHandler(TestCase):
 
         # Then
         assert response == expected_response
+        assert mock_pydiator.send.called
         assert mock_pydiator.publish.called
 
     @mock.patch("app.resources.todo.handlers.update_todo_handler.pydiator")
-    @mock.patch("app.resources.todo.handlers.update_todo_handler.fake_todo_db")
-    def test_handler_return_success_false(self, mock_fake_todo_db, mock_pydiator):
+    def test_handler_return_fail(self, mock_pydiator):
         # Given
-        id = 1
-        mock_fake_todo_db.__iter__.return_value = []
         container = MediatrContainer()
         container.register_request(UpdateTodoRequest(), UpdateTodoHandler())
         pydiator.set_container(container)
 
+        mock_pydiator.send.side_effect = [self.async_return(UpdateTodoDataResponse(success=False))]
+
+        id_val = 1
         title_val = "title 1 updated"
         request = UpdateTodoRequest(title=title_val)
-        request.CustomFields.id = id
+        request.CustomFields.id = id_val
         expected_response = UpdateTodoResponse(success=False)
         loop = asyncio.new_event_loop()
 
@@ -57,4 +58,5 @@ class TestAddTodoHandler(TestCase):
 
         # Then
         assert response == expected_response
+        assert mock_pydiator.send.called
         assert mock_pydiator.publish.called is False

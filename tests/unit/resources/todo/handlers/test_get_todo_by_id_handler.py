@@ -1,24 +1,29 @@
 import asyncio
-from unittest import TestCase, mock
+from unittest import mock
+
+from app.data.todo.handlers.get_todo_by_id_data_handler import GetTodoByIdDataResponse
 from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
 from app.resources.todo.handlers.get_todo_by_id_handler import \
     GetTodoByIdRequest, GetTodoByIdResponse, GetTodoByIdHandler
+from tests.base_test_case import BaseTestCase
 
 
-class TestGetTodoByIdHandler(TestCase):
+class TestGetTodoByIdHandler(BaseTestCase):
 
-    @mock.patch("app.resources.todo.handlers.get_todo_by_id_handler.fake_todo_db")
-    def test_handler_return_todo(self, mock_fake_todo_db):
+    @mock.patch("app.resources.todo.handlers.get_todo_by_id_handler.pydiator")
+    def test_handler_return_todo(self, mock_pydiator):
         # Given
-        mock_fake_todo_db.__iter__.return_value = [{"id": 1, "title": "title 1"}]
         container = MediatrContainer()
         container.register_request(GetTodoByIdRequest(), GetTodoByIdHandler())
         pydiator.set_container(container)
 
-        id = 1
-        request = GetTodoByIdRequest(id=id)
-        expected_response = GetTodoByIdResponse(id=id, title="title 1")
+        id_val = 1
+        title_val = "title 1"
+        mock_pydiator.send.side_effect = [self.async_return(GetTodoByIdDataResponse(id=id_val, title=title_val))]
+
+        request = GetTodoByIdRequest(id=id_val)
+        expected_response = GetTodoByIdResponse(id=id_val, title=title_val)
         loop = asyncio.new_event_loop()
 
         # When
@@ -28,13 +33,15 @@ class TestGetTodoByIdHandler(TestCase):
         # Then
         assert response == expected_response
 
-    @mock.patch("app.resources.todo.handlers.get_todo_by_id_handler.fake_todo_db")
-    def test_handler_return_none(self, mock_fake_todo_db):
+    @mock.patch("app.resources.todo.handlers.get_todo_by_id_handler.pydiator")
+    def test_handler_return_none(self, mock_pydiator):
         # Given
-        mock_fake_todo_db.__iter__.return_value = []
         container = MediatrContainer()
         container.register_request(GetTodoByIdRequest(), GetTodoByIdHandler())
         pydiator.set_container(container)
+
+        mock_pydiator.send.side_effect = [self.async_return(None)]
+
         request = GetTodoByIdRequest(id=1)
         expected_response = None
         loop = asyncio.new_event_loop()

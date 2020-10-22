@@ -1,7 +1,8 @@
 from pydantic import BaseModel, Field, Extra
+
+from app.data.todo.handlers.update_todo_data_handler import UpdateTodoDataRequest
 from app.pydiator.interfaces import BaseRequest, BaseResponse, BaseHandler
 from app.pydiator.mediatr import pydiator
-from app.db.fake_db import fake_todo_db
 from app.resources.todo.handlers.notifications.todo_cache_remove_handler import TodoChangeNotification
 
 
@@ -19,10 +20,9 @@ class UpdateTodoResponse(BaseModel, BaseResponse):
 class UpdateTodoHandler(BaseHandler):
 
     async def handle(self, req: UpdateTodoRequest) -> UpdateTodoResponse:
-        for it in fake_todo_db:
-            if it["id"] == req.CustomFields.id:
-                it["title"] = req.title
-                await pydiator.publish(TodoChangeNotification())
-                return UpdateTodoResponse(success=True)
+        data_response = await pydiator.send(UpdateTodoDataRequest(id=req.CustomFields.id, title=req.title))
+        if data_response.success:
+            await pydiator.publish(TodoChangeNotification())
+            return UpdateTodoResponse(success=True)
 
         return UpdateTodoResponse(success=False)

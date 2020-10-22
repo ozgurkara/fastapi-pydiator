@@ -50,7 +50,7 @@ def test_update_todo():
 
 
 def test_delete_todo():
-    response = client.delete("/v1/todo/3")
+    response = client.delete("/v1/todo/1")
 
     assert response.status_code == 200
     assert response.json()["success"]

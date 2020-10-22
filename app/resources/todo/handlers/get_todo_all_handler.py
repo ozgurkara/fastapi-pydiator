@@ -1,7 +1,8 @@
 from pydantic import BaseModel, Field
 from app.pydiator.interfaces import BaseRequest, BaseResponse, BaseHandler, BaseCacheable, CacheType
-from app.db.fake_db import fake_todo_db
 from typing import List
+from app.pydiator.mediatr import pydiator
+from app.data.todo.handlers.get_todo_all_data_handler import GetTodoAllDataRequest
 
 
 class GetTodoAllRequest(BaseModel, BaseRequest, BaseCacheable):
@@ -24,7 +25,8 @@ class GetTodoAllHandler(BaseHandler):
 
     async def handle(self, req: GetTodoAllRequest) -> List[GetTodoAllResponse]:
         response = []
-        for it in fake_todo_db:
-            response.append(GetTodoAllResponse(id=it["id"], title=it["title"]))
+        data_response = await pydiator.send(GetTodoAllDataRequest())
+        for d in data_response:
+            response.append(GetTodoAllResponse(id=d.id, title=d.title))
 
         return response

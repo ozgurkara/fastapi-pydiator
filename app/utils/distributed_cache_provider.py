@@ -61,4 +61,22 @@ class DistributedCacheProvider(BaseCacheProvider):
 
         return self.client
 
-# distributed_cache_provider = RedisCacheProvider()
+
+class FakeDistributedCacheProvider(BaseCacheProvider):
+    def __init__(self):
+        pass
+
+    def add(self, key: str, value, expires):
+        pass
+
+    def get(self, key: str):
+        pass
+
+    def exist(self, key: str):
+        pass
+
+    def delete(self, key: str):
+        pass
+
+    def check_connection(self):
+        pass
