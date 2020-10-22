@@ -27,7 +27,7 @@ class CachePipeline(BasePipeline):
                     return cached_obj
 
             response = await self.next().handle(req)
-            if response is not None or response is not "":
+            if response is not None or response != "":
                 self.add_to_cache(response, cache_key, cache_duration, no_cache)
 
         if response is None:

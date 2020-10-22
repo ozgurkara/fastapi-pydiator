@@ -1,4 +1,6 @@
 from pydantic import BaseModel, Field
+
+from app.data.handlers.todo.delete_todo_by_id_data_handler import DeleteTodoByIdDataRequest
 from app.pydiator.mediatr import pydiator
 from app.pydiator.interfaces import BaseRequest, BaseResponse, BaseHandler
 from app.db.fake_db import fake_todo_db
@@ -16,11 +18,9 @@ class DeleteTodoByIdResponse(BaseModel, BaseResponse):
 class DeleteTodoByIdHandler(BaseHandler):
 
     async def handle(self, req: DeleteTodoByIdRequest) -> DeleteTodoByIdResponse:
-        for it in fake_todo_db:
-            if it["id"] == req.id:
-                fake_todo_db.remove(it)
-                await pydiator.publish(TodoChangeNotification())
-
-                return DeleteTodoByIdResponse(success=True)
+        data_response = await pydiator.send(DeleteTodoByIdDataRequest(id=req.id))
+        if data_response:
+            # await pydiator.publish(TodoChangeNotification())
+            return DeleteTodoByIdResponse(success=True)
 
         return DeleteTodoByIdResponse(success=False)
