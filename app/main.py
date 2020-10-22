@@ -7,7 +7,7 @@ from fastapi.exception_handlers import (
     request_validation_exception_handler
 )
 
-from app.resources.pydiator_config import set_up_pydiator
+from app.pydiator_config import set_up_pydiator
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 app = FastAPI()

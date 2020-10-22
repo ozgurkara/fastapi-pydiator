@@ -2,8 +2,7 @@ from pydantic import BaseModel, Field
 
 from app.data.handlers.todo.add_todo_data_handler import AddTodoDataRequest
 from app.pydiator.interfaces import BaseRequest, BaseResponse, BaseHandler
-from app.resources.todo.handlers.notifications.todo_cache_remove_handler import TodoChangeNotification
-from app.resources.pydiator_config import pydiator
+from app.pydiator.mediatr import pydiator
 
 
 class AddTodoRequest(BaseModel, BaseRequest):
