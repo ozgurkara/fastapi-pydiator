@@ -6,7 +6,7 @@ from app.resources.todo.handlers.update_todo_handler import \
     UpdateTodoRequest, UpdateTodoResponse, UpdateTodoHandler
 from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
-from tests.BaseTestCase import BaseTestCase
+from tests.base_test_case import BaseTestCase
 
 
 class TestAddTodoHandler(BaseTestCase):

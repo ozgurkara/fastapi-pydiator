@@ -5,7 +5,7 @@ from app.data.todo.handlers.get_todo_by_id_data_handler import GetTodoByIdDataHa
     GetTodoByIdDataResponse
 from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
-from tests.BaseTestCase import BaseTestCase
+from tests.base_test_case import BaseTestCase
 
 
 class TestGetTodoByIdHandler(BaseTestCase):

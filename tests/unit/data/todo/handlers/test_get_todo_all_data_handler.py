@@ -7,7 +7,7 @@ from app.pydiator.interfaces import CacheType
 from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
 from app.resources.todo.handlers.get_todo_all_handler import GetTodoAllRequest
-from tests.BaseTestCase import BaseTestCase
+from tests.base_test_case import BaseTestCase
 
 
 class TestGetTodoByIdHandler(BaseTestCase):

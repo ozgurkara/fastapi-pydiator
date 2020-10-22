@@ -7,7 +7,7 @@ from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
 from app.resources.todo.handlers.delete_todo_by_id_handler import \
     DeleteTodoByIdRequest, DeleteTodoByIdResponse, DeleteTodoByIdHandler
-from tests.BaseTestCase import BaseTestCase
+from tests.base_test_case import BaseTestCase
 
 
 class TestDeleteTodoByIdHandler(BaseTestCase):
