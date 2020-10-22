@@ -5,9 +5,10 @@ from app.data.todo.handlers.get_todo_by_id_data_handler import GetTodoByIdDataHa
     GetTodoByIdDataResponse
 from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
+from tests.BaseTestCase import BaseTestCase
 
 
-class TestGetTodoByIdHandler(TestCase):
+class TestGetTodoByIdHandler(BaseTestCase):
 
     @mock.patch("app.data.todo.handlers.get_todo_by_id_data_handler.fake_todo_db")
     def test_handler_return_todo(self, mock_fake_todo_db):

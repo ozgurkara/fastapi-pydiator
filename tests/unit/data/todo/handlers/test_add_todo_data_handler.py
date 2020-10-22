@@ -4,15 +4,10 @@ from unittest import TestCase, mock
 from app.data.todo.handlers.add_todo_data_handler import AddTodoDataHandler, AddTodoDataRequest, AddTodoDataResponse
 from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
+from tests.BaseTestCase import BaseTestCase
 
 
-class TestAddTodoDataHandler(TestCase):
-    @staticmethod
-    def async_return(result):
-        f = asyncio.Future()
-        f.set_result(result)
-        return f
-
+class TestAddTodoDataHandler(BaseTestCase):
     @mock.patch("app.data.todo.handlers.add_todo_data_handler.fake_todo_db")
     def test_handler_return_success(self, mock_fake_todo_db):
         # Given

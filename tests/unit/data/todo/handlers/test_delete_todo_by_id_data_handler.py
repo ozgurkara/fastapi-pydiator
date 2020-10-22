@@ -7,9 +7,10 @@ from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
 from app.resources.todo.handlers.delete_todo_by_id_handler import \
     DeleteTodoByIdRequest, DeleteTodoByIdResponse, DeleteTodoByIdHandler
+from tests.BaseTestCase import BaseTestCase
 
 
-class TestDeleteTodoByIdHandler(TestCase):
+class TestDeleteTodoByIdHandler(BaseTestCase):
 
     @mock.patch("app.data.todo.handlers.delete_todo_by_id_data_handler.fake_todo_db")
     def test_handler_return_success(self, mock_fake_todo_db):

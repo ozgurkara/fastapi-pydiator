@@ -1,13 +1,14 @@
 import asyncio
-from unittest import TestCase, mock
+from unittest import mock
 
 from app.data.todo.handlers.update_todo_data_handler import UpdateTodoDataHandler, UpdateTodoDataRequest, \
     UpdateTodoDataResponse
 from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
+from tests.BaseTestCase import BaseTestCase
 
 
-class TestAddTodoHandler(TestCase):
+class TestAddTodoHandler(BaseTestCase):
 
     @mock.patch("app.data.todo.handlers.update_todo_data_handler.fake_todo_db")
     def test_handler_return_success(self, mock_fake_todo_db):

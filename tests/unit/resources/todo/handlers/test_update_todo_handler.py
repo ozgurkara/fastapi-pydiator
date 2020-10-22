@@ -1,20 +1,15 @@
 import asyncio
-from unittest import TestCase, mock
+from unittest import mock
 
 from app.data.todo.handlers.update_todo_data_handler import UpdateTodoDataResponse
 from app.resources.todo.handlers.update_todo_handler import \
     UpdateTodoRequest, UpdateTodoResponse, UpdateTodoHandler
 from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
+from tests.BaseTestCase import BaseTestCase
 
 
-class TestAddTodoHandler(TestCase):
-    @staticmethod
-    def async_return(result):
-        f = asyncio.Future()
-        f.set_result(result)
-        return f
-
+class TestAddTodoHandler(BaseTestCase):
     @mock.patch("app.resources.todo.handlers.update_todo_handler.pydiator")
     def test_handler_return_success(self, mock_pydiator):
         # Given

@@ -6,14 +6,10 @@ from app.pydiator.mediatr import pydiator
 from app.pydiator.mediatr_container import MediatrContainer
 from app.resources.todo.handlers.delete_todo_by_id_handler import \
     DeleteTodoByIdRequest, DeleteTodoByIdResponse, DeleteTodoByIdHandler
+from tests.BaseTestCase import BaseTestCase
 
 
-class TestDeleteTodoByIdHandler(TestCase):
-    @staticmethod
-    def async_return(result):
-        f = asyncio.Future()
-        f.set_result(result)
-        return f
+class TestDeleteTodoByIdHandler(BaseTestCase):
 
     @mock.patch("app.resources.todo.handlers.delete_todo_by_id_handler.pydiator")
     def test_handler_return_success(self, mock_pydiator):
