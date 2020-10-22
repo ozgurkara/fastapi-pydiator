@@ -8,8 +8,8 @@ from app.resources.todo.handlers.delete_todo_by_id_handler import \
 
 class TestDeleteTodoByIdHandler(TestCase):
 
-    @mock.patch("app.resources.todo.handlers.delete_todo_by_id_handler.pydiator")
-    @mock.patch("app.resources.todo.handlers.delete_todo_by_id_handler.fake_todo_db")
+    @mock.patch("app.resources.handlers.todo.delete_todo_by_id_handler.pydiator")
+    @mock.patch("app.resources.handlers.todo.delete_todo_by_id_handler.fake_todo_db")
     def test_handler_return_success(self, mock_fake_todo_db, mock_pydiator):
         # Given
         mock_fake_todo_db.__iter__.return_value = [{"id": 1, "title": "title 1"}]
@@ -35,8 +35,8 @@ class TestDeleteTodoByIdHandler(TestCase):
         assert mock_fake_todo_db.remove.call_count == 1
         assert mock_pydiator.publish.called
 
-    @mock.patch("app.resources.todo.handlers.delete_todo_by_id_handler.pydiator")
-    @mock.patch("app.resources.todo.handlers.delete_todo_by_id_handler.fake_todo_db")
+    @mock.patch("app.resources.handlers.todo.delete_todo_by_id_handler.pydiator")
+    @mock.patch("app.resources.handlers.todo.delete_todo_by_id_handler.fake_todo_db")
     def test_handler_return_success_false(self, mock_fake_todo_db, mock_pydiator):
         # Given
         mock_fake_todo_db.__iter__.return_value = []

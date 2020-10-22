@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from app.pydiator.interfaces import BaseRequest, BaseResponse, BaseHandler, BaseCacheable, CacheType
 from typing import List
 from app.pydiator.mediatr import pydiator
-from app.data.handlers.todo.get_todo_all_data_handler import GetTodoAllDataRequest
+from app.data.todo.handlers.get_todo_all_data_handler import GetTodoAllDataRequest
 
 
 class GetTodoAllRequest(BaseModel, BaseRequest, BaseCacheable):

@@ -8,8 +8,8 @@ from app.pydiator.mediatr_container import MediatrContainer
 
 class TestAddTodoHandler(TestCase):
 
-    @mock.patch("app.resources.todo.handlers.update_todo_handler.pydiator")
-    @mock.patch("app.resources.todo.handlers.update_todo_handler.fake_todo_db")
+    @mock.patch("app.resources.handlers.todo.update_todo_handler.pydiator")
+    @mock.patch("app.resources.handlers.todo.update_todo_handler.fake_todo_db")
     def test_handler_return_success(self, mock_fake_todo_db, mock_pydiator):
         # Given
         id = 1
@@ -35,8 +35,8 @@ class TestAddTodoHandler(TestCase):
         assert response == expected_response
         assert mock_pydiator.publish.called
 
-    @mock.patch("app.resources.todo.handlers.update_todo_handler.pydiator")
-    @mock.patch("app.resources.todo.handlers.update_todo_handler.fake_todo_db")
+    @mock.patch("app.resources.handlers.todo.update_todo_handler.pydiator")
+    @mock.patch("app.resources.handlers.todo.update_todo_handler.fake_todo_db")
     def test_handler_return_success_false(self, mock_fake_todo_db, mock_pydiator):
         # Given
         id = 1

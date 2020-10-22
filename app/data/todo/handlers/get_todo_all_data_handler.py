@@ -5,7 +5,8 @@ from typing import List
 
 
 class GetTodoAllDataRequest(BaseModel, BaseRequest):
-    pass
+    def __init__(self):
+        pass
 
 
 class GetTodoAllDataResponse(BaseModel, BaseResponse):

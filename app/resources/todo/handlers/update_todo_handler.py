@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field, Extra
 
-from app.data.handlers.todo.update_todo_data_handler import UpdateTodoDataRequest
+from app.data.todo.handlers.update_todo_data_handler import UpdateTodoDataRequest
 from app.pydiator.interfaces import BaseRequest, BaseResponse, BaseHandler
 from app.pydiator.mediatr import pydiator
 from app.resources.todo.handlers.notifications.todo_cache_remove_handler import TodoChangeNotification
