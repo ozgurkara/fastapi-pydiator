@@ -21,7 +21,7 @@ class UpdateTodoHandler(BaseHandler):
 
     async def handle(self, req: UpdateTodoRequest) -> UpdateTodoResponse:
         data_response = await pydiator.send(UpdateTodoDataRequest(id=req.CustomFields.id, title=req.title))
-        if data_response:
+        if data_response.success:
             await pydiator.publish(TodoChangeNotification())
             return UpdateTodoResponse(success=True)
 

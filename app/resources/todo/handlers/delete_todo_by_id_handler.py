@@ -18,7 +18,7 @@ class DeleteTodoByIdHandler(BaseHandler):
 
     async def handle(self, req: DeleteTodoByIdRequest) -> DeleteTodoByIdResponse:
         data_response = await pydiator.send(DeleteTodoByIdDataRequest(id=req.id))
-        if data_response:
+        if data_response.success:
             await pydiator.publish(TodoChangeNotification())
             return DeleteTodoByIdResponse(success=True)
 

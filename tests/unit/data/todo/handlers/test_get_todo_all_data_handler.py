@@ -12,7 +12,7 @@ from app.pydiator.mediatr_container import MediatrContainer
 class TestGetTodoByIdHandler(TestCase):
 
     @mock.patch("app.data.todo.handlers.get_todo_all_data_handler.fake_todo_db")
-    def test_handler_return_todo(self, mock_fake_todo_db):
+    def test_handler_return_list(self, mock_fake_todo_db):
         # Given
         container = MediatrContainer()
         container.register_request(GetTodoAllDataRequest(), GetTodoAllDataHandler())
@@ -34,7 +34,7 @@ class TestGetTodoByIdHandler(TestCase):
         assert response == expected_response
 
     @mock.patch("app.data.todo.handlers.get_todo_all_data_handler.fake_todo_db")
-    def test_handler_return_none(self, mock_fake_todo_db):
+    def test_handler_return_empty_list(self, mock_fake_todo_db):
         # Given
         container = MediatrContainer()
         container.register_request(GetTodoAllDataRequest(), GetTodoAllDataHandler())

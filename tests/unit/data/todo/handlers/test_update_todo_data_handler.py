@@ -33,7 +33,7 @@ class TestAddTodoHandler(TestCase):
         assert response == expected_response
 
     @mock.patch("app.data.todo.handlers.update_todo_data_handler.fake_todo_db")
-    def test_handler_return_success_false(self, mock_fake_todo_db):
+    def test_handler_return_fail(self, mock_fake_todo_db):
         # Given
 
         container = MediatrContainer()

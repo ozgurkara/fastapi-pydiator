@@ -21,8 +21,8 @@ class TestAddTodoHandler(TestCase):
         container.register_request(AddTodoRequest(), AddTodoHandler())
         pydiator.set_container(container)
 
-        mock_pydiator.publish.side_effect = [self.async_return(True)]
         mock_pydiator.send.side_effect = [self.async_return(AddTodoDataResponse(success=True))]
+        mock_pydiator.publish.side_effect = [self.async_return(True)]
 
         title_val = "title"
         request = AddTodoRequest(title=title_val)
@@ -41,11 +41,11 @@ class TestAddTodoHandler(TestCase):
     @mock.patch("app.resources.todo.handlers.add_todo_handler.pydiator")
     def test_handler_return_fail(self, mock_pydiator):
         # Given
-        mock_pydiator.send.side_effect = [self.async_return(AddTodoDataResponse(success=False))]
-
         container = MediatrContainer()
         container.register_request(AddTodoRequest(), AddTodoHandler())
         pydiator.set_container(container)
+
+        mock_pydiator.send.side_effect = [self.async_return(AddTodoDataResponse(success=False))]
 
         title_val = "title"
         request = AddTodoRequest(title=title_val)
@@ -59,18 +59,4 @@ class TestAddTodoHandler(TestCase):
         # Then
         assert response == expected_response
         assert mock_pydiator.send.called
-
-#        def async_return(result):
-#            f = asyncio.Future()
-#            f.set_result(result)
-#            return f
-#
-#        def async_send_side_effect(*args):
-#            result = None
-#            if isinstance(args[0], AddTodoDataRequest):
-#                if args[0].title == "title":
-#                    result = AddTodoDataResponse(success=True)
-#                else:
-#                    result = AddTodoDataResponse(success=False)
-#            return async_return(result)
-#
+        assert mock_pydiator.publish.called is False
