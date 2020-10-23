@@ -13,7 +13,7 @@ from app.resources.todo.handlers.get_todo_by_id_handler import GetTodoByIdReques
 from app.resources.todo.handlers.add_todo_handler import AddTodoRequest, AddTodoHandler
 from app.resources.todo.handlers.update_todo_handler import UpdateTodoRequest, UpdateTodoHandler
 from app.resources.todo.handlers.delete_todo_by_id_handler import DeleteTodoByIdRequest, DeleteTodoByIdHandler
-from app.resources.todo.handlers.notifications.todo_cache_remove_handler import TodoChangeNotification, \
+from app.resources.todo.notifications.todo_cache_remove_handler import TodoChangeNotification, \
     TodoCacheRemoveNotificationHandler
 
 from app.data.todo.handlers.get_todo_all_data_handler import GetTodoAllDataRequest, GetTodoAllDataHandler
