@@ -32,8 +32,8 @@ async def validation_exception_handler(request, exc):
 
 app.include_router(
     todo_resource.router,
-    prefix="/v1/handlers",
-    tags=["handlers"]
+    prefix="/v1/todo",
+    tags=["todo"]
 )
 
 set_up_pydiator()
