@@ -22,11 +22,9 @@ class TestGetTodoByIdHandler(BaseTestCase):
 
         request = GetTodoAllRequest(id=id_val)
         expected_response = [GetTodoAllResponse(id=id_val, title=title_val)]
-        loop = asyncio.new_event_loop()
 
         # When
-        response = loop.run_until_complete(pydiator.send(request))
-        loop.close()
+        response = self.async_loop(pydiator.send(request))
 
         # Then
         assert response == expected_response
@@ -37,16 +35,12 @@ class TestGetTodoByIdHandler(BaseTestCase):
         container = MediatrContainer()
         container.register_request(GetTodoAllRequest(), GetTodoAllHandler())
         pydiator.set_container(container)
-
         mock_pydiator.send.side_effect = [self.async_return([])]
-
         request = GetTodoAllRequest(id=1)
         expected_response = []
-        loop = asyncio.new_event_loop()
 
         # When
-        response = loop.run_until_complete(pydiator.send(request))
-        loop.close()
+        response = self.async_loop(pydiator.send(request))
 
         # Then
         assert response == expected_response

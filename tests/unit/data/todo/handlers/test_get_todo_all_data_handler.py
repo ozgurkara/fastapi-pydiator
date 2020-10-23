@@ -1,4 +1,3 @@
-import asyncio
 from unittest import mock
 
 from app.data.todo.handlers.get_todo_all_data_handler import GetTodoAllDataRequest, GetTodoAllDataResponse, \
@@ -34,11 +33,9 @@ class TestGetTodoByIdHandler(BaseTestCase):
 
         request = GetTodoAllDataRequest()
         expected_response = [GetTodoAllDataResponse(id=id_val, title=title_val)]
-        loop = asyncio.new_event_loop()
 
         # When
-        response = loop.run_until_complete(pydiator.send(request))
-        loop.close()
+        response = self.async_loop(pydiator.send(request))
 
         # Then
         assert response == expected_response
@@ -53,11 +50,9 @@ class TestGetTodoByIdHandler(BaseTestCase):
         mock_fake_todo_db.__iter__.return_value = []
         request = GetTodoAllDataRequest()
         expected_response = []
-        loop = asyncio.new_event_loop()
 
         # When
-        response = loop.run_until_complete(pydiator.send(request))
-        loop.close()
+        response = self.async_loop(pydiator.send(request))
 
         # Then
         assert response == expected_response

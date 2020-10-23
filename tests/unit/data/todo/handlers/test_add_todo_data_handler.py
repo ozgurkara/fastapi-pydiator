@@ -1,5 +1,4 @@
-import asyncio
-from unittest import TestCase, mock
+from unittest import mock
 
 from app.data.todo.handlers.add_todo_data_handler import AddTodoDataHandler, AddTodoDataRequest, AddTodoDataResponse
 from app.pydiator.mediatr import pydiator
@@ -20,11 +19,9 @@ class TestAddTodoDataHandler(BaseTestCase):
         title_val = "title"
         request = AddTodoDataRequest(title=title_val)
         expected_response = AddTodoDataResponse(success=True)
-        loop = asyncio.new_event_loop()
 
         # When
-        response = loop.run_until_complete(pydiator.send(request))
-        loop.close()
+        response = self.async_loop(pydiator.send(request))
 
         # Then
         assert response == expected_response

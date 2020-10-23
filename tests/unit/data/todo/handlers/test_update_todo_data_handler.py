@@ -1,4 +1,3 @@
-import asyncio
 from unittest import mock
 
 from app.data.todo.handlers.update_todo_data_handler import UpdateTodoDataHandler, UpdateTodoDataRequest, \
@@ -24,11 +23,9 @@ class TestAddTodoHandler(BaseTestCase):
         request = UpdateTodoDataRequest(title=title_val)
         request.id = id_val
         expected_response = UpdateTodoDataResponse(success=True)
-        loop = asyncio.new_event_loop()
 
         # When
-        response = loop.run_until_complete(pydiator.send(request))
-        loop.close()
+        response = self.async_loop(pydiator.send(request))
 
         # Then
         assert response == expected_response
@@ -36,7 +33,6 @@ class TestAddTodoHandler(BaseTestCase):
     @mock.patch("app.data.todo.handlers.update_todo_data_handler.fake_todo_db")
     def test_handler_return_fail(self, mock_fake_todo_db):
         # Given
-
         container = MediatrContainer()
         container.register_request(UpdateTodoDataRequest(), UpdateTodoDataHandler())
         pydiator.set_container(container)
@@ -46,11 +42,9 @@ class TestAddTodoHandler(BaseTestCase):
         request = UpdateTodoDataRequest(title=title_val)
         request.id = id
         expected_response = UpdateTodoDataResponse(success=False)
-        loop = asyncio.new_event_loop()
 
         # When
-        response = loop.run_until_complete(pydiator.send(request))
-        loop.close()
+        response = self.async_loop(pydiator.send(request))
 
         # Then
         assert response == expected_response

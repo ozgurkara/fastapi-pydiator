@@ -23,11 +23,9 @@ class TestAddTodoHandler(BaseTestCase):
         title_val = "title"
         request = AddTodoRequest(title=title_val)
         expected_response = AddTodoResponse(success=True)
-        loop = asyncio.new_event_loop()
 
         # When
-        response = loop.run_until_complete(pydiator.send(request))
-        loop.close()
+        response = self.async_loop(pydiator.send(request))
 
         # Then
         assert response == expected_response
@@ -46,11 +44,9 @@ class TestAddTodoHandler(BaseTestCase):
         title_val = "title"
         request = AddTodoRequest(title=title_val)
         expected_response = AddTodoResponse(success=False)
-        loop = asyncio.new_event_loop()
 
         # When
-        response = loop.run_until_complete(pydiator.send(request))
-        loop.close()
+        response = self.async_loop(pydiator.send(request))
 
         # Then
         assert response == expected_response

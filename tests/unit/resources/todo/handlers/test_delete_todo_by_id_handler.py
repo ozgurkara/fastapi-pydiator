@@ -24,11 +24,9 @@ class TestDeleteTodoByIdHandler(BaseTestCase):
         id_val = 1
         request = DeleteTodoByIdRequest(id=id_val)
         expected_response = DeleteTodoByIdResponse(success=True)
-        loop = asyncio.new_event_loop()
 
         # When
-        response = loop.run_until_complete(pydiator.send(request))
-        loop.close()
+        response = self.async_loop(pydiator.send(request))
 
         # Then
         assert response == expected_response
@@ -41,16 +39,12 @@ class TestDeleteTodoByIdHandler(BaseTestCase):
         container = MediatrContainer()
         container.register_request(DeleteTodoByIdRequest(), DeleteTodoByIdHandler())
         pydiator.set_container(container)
-
         mock_pydiator.send.side_effect = [self.async_return(DeleteTodoByIdDataResponse(success=False))]
-
         request = DeleteTodoByIdRequest(id=1)
         expected_response = DeleteTodoByIdResponse(success=False)
-        loop = asyncio.new_event_loop()
 
         # When
-        response = loop.run_until_complete(pydiator.send(request))
-        loop.close()
+        response = self.async_loop(pydiator.send(request))
 
         # Then
         assert response == expected_response
