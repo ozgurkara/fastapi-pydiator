@@ -3,7 +3,6 @@ from unittest import mock
 from app.data.todo.handlers.get_todo_by_id_data_handler import GetTodoByIdDataHandler, GetTodoByIdDataRequest, \
     GetTodoByIdDataResponse
 from app.pydiator.mediatr import pydiator
-from app.pydiator.mediatr_container import MediatrContainer
 from tests.base_test_case import BaseTestCase
 
 
@@ -12,9 +11,7 @@ class TestGetTodoByIdHandler(BaseTestCase):
     @mock.patch("app.data.todo.handlers.get_todo_by_id_data_handler.fake_todo_db")
     def test_handler_return_todo(self, mock_fake_todo_db):
         # Given
-        container = MediatrContainer()
-        container.register_request(GetTodoByIdDataRequest(), GetTodoByIdDataHandler())
-        pydiator.set_container(container)
+        self.register_request(GetTodoByIdDataRequest(), GetTodoByIdDataHandler())
 
         id_val = 1
         title_val = "title 1"
@@ -32,9 +29,7 @@ class TestGetTodoByIdHandler(BaseTestCase):
     @mock.patch("app.data.todo.handlers.get_todo_by_id_data_handler.fake_todo_db")
     def test_handler_return_none(self, mock_fake_todo_db):
         # Given
-        container = MediatrContainer()
-        container.register_request(GetTodoByIdDataRequest(), GetTodoByIdDataHandler())
-        pydiator.set_container(container)
+        self.register_request(GetTodoByIdDataRequest(), GetTodoByIdDataHandler())
 
         mock_fake_todo_db.__iter__.return_value = []
         request = GetTodoByIdDataRequest(id=1)

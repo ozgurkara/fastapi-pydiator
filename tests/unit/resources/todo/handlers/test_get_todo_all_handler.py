@@ -1,9 +1,7 @@
-import asyncio
 from unittest import mock
 
 from app.data.todo.handlers.get_todo_all_data_handler import GetTodoAllDataResponse
 from app.pydiator.mediatr import pydiator
-from app.pydiator.mediatr_container import MediatrContainer
 from app.resources.todo.handlers.get_todo_all_handler import GetTodoAllRequest, GetTodoAllHandler, GetTodoAllResponse
 from tests.base_test_case import BaseTestCase
 
@@ -12,9 +10,7 @@ class TestGetTodoByIdHandler(BaseTestCase):
     @mock.patch("app.resources.todo.handlers.get_todo_all_handler.pydiator")
     def test_handler_return_list(self, mock_pydiator):
         # Given
-        container = MediatrContainer()
-        container.register_request(GetTodoAllRequest(), GetTodoAllHandler())
-        pydiator.set_container(container)
+        self.register_request(GetTodoAllRequest(), GetTodoAllHandler())
 
         id_val = 1
         title_val = "title 1"
@@ -32,9 +28,7 @@ class TestGetTodoByIdHandler(BaseTestCase):
     @mock.patch("app.resources.todo.handlers.get_todo_all_handler.pydiator")
     def test_handler_return_empty_list(self, mock_pydiator):
         # Given
-        container = MediatrContainer()
-        container.register_request(GetTodoAllRequest(), GetTodoAllHandler())
-        pydiator.set_container(container)
+        self.register_request(GetTodoAllRequest(), GetTodoAllHandler())
         mock_pydiator.send.side_effect = [self.async_return([])]
         request = GetTodoAllRequest(id=1)
         expected_response = []

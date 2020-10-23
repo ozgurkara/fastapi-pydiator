@@ -1,6 +1,9 @@
 import asyncio
 from unittest import TestCase, mock
 
+from app.pydiator.mediatr_container import MediatrContainer
+from app.pydiator.mediatr import pydiator
+
 
 class BaseTestCase(TestCase):
     @staticmethod
@@ -15,3 +18,9 @@ class BaseTestCase(TestCase):
         response = loop.run_until_complete(func)
         loop.close()
         return response
+
+    @staticmethod
+    def register_request(req, handler):
+        container = MediatrContainer()
+        container.register_request(req, handler)
+        pydiator.set_container(container)
