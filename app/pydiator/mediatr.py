@@ -44,7 +44,6 @@ class Mediatr(BaseMediatr):
                 return await main_pipeline.handle(req)
             else:
                 raise Exception("main_pipeline_is_none")
-
         else:
             return await business_pipeline.handle(req)
 
