@@ -1,0 +1,4 @@
+venv
+.data
+.pytest_cache
+htmlcov

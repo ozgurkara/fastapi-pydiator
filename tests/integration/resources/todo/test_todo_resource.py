@@ -60,7 +60,7 @@ def test_update_todo():
 
 def test_update_todo_bad_request_when_invalid_entity():
     response = client.put("/v1/todo/1", json={
-        "title": "s"
+
     })
 
     assert response.status_code == HTTP_422_UNPROCESSABLE_ENTITY

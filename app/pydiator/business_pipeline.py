@@ -8,7 +8,7 @@ class BusinessPipeline(BasePipeline):
 
     async def handle(self, req: BaseRequest) -> object:
         print("BusinessPipeline:handle")
-        handler = self.mediatr_container.get_requests()[type(req).__name__]
+        handler = self.mediatr_container.get_requests().get(type(req).__name__, None)
         if handler is None:
             raise Exception("handler_not_found")
 
