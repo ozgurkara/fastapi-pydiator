@@ -6,6 +6,9 @@ from tests.base_test_case import BaseTestCase
 
 
 class TestAddTodoDataHandler(BaseTestCase):
+    def setUp(self):
+        self.register_request(AddTodoDataRequest(), AddTodoDataHandler())
+
     @mock.patch("app.data.todo.handlers.add_todo_data_handler.fake_todo_db")
     def test_handler_return_success(self, mock_fake_todo_db):
         # Given

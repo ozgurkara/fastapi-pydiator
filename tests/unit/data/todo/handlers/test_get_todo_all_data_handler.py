@@ -9,6 +9,8 @@ from tests.base_test_case import BaseTestCase
 
 
 class TestGetTodoByIdHandler(BaseTestCase):
+    def setUp(self):
+        self.register_request(GetTodoAllDataRequest(), GetTodoAllDataHandler())
 
     def test_request_cache_parameter(self):
         # When
@@ -22,8 +24,6 @@ class TestGetTodoByIdHandler(BaseTestCase):
     @mock.patch("app.data.todo.handlers.get_todo_all_data_handler.fake_todo_db")
     def test_handler_return_list(self, mock_fake_todo_db):
         # Give
-        self.register_request(GetTodoAllDataRequest(), GetTodoAllDataHandler())
-
         id_val = 1
         title_val = "title 1"
         mock_fake_todo_db.__iter__.return_value = [{"id": id_val, "title": title_val}]
@@ -40,8 +40,6 @@ class TestGetTodoByIdHandler(BaseTestCase):
     @mock.patch("app.data.todo.handlers.get_todo_all_data_handler.fake_todo_db")
     def test_handler_return_empty_list(self, mock_fake_todo_db):
         # Given
-        self.register_request(GetTodoAllDataRequest(), GetTodoAllDataHandler())
-
         mock_fake_todo_db.__iter__.return_value = []
         request = GetTodoAllDataRequest()
         expected_response = []

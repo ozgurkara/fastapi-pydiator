@@ -7,11 +7,12 @@ from tests.base_test_case import BaseTestCase
 
 
 class TestGetTodoByIdHandler(BaseTestCase):
+    def setUp(self):
+        self.register_request(GetTodoAllRequest(), GetTodoAllHandler())
+
     @mock.patch("app.resources.todo.handlers.get_todo_all_handler.pydiator")
     def test_handler_return_list(self, mock_pydiator):
         # Given
-        self.register_request(GetTodoAllRequest(), GetTodoAllHandler())
-
         id_val = 1
         title_val = "title 1"
         mock_pydiator.send.side_effect = [self.async_return([GetTodoAllDataResponse(id=id_val, title=title_val)])]
@@ -28,7 +29,6 @@ class TestGetTodoByIdHandler(BaseTestCase):
     @mock.patch("app.resources.todo.handlers.get_todo_all_handler.pydiator")
     def test_handler_return_empty_list(self, mock_pydiator):
         # Given
-        self.register_request(GetTodoAllRequest(), GetTodoAllHandler())
         mock_pydiator.send.side_effect = [self.async_return([])]
         request = GetTodoAllRequest(id=1)
         expected_response = []

@@ -8,10 +8,12 @@ from tests.base_test_case import BaseTestCase
 
 
 class TestAddTodoHandler(BaseTestCase):
+    def setUp(self):
+        self.register_request(UpdateTodoRequest(), UpdateTodoHandler())
+
     @mock.patch("app.resources.todo.handlers.update_todo_handler.pydiator")
     def test_handler_return_success(self, mock_pydiator):
         # Given
-        self.register_request(UpdateTodoRequest(), UpdateTodoHandler())
         mock_pydiator.send.side_effect = [self.async_return(UpdateTodoDataResponse(success=True))]
         mock_pydiator.publish.side_effect = [self.async_return(True)]
 

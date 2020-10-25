@@ -9,11 +9,12 @@ from tests.base_test_case import BaseTestCase
 
 class TestDeleteTodoByIdHandler(BaseTestCase):
 
+    def setUp(self):
+        self.register_request(DeleteTodoByIdRequest(), DeleteTodoByIdHandler())
+
     @mock.patch("app.resources.todo.handlers.delete_todo_by_id_handler.pydiator")
     def test_handler_return_success(self, mock_pydiator):
         # Given
-        self.register_request(DeleteTodoByIdRequest(), DeleteTodoByIdHandler())
-
         mock_pydiator.send.side_effect = [self.async_return(DeleteTodoByIdDataResponse(success=True))]
         mock_pydiator.publish.side_effect = [self.async_return(True)]
 
@@ -32,7 +33,6 @@ class TestDeleteTodoByIdHandler(BaseTestCase):
     @mock.patch("app.resources.todo.handlers.delete_todo_by_id_handler.pydiator")
     def test_handler_return_fail(self, mock_pydiator):
         # Given
-        self.register_request(DeleteTodoByIdRequest(), DeleteTodoByIdHandler())
         mock_pydiator.send.side_effect = [self.async_return(DeleteTodoByIdDataResponse(success=False))]
         request = DeleteTodoByIdRequest(id=1)
         expected_response = DeleteTodoByIdResponse(success=False)

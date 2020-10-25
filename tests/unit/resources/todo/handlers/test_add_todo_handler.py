@@ -8,10 +8,12 @@ from tests.base_test_case import BaseTestCase
 
 class TestAddTodoHandler(BaseTestCase):
 
+    def setUp(self):
+        self.register_request(AddTodoRequest(), AddTodoHandler())
+
     @mock.patch("app.resources.todo.handlers.add_todo_handler.pydiator")
     def test_handler_return_success(self, mock_pydiator):
         # Given
-        self.register_request(AddTodoRequest(), AddTodoHandler())
         mock_pydiator.send.side_effect = [self.async_return(AddTodoDataResponse(success=True))]
         mock_pydiator.publish.side_effect = [self.async_return(True)]
 
@@ -30,7 +32,6 @@ class TestAddTodoHandler(BaseTestCase):
     @mock.patch("app.resources.todo.handlers.add_todo_handler.pydiator")
     def test_handler_return_fail(self, mock_pydiator):
         # Given
-        self.register_request(AddTodoRequest(), AddTodoHandler())
         mock_pydiator.send.side_effect = [self.async_return(AddTodoDataResponse(success=False))]
 
         title_val = "title"
