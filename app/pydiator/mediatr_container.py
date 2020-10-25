@@ -38,7 +38,7 @@ class MediatrContainer(BaseMediatrContainer):
         self.__pipelines = []
 
     def register_request(self, req: BaseRequest, handler: BaseHandler):
-        if not isinstance(req, BaseRequest) and not isinstance(handler, BaseHandler):
+        if not isinstance(req, BaseRequest) or not isinstance(handler, BaseHandler):
             return
 
         self.__requests[type(req).__name__] = handler

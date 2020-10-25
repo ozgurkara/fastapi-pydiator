@@ -1,3 +1,5 @@
+from unittest import mock
+
 from app.pydiator.business_pipeline import BusinessPipeline
 from app.pydiator.interfaces import BaseRequest, BaseResponse, BaseHandler
 from app.pydiator.mediatr_container import MediatrContainer
@@ -8,7 +10,7 @@ class TestBusinessPipeline(BaseTestCase):
     def setUp(self):
         pass
 
-    def test_pipeline_return_exception_when_handler_is_not(self):
+    def test_handle_return_exception_when_handler_is_not(self):
         # Given
         pipeline = BusinessPipeline(MediatrContainer())
 
@@ -23,28 +25,24 @@ class TestBusinessPipeline(BaseTestCase):
 
         assert 'handler_not_found' == context.exception.args[0]
 
-    def test_pipeline_return_exception_when_handler_is_not_callable(self):
+    def test_handle_return_exception_when_handler_is_not_callable(self):
         # Given
 
         class TestRequest(BaseRequest):
             pass
 
-        class TestHandler():
-            pass
-
-        container = MediatrContainer()
-        container.register_request(TestRequest(), TestHandler())
-        self.pipeline = BusinessPipeline(container)
+        mock_container = mock.MagicMock()
+        mock_container.get_requests.return_value.get.return_value = {}
+        self.pipeline = BusinessPipeline(mock_container)
 
         # When
-
-        # Then
         with self.assertRaises(Exception) as context:
             self.async_loop(self.pipeline.handle(req=TestRequest()))
 
+        # Then
         assert 'handle_function_has_not_found_in_handler' == context.exception.args[0]
 
-    def test_pipeline_return_handle_response(self):
+    def test_handle_return_handle_response(self):
         # Given
         class TestRequest(BaseRequest):
             pass
