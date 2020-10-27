@@ -5,7 +5,7 @@ from app.utils.serializer_helper import Serializer
 
 class LogPipeline(BasePipeline):
     async def handle(self, req: BaseRequest) -> object:
-        print("LogPipeline:handle")
+        print(f"LogPipeline:handle:{type(req).__name__}")
 
         if self.next() is None:
             raise Exception("pydiator_log_pipeline_next_error")

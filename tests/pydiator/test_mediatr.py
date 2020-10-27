@@ -74,7 +74,7 @@ class TestMediatrContainer(BaseTestCase):
         assert 'mediatr_container_is_none' == context.exception.args[0]
 
     @mock.patch("app.pydiator.mediatr.BusinessPipeline")
-    def test_send_return_business_pipeline_result_when_pipelines_is_empty(self, mock_business_pipeline):
+    def test_send_return_business_pipeline_result_when_container_pipelines_is_empty(self, mock_business_pipeline):
         async def business_handle():
             return True
 
@@ -86,6 +86,27 @@ class TestMediatrContainer(BaseTestCase):
 
         mediatr = Mediatr()
         mediatr.set_container(mediatr_container)
+
+        # When
+        response = self.async_loop(mediatr.send(TestRequest()))
+
+        # Then
+        assert response is True
+
+    @mock.patch("app.pydiator.mediatr.BusinessPipeline")
+    def test_send_return_business_pipeline_result_when_container_pipelines_is_empty1(self, mock_business_pipeline):
+        class TestPipeline(BasePipeline):
+            async def handle(self, req: BaseRequest) -> object:
+                return True
+
+        class TestRequest(BaseRequest):
+            pass
+
+        mock_mediatr_container = MagicMock()
+        mock_mediatr_container.get_pipelines.return_value = [TestPipeline()]
+
+        mediatr = Mediatr()
+        mediatr.set_container(mock_mediatr_container)
 
         # When
         response = self.async_loop(mediatr.send(TestRequest()))

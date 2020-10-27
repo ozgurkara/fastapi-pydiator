@@ -30,18 +30,14 @@ class Mediatr(BaseMediatr):
         business_pipeline = BusinessPipeline(self.mediatr_container)
         pipelines = self.mediatr_container.get_pipelines()
         if len(pipelines) > 0:
-            main_pipeline = None
             for i in range(len(pipelines) - 1, -1, -1):
+                next_pipeline = pipelines[i]
                 if i == (len(pipelines) - 1):
-                    pipeline = pipelines[i]
-                    pipeline.set_next(business_pipeline)
-                    main_pipeline = pipelines[i]
+                    next_pipeline.set_next(business_pipeline)
                 else:
-                    pipelines[i].set_next(main_pipeline)
-                    main_pipeline = pipelines[i]
+                    next_pipeline.set_next(next_pipeline)
 
-            if main_pipeline is not None:
-                return await main_pipeline.handle(req)
+                return await next_pipeline.handle(req)
             else:
                 raise Exception("main_pipeline_is_none")
         else:
