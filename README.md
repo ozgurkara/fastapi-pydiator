@@ -6,7 +6,6 @@
 
 `coverage report -m`
 
-
 `coverage html`
 
 # Mediatr Flow
