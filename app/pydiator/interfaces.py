@@ -82,6 +82,9 @@ class BasePipeline(ABC):
     def set_next(self, handler=None):
         self._next = handler
 
+    def has_next(self):
+        return self._next is not None
+
     @abstractmethod
     async def handle(self, req: BaseRequest) -> object:
         pass

@@ -22,26 +22,20 @@ class Mediatr(BaseMediatr):
 
     def set_container(self, mediatr_container: BaseMediatrContainer):
         self.mediatr_container = mediatr_container
+        self.__add_business_pipeline()
+
+    def __add_business_pipeline(self):
+        self.mediatr_container.register_pipeline(BusinessPipeline(self.mediatr_container))
 
     async def send(self, req: BaseRequest) -> object:
         if self.mediatr_container is None:
             raise Exception("mediatr_container_is_none")
 
-        business_pipeline = BusinessPipeline(self.mediatr_container)
         pipelines = self.mediatr_container.get_pipelines()
-        if len(pipelines) > 0:
-            for i in range(len(pipelines) - 1, -1, -1):
-                next_pipeline = pipelines[i]
-                if i == (len(pipelines) - 1):
-                    next_pipeline.set_next(business_pipeline)
-                else:
-                    next_pipeline.set_next(next_pipeline)
+        if 0 == len(pipelines):
+            raise Exception("mediatr_container_has_not_contain_any_pipeline")
 
-                return await next_pipeline.handle(req)
-            else:
-                raise Exception("main_pipeline_is_none")
-        else:
-            return await business_pipeline.handle(req)
+        return await pipelines[0].handle(req)
 
     async def publish(self, notification: BaseNotification, throw_exception: bool = False):
         handlers = self.mediatr_container.get_notifications()[type(notification).__name__]

@@ -27,7 +27,7 @@ DistributedCacheProvider.redis_key_prefix = redis_key_prefix
 def set_up_pydiator():
     container = MediatrContainer()
     container.register_pipeline(LogPipeline())
-    if cache_pipeline_is_active is True and distributed_cache_is_active is True:
+    if cache_pipeline_is_active is True:
         cache_pipeline = CachePipeline(get_distributed_cache_provider())
         container.register_pipeline(cache_pipeline)
 

@@ -19,14 +19,15 @@ class TestMediatrContainer(BaseTestCase):
         assert container.get_notifications() == {}
         assert container.get_pipelines() == []
 
-    def test_register_pipeline_when_added_pipeline(self):
+    def test_register_pipeline_when_pipelines_is_empty(self):
         # Given
         class TestPipeline(BasePipeline):
             async def handle(self, req: BaseRequest) -> object:
                 pass
 
-        # When
         container = MediatrContainer()
+
+        # When
         container.register_pipeline(TestPipeline())
 
         # Then
@@ -34,15 +35,35 @@ class TestMediatrContainer(BaseTestCase):
         assert container.get_notifications() == {}
         assert len(container.get_pipelines()) == 1
 
+    def test_register_pipeline_when_has_pipelines(self):
+        # Given
+        class TestPipeline(BasePipeline):
+            async def handle(self, req: BaseRequest) -> object:
+                pass
+
+        container = MediatrContainer()
+        filler_pipeline = TestPipeline()
+        container.register_pipeline(filler_pipeline)
+        # When
+
+        container.register_pipeline(TestPipeline())
+
+        # Then
+        assert container.get_requests() == {}
+        assert container.get_notifications() == {}
+        assert len(container.get_pipelines()) == 2
+        assert filler_pipeline.has_next()
+
     def test_get_pipelines(self):
         # Given
         class TestPipeline(BasePipeline):
             async def handle(self, req: BaseRequest) -> object:
                 pass
 
-        # When
         container = MediatrContainer()
         pipeline = TestPipeline()
+
+        # When
         container.register_pipeline(pipeline)
         response = container.get_pipelines()
 
@@ -62,8 +83,9 @@ class TestMediatrContainer(BaseTestCase):
             async def handle(self, notification: BaseNotification):
                 pass
 
-        # When
         container = MediatrContainer()
+
+        # When
         container.register_notification(TestNotification(), [TestNotificationHandler()])
 
         # Then
@@ -81,10 +103,11 @@ class TestMediatrContainer(BaseTestCase):
             async def handle(self, notification: BaseNotification):
                 pass
 
-        # When
         container = MediatrContainer()
         notification = TestNotification()
         handlers = [TestNotificationHandler()]
+
+        # When
         container.register_notification(notification, handlers)
         response = container.get_notifications()
 
@@ -109,9 +132,9 @@ class TestMediatrContainer(BaseTestCase):
 
         request = TestRequest()
         handler = TestHandler()
+        container = MediatrContainer()
 
         # When
-        container = MediatrContainer()
         container.register_request(req=request, handler=handler)
 
         # Then
@@ -132,11 +155,10 @@ class TestMediatrContainer(BaseTestCase):
             async def handle(self, req: BaseRequest):
                 return TestResponse()
 
-        request = TestRequest()
         handler = TestHandler()
+        container = MediatrContainer()
 
         # When
-        container = MediatrContainer()
         container.register_request(req=TestResponse(), handler=handler)
 
         # Then
@@ -151,9 +173,9 @@ class TestMediatrContainer(BaseTestCase):
             pass
 
         request = TestRequest()
+        container = MediatrContainer()
 
         # When
-        container = MediatrContainer()
         container.register_request(req=request, handler=TestResponse())
 
         # Then

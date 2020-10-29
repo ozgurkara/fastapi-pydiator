@@ -44,6 +44,10 @@ class MediatrContainer(BaseMediatrContainer):
         self.__requests[type(req).__name__] = handler
 
     def register_pipeline(self, pipeline: BasePipeline):
+        if len(self.__pipelines) > 0:
+            last_pipeline = self.__pipelines[-1]
+            last_pipeline.set_next(pipeline)
+
         self.__pipelines.append(pipeline)
 
     def register_notification(self, notification: BaseNotification, handlers: List[BaseNotificationHandler]):
