@@ -18,12 +18,11 @@ class TestBusinessPipeline(BaseTestCase):
             pass
 
         # When
-
-        # Then
         with self.assertRaises(Exception) as context:
             self.async_loop(pipeline.handle(req=TestRequest()))
 
-        assert 'handler_not_found' == context.exception.args[0]
+        # Then
+        assert context.exception.args[0] == f'handler_not_found_for_request_:{type(TestRequest()).__name__}'
 
     def test_handle_return_exception_when_handler_is_not_callable(self):
         # Given
