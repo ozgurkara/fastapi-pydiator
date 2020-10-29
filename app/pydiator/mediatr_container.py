@@ -29,6 +29,10 @@ class BaseMediatrContainer(ABC):
     def get_pipelines(self):
         pass
 
+    @abstractmethod
+    def prepare_pipes(self, pipeline: BasePipeline):
+        pass
+
 
 class MediatrContainer(BaseMediatrContainer):
 
@@ -44,10 +48,6 @@ class MediatrContainer(BaseMediatrContainer):
         self.__requests[type(req).__name__] = handler
 
     def register_pipeline(self, pipeline: BasePipeline):
-        if len(self.__pipelines) > 0:
-            last_pipeline = self.__pipelines[-1]
-            last_pipeline.set_next(pipeline)
-
         self.__pipelines.append(pipeline)
 
     def register_notification(self, notification: BaseNotification, handlers: List[BaseNotificationHandler]):
@@ -61,3 +61,14 @@ class MediatrContainer(BaseMediatrContainer):
 
     def get_pipelines(self):
         return self.__pipelines
+
+    def prepare_pipes(self, pipeline: BasePipeline):
+        self.register_pipeline(pipeline)
+        pipelines_length = len(self.__pipelines)
+        if pipelines_length == 1:
+            return
+
+        for i in range(pipelines_length - 1, -1, -1):
+            if 0 == i:
+                break
+            self.__pipelines[i - 1].set_next(self.__pipelines[i])

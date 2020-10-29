@@ -23,4 +23,4 @@ class BaseTestCase(TestCase):
     def register_request(req, handler):
         container = MediatrContainer()
         container.register_request(req, handler)
-        pydiator.set_container(container)
+        pydiator.ready(container)

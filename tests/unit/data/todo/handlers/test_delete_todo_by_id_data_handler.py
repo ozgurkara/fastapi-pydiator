@@ -7,7 +7,7 @@ from app.resources.todo.handlers.delete_todo_by_id_handler import DeleteTodoById
 from tests.base_test_case import BaseTestCase
 
 
-class TestDeleteTodoByIdHandler(BaseTestCase):
+class TestDeleteTodoByIdDataHandler(BaseTestCase):
     def setUp(self):
         self.register_request(DeleteTodoByIdDataRequest(), DeleteTodoByIdDataHandler())
 

@@ -6,7 +6,7 @@ from app.pydiator.mediatr import pydiator
 from tests.base_test_case import BaseTestCase
 
 
-class TestGetTodoByIdHandler(BaseTestCase):
+class TestGetTodoByIdDataHandler(BaseTestCase):
     def setUp(self):
         self.register_request(GetTodoByIdDataRequest(), GetTodoByIdDataHandler())
 

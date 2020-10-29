@@ -48,4 +48,5 @@ def set_up_pydiator():
     # Notification mapping
     container.register_notification(TodoChangeNotification(), [TodoCacheRemoveNotificationHandler()])
 
-    pydiator.set_container(container)
+    # Start
+    pydiator.ready(container)

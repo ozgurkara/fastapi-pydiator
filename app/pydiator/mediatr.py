@@ -19,13 +19,15 @@ class Mediatr(BaseMediatr):
 
     def __init__(self):
         self.mediatr_container = None
+        self.is_ready = False
 
-    def set_container(self, mediatr_container: BaseMediatrContainer):
+    def ready(self, mediatr_container: BaseMediatrContainer):
+        if self.is_ready:
+            return
+
         self.mediatr_container = mediatr_container
-        self.__add_business_pipeline()
-
-    def __add_business_pipeline(self):
-        self.mediatr_container.register_pipeline(BusinessPipeline(self.mediatr_container))
+        self.mediatr_container.prepare_pipes(BusinessPipeline(self.mediatr_container))
+        self.is_ready = True
 
     async def send(self, req: BaseRequest) -> object:
         if self.mediatr_container is None:

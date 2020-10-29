@@ -1,8 +1,7 @@
 from typing import List
 from unittest import mock
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import MagicMock
 
-from app.pydiator.business_pipeline import BusinessPipeline
 from app.pydiator.interfaces import BaseNotification, BaseNotificationHandler, BasePipeline, BaseRequest, BaseHandler
 from app.pydiator.mediatr import Mediatr
 from app.pydiator.mediatr_container import BaseMediatrContainer
@@ -10,6 +9,9 @@ from tests.base_test_case import BaseTestCase
 
 
 class FakeMediatrContainer(BaseMediatrContainer):
+
+    def prepare_pipes(self, pipeline: BasePipeline):
+        self.__pipelines.append(pipeline)
 
     def __init__(self):
         self.__requests = {}
@@ -49,18 +51,29 @@ class TestMediatrContainer(BaseTestCase):
         # Then
         assert mediatr.mediatr_container is None
 
-    def test_set_container(self):
+    def test_ready_when_is_ready(self):
         # Given
-        mediatr_container = FakeMediatrContainer()
+        mediatr = Mediatr()
+        mediatr.is_ready = True
 
         # When
+        mediatr.ready({})
+
+        # Then
+        assert mediatr.mediatr_container is None
+
+    def test_ready_when_is_not_ready(self):
+        # Given
+        mediatr_container = FakeMediatrContainer()
         mediatr = Mediatr()
-        mediatr.set_container(mediatr_container)
+
+        # When
+        mediatr.ready(mediatr_container)
 
         # Then
         assert mediatr.mediatr_container is mediatr_container
+        assert mediatr.is_ready
         assert len(mediatr_container.get_pipelines()) == 1
-        assert type(mediatr_container.get_pipelines()[0]) is BusinessPipeline
 
     def test_send_raise_exception_when_container_is_none(self):
         # Given
@@ -103,7 +116,7 @@ class TestMediatrContainer(BaseTestCase):
             pass
 
         mediatr = Mediatr()
-        mediatr.set_container(mediatr_container)
+        mediatr.ready(mediatr_container)
 
         # When
         response = self.async_loop(mediatr.send(TestRequest()))

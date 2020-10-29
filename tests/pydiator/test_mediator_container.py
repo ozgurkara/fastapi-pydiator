@@ -19,7 +19,7 @@ class TestMediatrContainer(BaseTestCase):
         assert container.get_notifications() == {}
         assert container.get_pipelines() == []
 
-    def test_register_pipeline_when_pipelines_is_empty(self):
+    def test_register_pipeline(self):
         # Given
         class TestPipeline(BasePipeline):
             async def handle(self, req: BaseRequest) -> object:
@@ -34,25 +34,6 @@ class TestMediatrContainer(BaseTestCase):
         assert container.get_requests() == {}
         assert container.get_notifications() == {}
         assert len(container.get_pipelines()) == 1
-
-    def test_register_pipeline_when_has_pipelines(self):
-        # Given
-        class TestPipeline(BasePipeline):
-            async def handle(self, req: BaseRequest) -> object:
-                pass
-
-        container = MediatrContainer()
-        filler_pipeline = TestPipeline()
-        container.register_pipeline(filler_pipeline)
-        # When
-
-        container.register_pipeline(TestPipeline())
-
-        # Then
-        assert container.get_requests() == {}
-        assert container.get_notifications() == {}
-        assert len(container.get_pipelines()) == 2
-        assert filler_pipeline.has_next()
 
     def test_get_pipelines(self):
         # Given
@@ -145,9 +126,6 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_register_request_return_when_request_is_not_instance_of_base_request(self):
         # Given
-        class TestRequest(BaseRequest):
-            pass
-
         class TestResponse(BaseResponse):
             pass
 
@@ -180,3 +158,42 @@ class TestMediatrContainer(BaseTestCase):
 
         # Then
         assert len(container.get_requests()) == 0
+
+    def test_prepare_pipes_when_pipelines_length_is_equal_1(self):
+        # Given
+        class TestPipeline(BasePipeline):
+            async def handle(self, req: BaseRequest) -> object:
+                pass
+
+        container = MediatrContainer()
+        test_pipeline = TestPipeline()
+
+        # When
+        container.prepare_pipes(test_pipeline)
+
+        # Then
+        assert len(container.get_pipelines()) == 1
+        assert test_pipeline.has_next() is False
+
+    def test_prepare_pipes_when_pipelines_length_is_greater_than_1(self):
+        # Given
+        class TestBusinessPipeline(BasePipeline):
+            async def handle(self, req: BaseRequest) -> object:
+                pass
+
+        class TestPipeline(BasePipeline):
+            async def handle(self, req: BaseRequest) -> object:
+                pass
+
+        container = MediatrContainer()
+        test_pipeline = TestPipeline()
+        container.register_pipeline(test_pipeline)
+        test_business_pipeline = TestBusinessPipeline()
+
+        # When
+        container.prepare_pipes(test_business_pipeline)
+
+        # Then
+        assert len(container.get_pipelines()) == 2
+        assert test_pipeline.has_next()
+        assert test_business_pipeline.has_next() is False

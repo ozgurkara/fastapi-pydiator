@@ -1,3 +1,4 @@
+import asyncio
 from unittest import mock
 
 from app.data.todo.handlers.update_todo_data_handler import UpdateTodoDataHandler, UpdateTodoDataRequest, \
@@ -6,7 +7,7 @@ from app.pydiator.mediatr import pydiator
 from tests.base_test_case import BaseTestCase
 
 
-class TestAddTodoHandler(BaseTestCase):
+class TestUpdateTodoDataHandler(BaseTestCase):
     def setUp(self):
         self.register_request(UpdateTodoDataRequest(), UpdateTodoDataHandler())
 
@@ -32,7 +33,6 @@ class TestAddTodoHandler(BaseTestCase):
         mock_fake_todo_db.__iter__.return_value = []
         title_val = "title 1 updated"
         request = UpdateTodoDataRequest(title=title_val)
-        request.id = id
         expected_response = UpdateTodoDataResponse(success=False)
 
         # When
