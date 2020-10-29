@@ -1,4 +1,3 @@
-import asyncio
 from unittest import mock
 
 from app.data.todo.handlers.update_todo_data_handler import UpdateTodoDataHandler, UpdateTodoDataRequest, \

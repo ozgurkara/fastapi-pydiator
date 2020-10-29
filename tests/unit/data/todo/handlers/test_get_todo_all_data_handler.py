@@ -8,7 +8,7 @@ from app.resources.todo.handlers.get_todo_all_handler import GetTodoAllRequest
 from tests.base_test_case import BaseTestCase
 
 
-class TestGetTodoByIdDataHandler(BaseTestCase):
+class TestGetTodoAllDataHandler(BaseTestCase):
     def setUp(self):
         self.register_request(GetTodoAllDataRequest(), GetTodoAllDataHandler())
 
