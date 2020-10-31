@@ -1,7 +1,6 @@
-from app.pydiator.interfaces import BasePipeline, BaseRequest, BaseNotification, BaseNotificationHandler, BaseResponse, \
-    BaseHandler
 from app.pydiator.mediatr_container import MediatrContainer
-from tests.base_test_case import BaseTestCase
+from tests.base_test_case import BaseTestCase, TestPipeline, TestRequest, TestResponse, TestHandler, TestNotification, \
+    TestNotificationHandler
 
 
 class TestMediatrContainer(BaseTestCase):
@@ -21,10 +20,6 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_register_pipeline(self):
         # Given
-        class TestPipeline(BasePipeline):
-            async def handle(self, req: BaseRequest) -> object:
-                pass
-
         container = MediatrContainer()
 
         # When
@@ -37,10 +32,6 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_get_pipelines(self):
         # Given
-        class TestPipeline(BasePipeline):
-            async def handle(self, req: BaseRequest) -> object:
-                pass
-
         container = MediatrContainer()
         pipeline = TestPipeline()
 
@@ -56,14 +47,6 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_register_notification_when_added_notification(self):
         # Given
-        class TestNotification(BaseNotification):
-            pass
-
-        class TestNotificationHandler(BaseNotificationHandler):
-
-            async def handle(self, notification: BaseNotification):
-                pass
-
         container = MediatrContainer()
 
         # When
@@ -76,14 +59,6 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_get_notifications(self):
         # Given
-        class TestNotification(BaseNotification):
-            pass
-
-        class TestNotificationHandler(BaseNotificationHandler):
-
-            async def handle(self, notification: BaseNotification):
-                pass
-
         container = MediatrContainer()
         notification = TestNotification()
         handlers = [TestNotificationHandler()]
@@ -101,16 +76,6 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_register_request(self):
         # Given
-        class TestRequest(BaseRequest):
-            pass
-
-        class TestResponse(BaseResponse):
-            pass
-
-        class TestHandler(BaseHandler):
-            async def handle(self, req: BaseRequest):
-                return TestResponse()
-
         request = TestRequest()
         handler = TestHandler()
         container = MediatrContainer()
@@ -126,13 +91,6 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_register_request_return_when_request_is_not_instance_of_base_request(self):
         # Given
-        class TestResponse(BaseResponse):
-            pass
-
-        class TestHandler(BaseHandler):
-            async def handle(self, req: BaseRequest):
-                return TestResponse()
-
         handler = TestHandler()
         container = MediatrContainer()
 
@@ -144,27 +102,17 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_register_request_return_when_handler_is_not_instance_of_base_handler(self):
         # Given
-        class TestRequest(BaseRequest):
-            pass
-
-        class TestResponse(BaseResponse):
-            pass
-
         request = TestRequest()
         container = MediatrContainer()
 
         # When
-        container.register_request(req=request, handler=TestResponse())
+        container.register_request(req=request, handler={})
 
         # Then
         assert len(container.get_requests()) == 0
 
     def test_prepare_pipes_when_pipelines_length_is_equal_1(self):
         # Given
-        class TestPipeline(BasePipeline):
-            async def handle(self, req: BaseRequest) -> object:
-                pass
-
         container = MediatrContainer()
         test_pipeline = TestPipeline()
 
@@ -177,18 +125,10 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_prepare_pipes_when_pipelines_length_is_greater_than_1(self):
         # Given
-        class TestBusinessPipeline(BasePipeline):
-            async def handle(self, req: BaseRequest) -> object:
-                pass
-
-        class TestPipeline(BasePipeline):
-            async def handle(self, req: BaseRequest) -> object:
-                pass
-
         container = MediatrContainer()
         test_pipeline = TestPipeline()
         container.register_pipeline(test_pipeline)
-        test_business_pipeline = TestBusinessPipeline()
+        test_business_pipeline = TestPipeline()
 
         # When
         container.prepare_pipes(test_business_pipeline)

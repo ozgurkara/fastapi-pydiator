@@ -5,7 +5,7 @@ from unittest.mock import MagicMock
 from app.pydiator.interfaces import BaseNotification, BaseNotificationHandler, BasePipeline, BaseRequest, BaseHandler
 from app.pydiator.mediatr import Mediatr
 from app.pydiator.mediatr_container import BaseMediatrContainer
-from tests.base_test_case import BaseTestCase
+from tests.base_test_case import BaseTestCase, TestRequest
 
 
 class FakeMediatrContainer(BaseMediatrContainer):
@@ -77,9 +77,6 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_send_raise_exception_when_container_is_none(self):
         # Given
-        class TestRequest(BaseRequest):
-            pass
-
         mediatr = Mediatr()
 
         # When
@@ -91,9 +88,6 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_send_raise_exception_when_container_pipelines_is_empty(self):
         # Given
-        class TestRequest(BaseRequest):
-            pass
-
         mediatr = Mediatr()
         mediatr.mediatr_container = FakeMediatrContainer()
 
@@ -106,15 +100,12 @@ class TestMediatrContainer(BaseTestCase):
 
     @mock.patch("app.pydiator.mediatr.BusinessPipeline")
     def test_send_return_business_pipeline_result_when_container_pipelines_is_empty(self, mock_business_pipeline):
+        # Given
         async def business_handle():
             return True
 
         MagicMock.__await__ = lambda x: business_handle().__await__()
         mediatr_container = FakeMediatrContainer()
-
-        class TestRequest(BaseRequest):
-            pass
-
         mediatr = Mediatr()
         mediatr.ready(mediatr_container)
 
