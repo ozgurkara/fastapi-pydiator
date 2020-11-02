@@ -5,6 +5,8 @@ redis
 pytest
 requests
 coverage
+pytest-env
+python-dotenv==0.14.0
 
 
 

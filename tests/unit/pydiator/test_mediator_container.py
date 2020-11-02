@@ -21,9 +21,10 @@ class TestMediatrContainer(BaseTestCase):
     def test_register_pipeline(self):
         # Given
         container = MediatrContainer()
+        response = TestResponse(success=True)
 
         # When
-        container.register_pipeline(TestPipeline())
+        container.register_pipeline(TestPipeline(response))
 
         # Then
         assert container.get_requests() == {}
@@ -32,8 +33,9 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_get_pipelines(self):
         # Given
+        response = TestResponse(success=True)
         container = MediatrContainer()
-        pipeline = TestPipeline()
+        pipeline = TestPipeline(response)
 
         # When
         container.register_pipeline(pipeline)
@@ -95,7 +97,7 @@ class TestMediatrContainer(BaseTestCase):
         container = MediatrContainer()
 
         # When
-        container.register_request(req=TestResponse(), handler=handler)
+        container.register_request(req=TestResponse(success=True), handler=handler)
 
         # Then
         assert len(container.get_requests()) == 0
@@ -113,8 +115,9 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_prepare_pipes_when_pipelines_length_is_equal_1(self):
         # Given
+        response = TestResponse(success=True)
         container = MediatrContainer()
-        test_pipeline = TestPipeline()
+        test_pipeline = TestPipeline(response)
 
         # When
         container.prepare_pipes(test_pipeline)
@@ -125,10 +128,11 @@ class TestMediatrContainer(BaseTestCase):
 
     def test_prepare_pipes_when_pipelines_length_is_greater_than_1(self):
         # Given
+        response = TestResponse(success=True)
         container = MediatrContainer()
-        test_pipeline = TestPipeline()
+        test_pipeline = TestPipeline(response)
         container.register_pipeline(test_pipeline)
-        test_business_pipeline = TestPipeline()
+        test_business_pipeline = TestPipeline(response)
 
         # When
         container.prepare_pipes(test_business_pipeline)

@@ -59,14 +59,12 @@ class BaseCacheable(ABC):
     def get_cache_type(self) -> CacheType:
         pass
 
-    @classmethod
-    def set_no_cache(cls):
-        cls._is_no_cache = True
+    def set_no_cache(self):
+        self._no_cache = True
 
-    @classmethod
-    def is_no_cache(cls):
-        if hasattr(cls, '_is_no_cache'):
-            return cls._is_no_cache
+    def is_no_cache(self):
+        if hasattr(self, '_no_cache'):
+            return self._no_cache
         return False
 
 

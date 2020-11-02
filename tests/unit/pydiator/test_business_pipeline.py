@@ -45,4 +45,3 @@ class TestBusinessPipeline(BaseTestCase):
 
         # Then
         assert isinstance(response, BaseResponse)
-        assert isinstance(response, TestResponse)

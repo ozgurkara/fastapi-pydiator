@@ -1,5 +1,5 @@
 from app.data.todo.handlers.delete_todo_by_id_data_handler import DeleteTodoByIdDataHandler, DeleteTodoByIdDataRequest
-from app.utils.environment import redis_key_prefix, cache_pipeline_is_active, distributed_cache_is_active
+from app.utils.config import redis_key_prefix, cache_pipeline_is_active, distributed_cache_is_active
 from app.utils.client_factory import get_distributed_cache_provider
 from app.utils.distributed_cache_provider import DistributedCacheProvider
 
