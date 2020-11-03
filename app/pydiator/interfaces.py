@@ -1,5 +1,7 @@
-from abc import ABC, abstractmethod
 import enum
+
+from abc import ABC, abstractmethod
+from typing import List
 from app.utils.serializer_helper import JsonSerializable
 
 
