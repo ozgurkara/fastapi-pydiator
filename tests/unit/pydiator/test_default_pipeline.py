@@ -1,18 +1,18 @@
 from unittest import mock
 
-from app.pydiator.business_pipeline import BusinessPipeline
+from app.pydiator.default_pipeline import DefaultPipeline
 from app.pydiator.interfaces import BaseResponse
 from app.pydiator.mediatr_container import MediatrContainer
-from tests.base_test_case import BaseTestCase, TestRequest, TestResponse, TestHandler
+from tests.base_test_case import BaseTestCase, TestRequest, TestHandler
 
 
-class TestBusinessPipeline(BaseTestCase):
+class TestDefaultPipeline(BaseTestCase):
     def setUp(self):
         pass
 
     def test_handle_return_exception_when_handler_is_not(self):
         # Given
-        pipeline = BusinessPipeline(MediatrContainer())
+        pipeline = DefaultPipeline(MediatrContainer())
 
         # When
         with self.assertRaises(Exception) as context:
@@ -25,7 +25,7 @@ class TestBusinessPipeline(BaseTestCase):
         # Given
         mock_container = mock.MagicMock()
         mock_container.get_requests.return_value.get.return_value = {}
-        self.pipeline = BusinessPipeline(mock_container)
+        self.pipeline = DefaultPipeline(mock_container)
 
         # When
         with self.assertRaises(Exception) as context:
@@ -38,7 +38,7 @@ class TestBusinessPipeline(BaseTestCase):
         # Given
         container = MediatrContainer()
         container.register_request(TestRequest(), TestHandler())
-        self.pipeline = BusinessPipeline(container)
+        self.pipeline = DefaultPipeline(container)
 
         # When
         response = self.async_loop(self.pipeline.handle(req=TestRequest()))

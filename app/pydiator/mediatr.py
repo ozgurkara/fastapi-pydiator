@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from app.pydiator.interfaces import BaseRequest, BaseNotification
-from app.pydiator.business_pipeline import BusinessPipeline
+from app.pydiator.default_pipeline import DefaultPipeline
 from app.pydiator.mediatr_container import BaseMediatrContainer
 
 
@@ -26,7 +26,7 @@ class Mediatr(BaseMediatr):
             return
 
         self.mediatr_container = mediatr_container
-        self.mediatr_container.prepare_pipes(BusinessPipeline(self.mediatr_container))
+        self.mediatr_container.prepare_pipes(DefaultPipeline(self.mediatr_container))
         self.is_ready = True
 
     async def send(self, req: BaseRequest) -> object:

@@ -2,12 +2,12 @@ from app.pydiator.interfaces import BaseRequest, BasePipeline
 from app.pydiator.mediatr_container import BaseMediatrContainer
 
 
-class BusinessPipeline(BasePipeline):
+class DefaultPipeline(BasePipeline):
     def __init__(self, mediatr_container: BaseMediatrContainer):
         self.mediatr_container = mediatr_container
 
     async def handle(self, req: BaseRequest) -> object:
-        print(f"BusinessPipeline:handle:{type(req).__name__}")
+        print(f"DefaultPipeline:handle:{type(req).__name__}")
         req_type_name = type(req).__name__
         handler = self.mediatr_container.get_requests().get(req_type_name, None)
         if handler is None:

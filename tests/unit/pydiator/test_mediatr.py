@@ -65,8 +65,8 @@ class TestMediatrContainer(BaseTestCase):
         # Then
         assert 'mediatr_container_has_not_contain_any_pipeline' == context.exception.args[0]
 
-    @mock.patch("app.pydiator.mediatr.BusinessPipeline")
-    def test_send_return_business_pipeline_result_when_container_pipelines_is_empty(self, mock_business_pipeline):
+    @mock.patch("app.pydiator.mediatr.DefaultPipeline")
+    def test_send_return_default_pipeline_result_when_container_pipelines_is_empty(self, mock_business_pipeline):
         # Given
         next_response = TestResponse(success=True)
 
