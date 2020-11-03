@@ -129,15 +129,16 @@ class TestMediatrContainer(BaseTestCase):
     def test_prepare_pipes_when_pipelines_length_is_greater_than_1(self):
         # Given
         response = TestResponse(success=True)
-        container = MediatrContainer()
         test_pipeline = TestPipeline(response)
+        test_default_pipeline = TestPipeline(response)
+
+        container = MediatrContainer()
         container.register_pipeline(test_pipeline)
-        test_business_pipeline = TestPipeline(response)
 
         # When
-        container.prepare_pipes(test_business_pipeline)
+        container.prepare_pipes(test_default_pipeline)
 
         # Then
         assert len(container.get_pipelines()) == 2
         assert test_pipeline.has_next()
-        assert test_business_pipeline.has_next() is False
+        assert test_default_pipeline.has_next() is False

@@ -96,7 +96,7 @@ class FakeMediatrContainer(BaseMediatrContainer):
         self.__pipelines.append(pipeline)
 
     def register_notification(self, notification: BaseNotification, handlers: List[BaseNotificationHandler]):
-        return
+        self.__notifications[type(notification).__name__] = handlers
 
     def get_requests(self):
         return self.__requests

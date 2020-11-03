@@ -86,3 +86,14 @@ class BasePipeline(ABC):
     @abstractmethod
     async def handle(self, req: BaseRequest) -> object:
         pass
+
+
+class BaseMediatr(ABC):
+
+    @abstractmethod
+    async def send(self, req: BaseRequest) -> object:
+        pass
+
+    @abstractmethod
+    async def publish(self, notification: BaseNotification, throw_exception: bool = False):
+        pass
