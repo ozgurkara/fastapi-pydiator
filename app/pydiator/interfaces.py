@@ -97,3 +97,34 @@ class BaseMediatr(ABC):
     @abstractmethod
     async def publish(self, notification: BaseNotification, throw_exception: bool = False):
         pass
+
+
+class BaseMediatrContainer(ABC):
+
+    @abstractmethod
+    def register_request(self, req: BaseRequest, handler: BaseHandler):
+        pass
+
+    @abstractmethod
+    def register_pipeline(self, pipeline: BasePipeline):
+        pass
+
+    @abstractmethod
+    def register_notification(self, notification: BaseNotification, handlers: List[BaseNotificationHandler]):
+        pass
+
+    @abstractmethod
+    def get_requests(self):
+        pass
+
+    @abstractmethod
+    def get_notifications(self):
+        pass
+
+    @abstractmethod
+    def get_pipelines(self):
+        pass
+
+    @abstractmethod
+    def prepare_pipes(self, pipeline: BasePipeline):
+        pass

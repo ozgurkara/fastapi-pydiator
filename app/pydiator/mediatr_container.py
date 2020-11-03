@@ -1,37 +1,6 @@
-from abc import ABC, abstractmethod
 from typing import List
-from app.pydiator.interfaces import BaseRequest, BaseHandler, BasePipeline, BaseNotification, BaseNotificationHandler
-
-
-class BaseMediatrContainer(ABC):
-
-    @abstractmethod
-    def register_request(self, req: BaseRequest, handler: BaseHandler):
-        pass
-
-    @abstractmethod
-    def register_pipeline(self, pipeline: BasePipeline):
-        pass
-
-    @abstractmethod
-    def register_notification(self, notification: BaseNotification, handlers: List[BaseNotificationHandler]):
-        pass
-
-    @abstractmethod
-    def get_requests(self):
-        pass
-
-    @abstractmethod
-    def get_notifications(self):
-        pass
-
-    @abstractmethod
-    def get_pipelines(self):
-        pass
-
-    @abstractmethod
-    def prepare_pipes(self, pipeline: BasePipeline):
-        pass
+from app.pydiator.interfaces import BaseRequest, BaseHandler, BasePipeline, BaseNotification, BaseNotificationHandler, \
+    BaseMediatrContainer
 
 
 class MediatrContainer(BaseMediatrContainer):
