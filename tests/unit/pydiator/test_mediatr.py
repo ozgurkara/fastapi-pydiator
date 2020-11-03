@@ -99,7 +99,8 @@ class TestMediatrContainer(BaseTestCase):
             self.async_loop(mediatr.publish(BaseNotification()))
 
         # Then
-        assert 'mediatr_container_has_not_contain_any_notification_handler' == context.exception.args[0]
+        assert 'mediatr_container_has_not_contain_any_notification_handler_for:BaseNotification' == \
+               context.exception.args[0]
 
     def test_publish_when_handlers_exist(self):
         # Given
