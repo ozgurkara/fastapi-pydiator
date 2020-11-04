@@ -130,3 +130,28 @@ class BaseMediatrContainer(ABC):
     @abstractmethod
     def prepare_pipes(self, pipeline: BasePipeline):
         pass
+
+
+class BaseCacheProvider(ABC):
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def add(self, key: str, value, expires):
+        pass
+
+    @abstractmethod
+    def get(self, key: str):
+        pass
+
+    @abstractmethod
+    def exist(self, key: str):
+        pass
+
+    @abstractmethod
+    def delete(self, key: str):
+        pass
+
+    @abstractmethod
+    def check_connection(self):
+        pass
