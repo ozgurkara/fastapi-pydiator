@@ -6,7 +6,7 @@ from uuid import UUID
 from pydiator_core.serializer import BaseSerializer
 
 
-class Serializer(BaseSerializer):
+class CustomSerializer(BaseSerializer):
 
     def dumps(self, obj, indent=4):
         """Converts List to Json String"""
