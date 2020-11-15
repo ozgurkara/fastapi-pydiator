@@ -9,4 +9,3 @@
 `coverage html`
 
 # Mediatr Flow
-![Image of Yaktocat](docs/assets/mediatr_flow.png)

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from typing import List
-from app.pydiator.mediatr import pydiator
+from pydiator_core.mediatr import pydiator
 from app.resources.todo.handlers.get_todo_all_handler import GetTodoAllRequest, GetTodoAllResponse
 from app.resources.todo.handlers.get_todo_by_id_handler import GetTodoByIdRequest, GetTodoByIdResponse
 from app.resources.todo.handlers.add_todo_handler import AddTodoRequest, AddTodoResponse

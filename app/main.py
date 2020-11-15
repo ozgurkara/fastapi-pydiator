@@ -1,4 +1,5 @@
 import uvicorn
+
 from app.resources.todo import todo_resource
 from pydantic import ValidationError
 from fastapi import FastAPI
@@ -7,7 +8,7 @@ from fastapi.exception_handlers import (
     request_validation_exception_handler
 )
 
-from app.pydiator_config import set_up_pydiator
+from app.pydiatr_core_config import set_up_pydiator_core
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 app = FastAPI()
@@ -35,7 +36,7 @@ app.include_router(
     tags=["todo"]
 )
 
-set_up_pydiator()
+set_up_pydiator_core()
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8090)
