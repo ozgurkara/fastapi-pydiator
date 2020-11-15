@@ -2,6 +2,7 @@ from app.data.todo.handlers.delete_todo_by_id_data_handler import DeleteTodoById
 from app.utils.config import redis_key_prefix, cache_pipeline_is_active, distributed_cache_is_active
 from app.utils.client_factory import get_distributed_cache_provider
 from app.utils.distributed_cache_provider import DistributedCacheProvider
+from app.utils.serializer import Serializer
 
 from pydiator_core.mediatr import pydiator
 from pydiator_core.mediatr_container import MediatrContainer
@@ -24,7 +25,7 @@ from app.data.todo.handlers.update_todo_data_handler import UpdateTodoDataReques
 DistributedCacheProvider.key_prefix = redis_key_prefix
 
 
-def set_up_pydiator_core():
+def set_up_pydiator():
     container = MediatrContainer()
     container.register_pipeline(LogPipeline())
     if cache_pipeline_is_active is True:
@@ -32,21 +33,21 @@ def set_up_pydiator_core():
         container.register_pipeline(cache_pipeline)
 
     # Service handlers mapping
-    container.register_request(GetTodoAllRequest(), GetTodoAllHandler())
-    container.register_request(GetTodoByIdRequest(), GetTodoByIdHandler())
-    container.register_request(AddTodoRequest(), AddTodoHandler())
-    container.register_request(UpdateTodoRequest(), UpdateTodoHandler())
-    container.register_request(DeleteTodoByIdRequest(), DeleteTodoByIdHandler())
+    container.register_request(GetTodoAllRequest, GetTodoAllHandler())
+    container.register_request(GetTodoByIdRequest, GetTodoByIdHandler())
+    container.register_request(AddTodoRequest, AddTodoHandler())
+    container.register_request(UpdateTodoRequest, UpdateTodoHandler())
+    container.register_request(DeleteTodoByIdRequest, DeleteTodoByIdHandler())
 
     # Data handlers mapping
-    container.register_request(GetTodoAllDataRequest(), GetTodoAllDataHandler())
-    container.register_request(GetTodoByIdDataRequest(), GetTodoByIdDataHandler())
-    container.register_request(AddTodoDataRequest(), AddTodoDataHandler())
-    container.register_request(DeleteTodoByIdDataRequest(), DeleteTodoByIdDataHandler())
-    container.register_request(UpdateTodoDataRequest(), UpdateTodoDataHandler())
+    container.register_request(GetTodoAllDataRequest, GetTodoAllDataHandler())
+    container.register_request(GetTodoByIdDataRequest, GetTodoByIdDataHandler())
+    container.register_request(AddTodoDataRequest, AddTodoDataHandler())
+    container.register_request(DeleteTodoByIdDataRequest, DeleteTodoByIdDataHandler())
+    container.register_request(UpdateTodoDataRequest, UpdateTodoDataHandler())
 
     # Notification mapping
-    container.register_notification(TodoChangeNotification(), [TodoCacheRemoveNotificationHandler()])
+    container.register_notification(TodoChangeNotification, [TodoCacheRemoveNotificationHandler()])
 
     # Start
-    pydiator.ready(container)
+    pydiator.ready(container=container, serializer=Serializer())

@@ -8,7 +8,7 @@ from fastapi.exception_handlers import (
     request_validation_exception_handler
 )
 
-from app.pydiatr_core_config import set_up_pydiator_core
+from app.pydiatr_core_config import set_up_pydiator
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 app = FastAPI()
@@ -36,7 +36,7 @@ app.include_router(
     tags=["todo"]
 )
 
-set_up_pydiator_core()
+set_up_pydiator()
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8090)
