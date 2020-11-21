@@ -1,9 +1,9 @@
 pydantic==1.7.2
-fastapi
+fastapi==0.61.2
 uvicorn
 redis
 pytest==6.1.2
-requests
+requests==2.25.0
 coverage
 pytest-env
 python-dotenv==0.15.0
