@@ -2,7 +2,6 @@ from app.data.todo.handlers.delete_todo_by_id_data_handler import DeleteTodoById
 from app.utils.config import redis_key_prefix, cache_pipeline_is_active, distributed_cache_is_active
 from app.utils.client_factory import get_distributed_cache_provider
 from app.utils.distributed_cache_provider import DistributedCacheProvider
-from app.utils.serializer import CustomSerializer
 
 from pydiator_core.mediatr import pydiator
 from pydiator_core.mediatr_container import MediatrContainer
@@ -50,4 +49,4 @@ def set_up_pydiator():
     container.register_notification(TodoChangeNotification, [TodoCacheRemoveNotificationHandler()])
 
     # Start
-    pydiator.ready(container=container, serializer=CustomSerializer())
+    pydiator.ready(container=container)
