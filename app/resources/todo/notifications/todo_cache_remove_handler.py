@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from app.utils.client_factory import get_distributed_cache_provider
-from app.pydiator.interfaces import BaseNotification, BaseNotificationHandler
+from pydiator_core.interfaces import BaseNotification, BaseNotificationHandler
 from app.resources.todo.handlers.get_todo_all_handler import GetTodoAllRequest
 
 

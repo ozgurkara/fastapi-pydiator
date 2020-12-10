@@ -49,7 +49,6 @@ class TestTodo:
             "title": "title 1 updated"
         })
 
-        print(response)
         assert response.status_code == HTTP_200_OK
         assert response.json()["success"]
 
