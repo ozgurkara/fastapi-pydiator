@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
-from app.pydiator.interfaces import BaseRequest, BaseResponse, BaseHandler
-from app.pydiator.mediatr import pydiator
+from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
+from pydiator_core.mediatr import pydiator
 from app.data.todo.handlers.get_todo_by_id_data_handler import GetTodoByIdDataRequest
 
 

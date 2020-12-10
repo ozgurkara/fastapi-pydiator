@@ -1,7 +1,7 @@
 from unittest import mock
 
 from app.data.todo.handlers.get_todo_by_id_data_handler import GetTodoByIdDataResponse
-from app.pydiator.mediatr import pydiator
+from pydiator_core.mediatr import pydiator
 from app.resources.todo.handlers.get_todo_by_id_handler import \
     GetTodoByIdRequest, GetTodoByIdResponse, GetTodoByIdHandler
 from tests.base_test_case import BaseTestCase

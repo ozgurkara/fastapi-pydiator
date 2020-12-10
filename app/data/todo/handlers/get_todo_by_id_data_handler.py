@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from app.pydiator.interfaces import BaseRequest, BaseResponse, BaseHandler, BaseCacheable, CacheType
+from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler, BaseCacheable, CacheType
 from app.db.fake_db import fake_todo_db
 
 

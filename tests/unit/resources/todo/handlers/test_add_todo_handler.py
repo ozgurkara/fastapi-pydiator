@@ -2,7 +2,7 @@ from unittest import mock
 from app.data.todo.handlers.add_todo_data_handler import AddTodoDataResponse
 from app.resources.todo.handlers.add_todo_handler import \
     AddTodoRequest, AddTodoResponse, AddTodoHandler
-from app.pydiator.mediatr import pydiator
+from pydiator_core.mediatr import pydiator
 from tests.base_test_case import BaseTestCase
 
 

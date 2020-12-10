@@ -2,8 +2,8 @@ from unittest import mock
 
 from app.data.todo.handlers.get_todo_all_data_handler import GetTodoAllDataRequest, GetTodoAllDataResponse, \
     GetTodoAllDataHandler
-from app.pydiator.interfaces import CacheType
-from app.pydiator.mediatr import pydiator
+from pydiator_core.interfaces import CacheType
+from pydiator_core.mediatr import pydiator
 from app.resources.todo.handlers.get_todo_all_handler import GetTodoAllRequest
 from tests.base_test_case import BaseTestCase
 
