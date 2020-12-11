@@ -120,18 +120,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8090/v1/todo/1",
-					"protocol": "http",
+					"raw": "{{api_url}}/v1/todos/1",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{api_url}}"
 					],
-					"port": "8090",
 					"path": [
 						"v1",
-						"todo",
+						"todos",
 						"1"
 					]
 				}

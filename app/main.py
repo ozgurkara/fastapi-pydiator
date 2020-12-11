@@ -8,7 +8,7 @@ from fastapi.exception_handlers import (
     request_validation_exception_handler
 )
 
-from app.pydiatr_core_config import set_up_pydiator
+from app.pydiator_core_config import set_up_pydiator
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 app = FastAPI()
@@ -32,7 +32,7 @@ async def validation_exception_handler(request, exc):
 
 app.include_router(
     todo_resource.router,
-    prefix="/v1/todo",
+    prefix="/v1/todos",
     tags=["todo"]
 )
 

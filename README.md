@@ -63,7 +63,7 @@ These are;
    class GetSampleByIdUseCase(BaseHandler):
         async def handle(self, req: GetSampleByIdRequest):
             # related codes are here such as business
-            return GetSampleByIdResponse(id=req.id, title="hello pydiatr")     
+            return GetSampleByIdResponse(id=req.id, title="hello pydiator")     
    ``` 
 
 <hr>
