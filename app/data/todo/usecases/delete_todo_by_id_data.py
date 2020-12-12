@@ -11,7 +11,7 @@ class DeleteTodoByIdDataResponse(BaseModel, BaseResponse):
     success: bool = Field(...)
 
 
-class DeleteTodoByIdDataHandler(BaseHandler):
+class DeleteTodoByIdDataUseCase(BaseHandler):
 
     async def handle(self, req: DeleteTodoByIdDataRequest) -> DeleteTodoByIdDataResponse:
         for it in fake_todo_db:

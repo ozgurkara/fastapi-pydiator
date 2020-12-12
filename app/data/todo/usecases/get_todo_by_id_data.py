@@ -12,7 +12,7 @@ class GetTodoByIdDataResponse(BaseModel, BaseResponse):
     title: str = Field(...)
 
 
-class GetTodoByIdDataHandler(BaseHandler):
+class GetTodoByIdDataUseCase(BaseHandler):
 
     async def handle(self, req: GetTodoByIdDataRequest) -> GetTodoByIdDataResponse:
         for it in fake_todo_db:

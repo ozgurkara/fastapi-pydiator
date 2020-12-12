@@ -12,7 +12,7 @@ class UpdateTodoDataResponse(BaseModel, BaseResponse):
     success: bool = Field(...)
 
 
-class UpdateTodoDataHandler(BaseHandler):
+class UpdateTodoDataUseCase(BaseHandler):
 
     async def handle(self, req: UpdateTodoDataRequest) -> UpdateTodoDataResponse:
         for it in fake_todo_db:

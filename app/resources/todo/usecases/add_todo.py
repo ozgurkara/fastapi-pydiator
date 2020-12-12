@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-from app.data.todo.handlers.add_todo_data_handler import AddTodoDataRequest
+from app.data.todo.usecases.add_todo_data import AddTodoDataRequest
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
 from pydiator_core.mediatr import pydiator
 from app.resources.todo.notifications.todo_cache_remove_handler import TodoChangeNotification
@@ -14,7 +14,7 @@ class AddTodoResponse(BaseModel, BaseResponse):
     success: bool = Field(...)
 
 
-class AddTodoHandler(BaseHandler):
+class AddTodoUseCase(BaseHandler):
 
     async def handle(self, req: AddTodoRequest) -> AddTodoResponse:
         data_response = await pydiator.send(AddTodoDataRequest(title=req.title))

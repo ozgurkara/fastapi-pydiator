@@ -1,16 +1,16 @@
 from unittest import mock
 
-from app.data.todo.handlers.get_todo_all_data_handler import GetTodoAllDataRequest, GetTodoAllDataResponse, \
-    GetTodoAllDataHandler
+from app.data.todo.usecases.get_todo_all_data import GetTodoAllDataRequest, GetTodoAllDataResponse, \
+    GetTodoAllDataUseCase
 from pydiator_core.interfaces import CacheType
 from pydiator_core.mediatr import pydiator
-from app.resources.todo.handlers.get_todo_all_handler import GetTodoAllRequest
+from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest
 from tests.base_test_case import BaseTestCase
 
 
 class TestGetTodoAllDataHandler(BaseTestCase):
     def setUp(self):
-        self.register_request(GetTodoAllDataRequest(), GetTodoAllDataHandler())
+        self.register_request(GetTodoAllDataRequest(), GetTodoAllDataUseCase())
 
     def test_request_cache_parameter(self):
         # When
@@ -21,7 +21,7 @@ class TestGetTodoAllDataHandler(BaseTestCase):
         assert request.get_cache_duration() == 600
         assert request.get_cache_type() == CacheType.DISTRIBUTED
 
-    @mock.patch("app.data.todo.handlers.get_todo_all_data_handler.fake_todo_db")
+    @mock.patch("app.data.todo.usecases.get_todo_all_data.fake_todo_db")
     def test_handler_return_list(self, mock_fake_todo_db):
         # Give
         id_val = 1
@@ -37,7 +37,7 @@ class TestGetTodoAllDataHandler(BaseTestCase):
         # Then
         assert response == expected_response
 
-    @mock.patch("app.data.todo.handlers.get_todo_all_data_handler.fake_todo_db")
+    @mock.patch("app.data.todo.usecases.get_todo_all_data.fake_todo_db")
     def test_handler_return_empty_list(self, mock_fake_todo_db):
         # Given
         mock_fake_todo_db.__iter__.return_value = []

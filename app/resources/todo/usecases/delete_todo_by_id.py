@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-from app.data.todo.handlers.delete_todo_by_id_data_handler import DeleteTodoByIdDataRequest
+from app.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataRequest
 from pydiator_core.mediatr import pydiator
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
 from app.resources.todo.notifications.todo_cache_remove_handler import TodoChangeNotification
@@ -14,7 +14,7 @@ class DeleteTodoByIdResponse(BaseModel, BaseResponse):
     success: bool = Field(...)
 
 
-class DeleteTodoByIdHandler(BaseHandler):
+class DeleteTodoByIdUseCase(BaseHandler):
 
     async def handle(self, req: DeleteTodoByIdRequest) -> DeleteTodoByIdResponse:
         data_response = await pydiator.send(DeleteTodoByIdDataRequest(id=req.id))

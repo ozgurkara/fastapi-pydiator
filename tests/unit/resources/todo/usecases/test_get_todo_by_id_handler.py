@@ -1,17 +1,17 @@
 from unittest import mock
 
-from app.data.todo.handlers.get_todo_by_id_data_handler import GetTodoByIdDataResponse
+from app.data.todo.usecases.get_todo_by_id_data import GetTodoByIdDataResponse
 from pydiator_core.mediatr import pydiator
-from app.resources.todo.handlers.get_todo_by_id_handler import \
-    GetTodoByIdRequest, GetTodoByIdResponse, GetTodoByIdHandler
+from app.resources.todo.usecases.get_todo_by_id import \
+    GetTodoByIdRequest, GetTodoByIdResponse, GetTodoByIdUseCase
 from tests.base_test_case import BaseTestCase
 
 
 class TestGetTodoByIdHandler(BaseTestCase):
     def setUp(self):
-        self.register_request(GetTodoByIdRequest(), GetTodoByIdHandler())
+        self.register_request(GetTodoByIdRequest(), GetTodoByIdUseCase())
 
-    @mock.patch("app.resources.todo.handlers.get_todo_by_id_handler.pydiator")
+    @mock.patch("app.resources.todo.usecases.get_todo_by_id.pydiator")
     def test_handler_return_todo(self, mock_pydiator):
         # Given
         id_val = 1
@@ -27,7 +27,7 @@ class TestGetTodoByIdHandler(BaseTestCase):
         # Then
         assert response == expected_response
 
-    @mock.patch("app.resources.todo.handlers.get_todo_by_id_handler.pydiator")
+    @mock.patch("app.resources.todo.usecases.get_todo_by_id.pydiator")
     def test_handler_return_none(self, mock_pydiator):
         # Given
         mock_pydiator.send.side_effect = [self.async_return(None)]

@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
 from pydiator_core.mediatr import pydiator
-from app.data.todo.handlers.get_todo_by_id_data_handler import GetTodoByIdDataRequest
+from app.data.todo.usecases.get_todo_by_id_data import GetTodoByIdDataRequest
 
 
 class GetTodoByIdRequest(BaseModel, BaseRequest):
@@ -13,7 +13,7 @@ class GetTodoByIdResponse(BaseModel, BaseResponse):
     title: str = Field(...)
 
 
-class GetTodoByIdHandler(BaseHandler):
+class GetTodoByIdUseCase(BaseHandler):
 
     async def handle(self, req: GetTodoByIdRequest) -> GetTodoByIdResponse:
         todo_data = await pydiator.send(GetTodoByIdDataRequest(id=req.id))

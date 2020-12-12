@@ -1,18 +1,18 @@
 from unittest import mock
 
-from app.data.todo.handlers.delete_todo_by_id_data_handler import DeleteTodoByIdDataResponse
+from app.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataResponse
 from pydiator_core.mediatr import pydiator
-from app.resources.todo.handlers.delete_todo_by_id_handler import \
-    DeleteTodoByIdRequest, DeleteTodoByIdResponse, DeleteTodoByIdHandler
+from app.resources.todo.usecases.delete_todo_by_id import \
+    DeleteTodoByIdRequest, DeleteTodoByIdResponse, DeleteTodoByIdUseCase
 from tests.base_test_case import BaseTestCase
 
 
 class TestDeleteTodoByIdHandler(BaseTestCase):
 
     def setUp(self):
-        self.register_request(DeleteTodoByIdRequest(), DeleteTodoByIdHandler())
+        self.register_request(DeleteTodoByIdRequest(), DeleteTodoByIdUseCase())
 
-    @mock.patch("app.resources.todo.handlers.delete_todo_by_id_handler.pydiator")
+    @mock.patch("app.resources.todo.usecases.delete_todo_by_id.pydiator")
     def test_handler_return_success(self, mock_pydiator):
         # Given
         mock_pydiator.send.side_effect = [self.async_return(DeleteTodoByIdDataResponse(success=True))]
@@ -30,7 +30,7 @@ class TestDeleteTodoByIdHandler(BaseTestCase):
         assert mock_pydiator.send.called
         assert mock_pydiator.publish.called
 
-    @mock.patch("app.resources.todo.handlers.delete_todo_by_id_handler.pydiator")
+    @mock.patch("app.resources.todo.usecases.delete_todo_by_id.pydiator")
     def test_handler_return_fail(self, mock_pydiator):
         # Given
         mock_pydiator.send.side_effect = [self.async_return(DeleteTodoByIdDataResponse(success=False))]

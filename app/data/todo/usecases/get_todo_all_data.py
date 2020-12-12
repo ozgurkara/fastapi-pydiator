@@ -14,7 +14,7 @@ class GetTodoAllDataResponse(BaseModel, BaseResponse):
     title: str = Field(...)
 
 
-class GetTodoAllDataHandler(BaseHandler):
+class GetTodoAllDataUseCase(BaseHandler):
 
     async def handle(self, req: GetTodoAllDataRequest) -> List[GetTodoAllDataResponse]:
         response = []

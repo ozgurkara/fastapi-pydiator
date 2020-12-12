@@ -1,17 +1,17 @@
 from unittest import mock
 
-from app.data.todo.handlers.update_todo_data_handler import UpdateTodoDataResponse
-from app.resources.todo.handlers.update_todo_handler import \
-    UpdateTodoRequest, UpdateTodoResponse, UpdateTodoHandler
+from app.data.todo.usecases.update_todo_data import UpdateTodoDataResponse
+from app.resources.todo.usecases.update_todo import \
+    UpdateTodoRequest, UpdateTodoResponse, UpdateTodoUseCase
 from pydiator_core.mediatr import pydiator
 from tests.base_test_case import BaseTestCase
 
 
 class TestAddTodoHandler(BaseTestCase):
     def setUp(self):
-        self.register_request(UpdateTodoRequest(), UpdateTodoHandler())
+        self.register_request(UpdateTodoRequest(), UpdateTodoUseCase())
 
-    @mock.patch("app.resources.todo.handlers.update_todo_handler.pydiator")
+    @mock.patch("app.resources.todo.usecases.update_todo.pydiator")
     def test_handler_return_success(self, mock_pydiator):
         # Given
         mock_pydiator.send.side_effect = [self.async_return(UpdateTodoDataResponse(success=True))]
@@ -31,10 +31,10 @@ class TestAddTodoHandler(BaseTestCase):
         assert mock_pydiator.send.called
         assert mock_pydiator.publish.called
 
-    @mock.patch("app.resources.todo.handlers.update_todo_handler.pydiator")
+    @mock.patch("app.resources.todo.usecases.update_todo.pydiator")
     def test_handler_return_fail(self, mock_pydiator):
         # Given
-        self.register_request(UpdateTodoRequest(), UpdateTodoHandler())
+        self.register_request(UpdateTodoRequest(), UpdateTodoUseCase())
         mock_pydiator.send.side_effect = [self.async_return(UpdateTodoDataResponse(success=False))]
 
         id_val = 1

@@ -1,18 +1,18 @@
 from unittest import mock
 
-from app.data.todo.handlers.add_todo_data_handler import AddTodoDataHandler, AddTodoDataRequest, AddTodoDataResponse
+from app.data.todo.usecases.add_todo_data import AddTodoDataUseCase, AddTodoDataRequest, AddTodoDataResponse
 from pydiator_core.mediatr import pydiator
 from tests.base_test_case import BaseTestCase
 
 
 class TestAddTodoDataHandler(BaseTestCase):
     def setUp(self):
-        self.register_request(AddTodoDataRequest(), AddTodoDataHandler())
+        self.register_request(AddTodoDataRequest(), AddTodoDataUseCase())
 
-    @mock.patch("app.data.todo.handlers.add_todo_data_handler.fake_todo_db")
+    @mock.patch("app.data.todo.usecases.add_todo_data.fake_todo_db")
     def test_handler_return_success(self, mock_fake_todo_db):
         # Given
-        self.register_request(AddTodoDataRequest(), AddTodoDataHandler())
+        self.register_request(AddTodoDataRequest(), AddTodoDataUseCase())
         mock_fake_todo_db.__iter__.return_value = []
 
         title_val = "title"

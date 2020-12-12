@@ -1,6 +1,6 @@
 from unittest import mock
 
-from app.data.todo.handlers.update_todo_data_handler import UpdateTodoDataHandler, UpdateTodoDataRequest, \
+from app.data.todo.usecases.update_todo_data import UpdateTodoDataUseCase, UpdateTodoDataRequest, \
     UpdateTodoDataResponse
 from pydiator_core.mediatr import pydiator
 from tests.base_test_case import BaseTestCase
@@ -8,9 +8,9 @@ from tests.base_test_case import BaseTestCase
 
 class TestUpdateTodoDataHandler(BaseTestCase):
     def setUp(self):
-        self.register_request(UpdateTodoDataRequest(), UpdateTodoDataHandler())
+        self.register_request(UpdateTodoDataRequest(), UpdateTodoDataUseCase())
 
-    @mock.patch("app.data.todo.handlers.update_todo_data_handler.fake_todo_db")
+    @mock.patch("app.data.todo.usecases.update_todo_data.fake_todo_db")
     def test_handler_return_success(self, mock_fake_todo_db):
         # Given
         id_val = 1
@@ -26,7 +26,7 @@ class TestUpdateTodoDataHandler(BaseTestCase):
         # Then
         assert response == expected_response
 
-    @mock.patch("app.data.todo.handlers.update_todo_data_handler.fake_todo_db")
+    @mock.patch("app.data.todo.usecases.update_todo_data.fake_todo_db")
     def test_handler_return_fail(self, mock_fake_todo_db):
         # Given
         mock_fake_todo_db.__iter__.return_value = []

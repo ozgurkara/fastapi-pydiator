@@ -11,7 +11,7 @@ class AddTodoDataResponse(BaseModel, BaseResponse):
     success: bool = Field(...)
 
 
-class AddTodoDataHandler(BaseHandler):
+class AddTodoDataUseCase(BaseHandler):
 
     async def handle(self, req: AddTodoDataRequest) -> AddTodoDataResponse:
         fake_todo_db.append({

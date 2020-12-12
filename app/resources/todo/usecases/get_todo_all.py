@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler, BaseCacheable, CacheType
 from typing import List
 from pydiator_core.mediatr import pydiator
-from app.data.todo.handlers.get_todo_all_data_handler import GetTodoAllDataRequest
+from app.data.todo.usecases.get_todo_all_data import GetTodoAllDataRequest
 
 
 class GetTodoAllRequest(BaseModel, BaseRequest, BaseCacheable):
@@ -21,7 +21,7 @@ class GetTodoAllResponse(BaseModel, BaseResponse):
     title: str = Field(...)
 
 
-class GetTodoAllHandler(BaseHandler):
+class GetTodoAllUseCase(BaseHandler):
 
     async def handle(self, req: GetTodoAllRequest) -> List[GetTodoAllResponse]:
         response = []

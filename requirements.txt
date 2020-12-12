@@ -1,13 +1,13 @@
-pydantic==1.7.2
-fastapi==0.61.2
-uvicorn
-redis
+pydantic==1.7.3
+fastapi==0.62.0
+uvicorn==0.13.1
+redis==3.5.3
 pytest==6.1.2
 requests==2.25.0
-coverage
-pytest-env
+coverage==5.3
+pytest-env==0.6.2
 python-dotenv==0.15.0
-pydiator-core==1.0.1
+pydiator-core==1.0.4
 
 
 
