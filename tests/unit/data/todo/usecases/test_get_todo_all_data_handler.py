@@ -22,7 +22,7 @@ class TestGetTodoAllDataHandler(BaseTestCase):
         assert request.get_cache_type() == CacheType.DISTRIBUTED
 
     @mock.patch("app.data.todo.usecases.get_todo_all_data.fake_todo_db")
-    def test_handler_return_list(self, mock_fake_todo_db):
+    def test_handle_return_list(self, mock_fake_todo_db):
         # Give
         id_val = 1
         title_val = "title 1"
@@ -38,7 +38,7 @@ class TestGetTodoAllDataHandler(BaseTestCase):
         assert response == expected_response
 
     @mock.patch("app.data.todo.usecases.get_todo_all_data.fake_todo_db")
-    def test_handler_return_empty_list(self, mock_fake_todo_db):
+    def test_handle_return_empty_list(self, mock_fake_todo_db):
         # Given
         mock_fake_todo_db.__iter__.return_value = []
         request = GetTodoAllDataRequest()

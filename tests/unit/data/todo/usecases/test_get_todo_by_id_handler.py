@@ -11,7 +11,7 @@ class TestGetTodoByIdDataHandler(BaseTestCase):
         self.register_request(GetTodoByIdDataRequest(), GetTodoByIdDataUseCase())
 
     @mock.patch("app.data.todo.usecases.get_todo_by_id_data.fake_todo_db")
-    def test_handler_return_todo(self, mock_fake_todo_db):
+    def test_handle_return_todo(self, mock_fake_todo_db):
         # Given
         id_val = 1
         title_val = "title 1"
@@ -27,7 +27,7 @@ class TestGetTodoByIdDataHandler(BaseTestCase):
         assert response == expected_response
 
     @mock.patch("app.data.todo.usecases.get_todo_by_id_data.fake_todo_db")
-    def test_handler_return_none(self, mock_fake_todo_db):
+    def test_handle_return_none(self, mock_fake_todo_db):
         # Given
         mock_fake_todo_db.__iter__.return_value = []
         request = GetTodoByIdDataRequest(id=1)

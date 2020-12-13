@@ -11,7 +11,7 @@ class TestUpdateTodoDataHandler(BaseTestCase):
         self.register_request(UpdateTodoDataRequest(), UpdateTodoDataUseCase())
 
     @mock.patch("app.data.todo.usecases.update_todo_data.fake_todo_db")
-    def test_handler_return_success(self, mock_fake_todo_db):
+    def test_handle_return_success(self, mock_fake_todo_db):
         # Given
         id_val = 1
         mock_fake_todo_db.__iter__.return_value = [{"id": id_val, "title": "title 1"}]
@@ -27,7 +27,7 @@ class TestUpdateTodoDataHandler(BaseTestCase):
         assert response == expected_response
 
     @mock.patch("app.data.todo.usecases.update_todo_data.fake_todo_db")
-    def test_handler_return_fail(self, mock_fake_todo_db):
+    def test_handle_return_fail(self, mock_fake_todo_db):
         # Given
         mock_fake_todo_db.__iter__.return_value = []
         title_val = "title 1 updated"

@@ -11,7 +11,7 @@ class TestGetTodoByIdHandler(BaseTestCase):
         self.register_request(GetTodoAllRequest(), GetTodoAllUseCase())
 
     @mock.patch("app.resources.todo.usecases.get_todo_all.pydiator")
-    def test_handler_return_list(self, mock_pydiator):
+    def test_handle_return_list(self, mock_pydiator):
         # Given
         id_val = 1
         title_val = "title 1"
@@ -27,7 +27,7 @@ class TestGetTodoByIdHandler(BaseTestCase):
         assert response == expected_response
 
     @mock.patch("app.resources.todo.usecases.get_todo_all.pydiator")
-    def test_handler_return_empty_list(self, mock_pydiator):
+    def test_handle_return_empty_list(self, mock_pydiator):
         # Given
         mock_pydiator.send.side_effect = [self.async_return([])]
         request = GetTodoAllRequest(id=1)

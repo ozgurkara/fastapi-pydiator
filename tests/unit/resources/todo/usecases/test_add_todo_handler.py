@@ -12,7 +12,7 @@ class TestAddTodoHandler(BaseTestCase):
         self.register_request(AddTodoRequest(), AddTodoUseCase())
 
     @mock.patch("app.resources.todo.usecases.add_todo.pydiator")
-    def test_handler_return_success(self, mock_pydiator):
+    def test_handle_return_success(self, mock_pydiator):
         # Given
         mock_pydiator.send.side_effect = [self.async_return(AddTodoDataResponse(success=True))]
         mock_pydiator.publish.side_effect = [self.async_return(True)]
@@ -30,7 +30,7 @@ class TestAddTodoHandler(BaseTestCase):
         assert mock_pydiator.publish.called
 
     @mock.patch("app.resources.todo.usecases.add_todo.pydiator")
-    def test_handler_return_fail(self, mock_pydiator):
+    def test_handle_return_fail(self, mock_pydiator):
         # Given
         mock_pydiator.send.side_effect = [self.async_return(AddTodoDataResponse(success=False))]
 
