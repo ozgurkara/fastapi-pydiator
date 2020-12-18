@@ -4,6 +4,8 @@ This project is an example that how to implement fast-API and the pydiator-core.
 # How to run app
 `uvicorn app.main:app --reload`
 
+swagger http://0.0.0.0:8000/docs
+
 # How to run Unit & Integration Test
 `coverage run --source app/ -m pytest`
 

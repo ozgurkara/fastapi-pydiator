@@ -7,7 +7,7 @@ from app.resources.todo.notifications.todo_cache_remove_handler import TodoChang
 
 
 class AddTodoRequest(BaseModel, BaseRequest):
-    title: str = Field("", title="The title of the item", max_length=300, min_length=1)
+    title: str = Field("title", title="The title of the item", max_length=300, min_length=1)
 
 
 class AddTodoResponse(BaseModel, BaseResponse):

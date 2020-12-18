@@ -1,33 +1,25 @@
 import uvicorn
+from pydantic import ValidationError
+from starlette.exceptions import HTTPException
 
 from app.resources.todo import todo_resource
-from pydantic import ValidationError
 from fastapi import FastAPI
-from fastapi.exception_handlers import (
-    http_exception_handler,
-    request_validation_exception_handler
-)
-
+from app.utils.exception.exception_handlers import http_exception_handler, validation_exception_handler, \
+    unhandled_exception_handler
 from app.pydiator_core_config import set_up_pydiator
-from starlette.exceptions import HTTPException as StarletteHTTPException
 
 app = FastAPI()
+
+
+def add_exception_handlers(a: FastAPI):
+    a.add_exception_handler(Exception, unhandled_exception_handler)
+    a.add_exception_handler(HTTPException, http_exception_handler)
+    a.add_exception_handler(ValidationError, validation_exception_handler)
 
 
 @app.get("/")
 async def home():
     return "hello pydiator"
-
-
-@app.exception_handler(StarletteHTTPException)
-async def custom_http_exception_handler(request, exc):
-    print(f"OMG! An HTTP error!: {exc}")
-    return await http_exception_handler(request, exc)
-
-
-@app.exception_handler(ValidationError)
-async def validation_exception_handler(request, exc):
-    return await request_validation_exception_handler(request, exc)
 
 
 app.include_router(
@@ -36,7 +28,8 @@ app.include_router(
     tags=["todo"]
 )
 
+add_exception_handlers(app)
 set_up_pydiator()
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run("main:app", host="0.0.0.0", port=8001, log_level="info", reload=True)
