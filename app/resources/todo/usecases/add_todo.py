@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 from app.data.todo.usecases.add_todo_data import AddTodoDataRequest
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
 from pydiator_core.mediatr import pydiator
-from app.resources.todo.notifications.todo_cache_remove_handler import TodoChangeNotification
+from app.resources.todo.notifications.todo_cache_remove_handler import TodoChangePublisherRequest
 
 
 class AddTodoRequest(BaseModel, BaseRequest):
@@ -19,7 +19,10 @@ class AddTodoUseCase(BaseHandler):
     async def handle(self, req: AddTodoRequest) -> AddTodoResponse:
         data_response = await pydiator.send(AddTodoDataRequest(title=req.title))
         if data_response.success:
-            await pydiator.publish(TodoChangeNotification())
+            await pydiator.publish(TodoChangePublisherRequest())
             return AddTodoResponse(success=True)
 
         return AddTodoResponse(success=False)
+
+
+

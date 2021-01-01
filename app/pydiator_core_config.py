@@ -13,8 +13,8 @@ from app.resources.todo.usecases.get_todo_by_id import GetTodoByIdRequest, GetTo
 from app.resources.todo.usecases.add_todo import AddTodoRequest, AddTodoUseCase
 from app.resources.todo.usecases.update_todo import UpdateTodoRequest, UpdateTodoUseCase
 from app.resources.todo.usecases.delete_todo_by_id import DeleteTodoByIdRequest, DeleteTodoByIdUseCase
-from app.resources.todo.notifications.todo_cache_remove_handler import TodoChangeNotification, \
-    TodoCacheRemoveNotificationHandler
+from app.resources.todo.notifications.todo_cache_remove_handler import TodoChangePublisherRequest, \
+    TodoCacheRemoveSubscriber
 
 from app.data.todo.usecases.get_todo_all_data import GetTodoAllDataRequest, GetTodoAllDataUseCase
 from app.data.todo.usecases.get_todo_by_id_data import GetTodoByIdDataRequest, GetTodoByIdDataUseCase
@@ -46,7 +46,7 @@ def set_up_pydiator():
     container.register_request(UpdateTodoDataRequest, UpdateTodoDataUseCase())
 
     # Notification mapping
-    container.register_notification(TodoChangeNotification, [TodoCacheRemoveNotificationHandler()])
+    container.register_notification(TodoChangePublisherRequest, [TodoCacheRemoveSubscriber()])
 
     # Start
     pydiator.ready(container=container)
