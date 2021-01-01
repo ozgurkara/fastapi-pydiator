@@ -22,12 +22,14 @@ It provides that developing the code as an aspect. Also, it supports clean archi
 It is using design patterns such as chain of responsibility, mediator, singleton.
 
 Pydiator provides which advantages to developers and project?
-* Is testable
-* Has Use case support
-* Has Aspect programming (Authorization, Validation, Cache, Logging, Tracer etc.) support
-* Has Clean architecture support
+* Testable
+* Use case support
+* Aspect programming (Authorization, Validation, Cache, Logging, Tracer etc.) support
+* Clean architecture
 * Expandable architecture via pipeline
-* Is independent framework
+* Independent framework
+* SOLID principles
+* Has publisher subscriber infrastructure
  
 ![pydiator](https://raw.githubusercontent.com/ozgurkara/pydiator-core/master/assets/pydiator_flow.png)
 
@@ -65,7 +67,7 @@ These are;
    class GetSampleByIdUseCase(BaseHandler):
         async def handle(self, req: GetSampleByIdRequest):
             # related codes are here such as business
-            return GetSampleByIdResponse(id=req.id, title="hello pydiator")     
+            return GetSampleByIdResponse(id=req.id, title="hello pydiatr")     
    ``` 
 
 <hr>
@@ -126,7 +128,7 @@ You can add the pipeline to pipelines such as;
 ````
 <br/>
 
-***How can I write custom pipeline?***
+***How can you write custom pipeline?***
    * Every pipeline  should be inherited ***BasePipeline***
    * Sample pipeline
 ```python
@@ -146,4 +148,32 @@ You can add the pipeline to pipelines such as;
 ```   
 
 
+# How to use the publisher subscriber feature
+
+***What is the observer feature?***
+
+This feature runs as pub-sub design pattern.
+
+**What is the pub-sub pattern?**
+
+publish-subscribe is a messaging pattern where senders of messages, called publishers, do not program the messages to be sent directly to specific receivers, called subscribers, but instead, categorize published messages into classes without knowledge of which subscribers if any, there may be. Similarly, subscribers express interest in one or more classes and only receive messages that are of interest, without knowledge of which publishers, if any, there are.
+<br/>
+
+**How to use this pattern with the pydiator?**
+
+You can see the details that via this link https://github.com/ozgurkara/pydiator-core/blob/master/examples/pub_sub.py
+
+```python
+def set_up_pydiator():
+    container = MediatrContainer()
+    container.register_notification(SamplePublisherRequest, [Sample1Subscriber(), Sample2Subscriber(),
+                                                             Sample3Subscriber()])
+    pydiator.ready(container=container)
+
+if __name__ == "__main__":
+    set_up_pydiator()
+    loop = asyncio.new_event_loop()
+    loop.run_until_complete(pydiator.publish(SamplePublisherRequest(id=1)))
+    loop.close()
+```
 
