@@ -7,7 +7,7 @@ from app.resources.todo.usecases.get_todo_by_id import GetTodoByIdRequest, GetTo
 from app.resources.todo.usecases.add_todo import AddTodoRequest, AddTodoResponse
 from app.resources.todo.usecases.update_todo import UpdateTodoRequest, UpdateTodoResponse
 from app.resources.todo.usecases.delete_todo_by_id import DeleteTodoByIdRequest, DeleteTodoByIdResponse
-from app.utils.error.error_response import ErrorResponse, generate_validation_error_response, generate_error_response
+from app.utils.error.error_response import ErrorResponseModel, ErrorResponseExample
 
 router = APIRouter()
 
@@ -17,8 +17,8 @@ router = APIRouter()
             responses={
                 status.HTTP_200_OK: {"model": List[GetTodoAllResponse]},
                 status.HTTP_400_BAD_REQUEST: {
-                    "model": ErrorResponse,
-                    "content": generate_error_response(),
+                    "model": ErrorResponseModel,
+                    "content": ErrorResponseExample.get_error_response(),
                 },
             })
 async def get_todo_all():
@@ -30,12 +30,12 @@ async def get_todo_all():
             responses={
                 status.HTTP_200_OK: {"model": GetTodoByIdResponse},
                 status.HTTP_400_BAD_REQUEST: {
-                    "model": ErrorResponse,
-                    "content": generate_error_response(),
+                    "model": ErrorResponseModel,
+                    "content": ErrorResponseExample.get_error_response(),
                 },
                 status.HTTP_422_UNPROCESSABLE_ENTITY: {
-                    "model": ErrorResponse,
-                    "content": generate_validation_error_response(
+                    "model": ErrorResponseModel,
+                    "content": ErrorResponseExample.get_validation_error_response(
                         invalid_field_location=["path", "id"]
                     ),
                 },
@@ -53,12 +53,12 @@ async def get_todo_by_id(id: int, response: Response):
              responses={
                  status.HTTP_200_OK: {"model": AddTodoResponse},
                  status.HTTP_400_BAD_REQUEST: {
-                     "model": ErrorResponse,
-                     "content": generate_error_response(),
+                     "model": ErrorResponseModel,
+                     "content": ErrorResponseExample.get_error_response(),
                  },
                  status.HTTP_422_UNPROCESSABLE_ENTITY: {
-                     "model": ErrorResponse,
-                     "content": generate_validation_error_response(
+                     "model": ErrorResponseModel,
+                     "content": ErrorResponseExample.get_validation_error_response(
                          invalid_field_location=["body", "title"]
                      ),
                  },
@@ -71,12 +71,12 @@ async def add_todo(req: AddTodoRequest):
             responses={
                 status.HTTP_200_OK: {"model": UpdateTodoResponse},
                 status.HTTP_400_BAD_REQUEST: {
-                    "model": ErrorResponse,
-                    "content": generate_error_response(),
+                    "model": ErrorResponseModel,
+                    "content": ErrorResponseExample.get_error_response(),
                 },
                 status.HTTP_422_UNPROCESSABLE_ENTITY: {
-                    "model": ErrorResponse,
-                    "content": generate_validation_error_response(
+                    "model": ErrorResponseModel,
+                    "content": ErrorResponseExample.get_validation_error_response(
                         invalid_field_location=["path", "id"]
                     ),
                 },
@@ -90,12 +90,12 @@ async def update_todo(id: int, req: UpdateTodoRequest):
                responses={
                    status.HTTP_200_OK: {"model": DeleteTodoByIdResponse},
                    status.HTTP_400_BAD_REQUEST: {
-                       "model": ErrorResponse,
-                       "content": generate_error_response(),
+                       "model": ErrorResponseModel,
+                       "content": ErrorResponseExample.get_error_response(),
                    },
                    status.HTTP_422_UNPROCESSABLE_ENTITY: {
-                       "model": ErrorResponse,
-                       "content": generate_validation_error_response(
+                       "model": ErrorResponseModel,
+                       "content": ErrorResponseExample.get_validation_error_response(
                            invalid_field_location=["path", "id"]
                        ),
                    },
