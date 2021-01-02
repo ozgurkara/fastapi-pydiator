@@ -1,10 +1,13 @@
 import traceback
+from typing import Optional, List
+
 from fastapi import HTTPException
 from fastapi.encoders import jsonable_encoder
 from starlette import status
 from starlette.responses import JSONResponse
 
 from app.utils.error.error_response import ErrorResponseModel, ErrorsInfoStack
+from app.utils.exception.exception_types import DataException, ServiceException
 
 
 class ExceptionHandlers:
@@ -16,6 +19,24 @@ class ExceptionHandlers:
             content=ExceptionHandlers.__get_error_content(
                 error_info=ErrorsInfoStack.unhandled_error,
                 error_detail=[ExceptionHandlers.__get_stack_trace(exc)]
+            ),
+        )
+
+    @staticmethod
+    def data_exception(request, exc: DataException):
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content=ExceptionHandlers.__get_error_content(
+                error_info=exc.error_info
+            ),
+        )
+
+    @staticmethod
+    def service_exception(request, exc: ServiceException):
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content=ExceptionHandlers.__get_error_content(
+                error_info=exc.error_info
             ),
         )
 
@@ -40,7 +61,7 @@ class ExceptionHandlers:
         )
 
     @staticmethod
-    def __get_error_content(error_info: ErrorsInfoStack.ErrorInfo, error_detail: list):
+    def __get_error_content(error_info: ErrorsInfoStack.ErrorInfo, error_detail: Optional[List] = None):
         return jsonable_encoder(
             ErrorResponseModel(
                 error_code=error_info.code,

@@ -1,10 +1,11 @@
 from fastapi.testclient import TestClient
-from app.app import app
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY, HTTP_200_OK
+
+from app.app import create_app
 
 
 class TestTodo:
-    client = TestClient(app)
+    client = TestClient(app=create_app())
 
     def test_read_main(self):
         response = self.client.get("/")

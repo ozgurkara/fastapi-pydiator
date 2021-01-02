@@ -1,6 +1,8 @@
 from pydantic import BaseModel, Field, Extra
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
 from app.db.fake_db import fake_todo_db
+from app.utils.error.error_models import ErrorsInfoStack
+from app.utils.exception.exception_types import DataException
 
 
 class UpdateTodoDataRequest(BaseModel, BaseRequest):
@@ -20,4 +22,6 @@ class UpdateTodoDataUseCase(BaseHandler):
                 it["title"] = req.title
                 return UpdateTodoDataResponse(success=True)
 
-        return UpdateTodoDataResponse(success=False)
+        raise DataException(error_info=ErrorsInfoStack.not_found_error)
+
+        #return UpdateTodoDataResponse(success=False)

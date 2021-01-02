@@ -13,7 +13,7 @@ services:
       - .env
     depends_on:
       - redis
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload
+    command: uvicorn main:app --host 0.0.0.0 --port 8080 --reload
   redis:
     restart: always
     image: redis:5.0.7
