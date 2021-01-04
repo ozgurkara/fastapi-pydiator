@@ -13,9 +13,11 @@ class ErrorsInfoStack:
     # General errors
     unhandled_error = ErrorInfo(code=1, message='Internal server error')
     could_not_get_excepted_response = ErrorInfo(code=2, message='Could not get expected response')
-    model_validation_error = ErrorInfo(code=100, message='Model validation error')
-    not_found_error = ErrorInfo(code=101, message='Not found')
+    model_validation_error = ErrorInfo(code=3, message='Model validation error')
+    not_found_error = ErrorInfo(code=4, message='Not found')
+
     # Custom errors
+    todo_not_found_error = ErrorInfo(code=101, message='Todo not found')
 
 
 class ErrorResponseModel(BaseModel):

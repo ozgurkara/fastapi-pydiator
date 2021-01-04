@@ -1,6 +1,7 @@
-from fastapi import APIRouter
 from typing import List
 from fastapi import Response, status
+from fastapi import APIRouter
+
 from pydiator_core.mediatr import pydiator
 from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest, GetTodoAllResponse
 from app.resources.todo.usecases.get_todo_by_id import GetTodoByIdRequest, GetTodoByIdResponse
@@ -40,12 +41,8 @@ async def get_todo_all():
                     ),
                 },
             })
-async def get_todo_by_id(id: int, response: Response):
-    result = await pydiator.send(GetTodoByIdRequest(id=id))
-    if result is None:
-        response.status_code = status.HTTP_404_NOT_FOUND
-
-    return result
+async def get_todo_by_id(id: int):
+    return await pydiator.send(GetTodoByIdRequest(id=id))
 
 
 @router.post("",

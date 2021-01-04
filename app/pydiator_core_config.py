@@ -20,13 +20,16 @@ from app.data.todo.usecases.get_todo_all_data import GetTodoAllDataRequest, GetT
 from app.data.todo.usecases.get_todo_by_id_data import GetTodoByIdDataRequest, GetTodoByIdDataUseCase
 from app.data.todo.usecases.add_todo_data import AddTodoDataUseCase, AddTodoDataRequest
 from app.data.todo.usecases.update_todo_data import UpdateTodoDataRequest, UpdateTodoDataUseCase
+from app.utils.pipelines.tracer_pipeline import TracerPipeline
 
 DistributedCacheProvider.key_prefix = redis_key_prefix
 
 
 def set_up_pydiator():
     container = MediatrContainer()
+    container.register_pipeline(TracerPipeline())
     container.register_pipeline(LogPipeline())
+
     if cache_pipeline_is_active is True:
         cache_pipeline = CachePipeline(get_distributed_cache_provider())
         container.register_pipeline(cache_pipeline)

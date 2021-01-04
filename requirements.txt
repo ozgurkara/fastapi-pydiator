@@ -8,9 +8,11 @@ coverage==5.3
 pytest-env==0.6.2
 python-dotenv==0.15.0
 pydiator-core==1.0.4
-
-
-
+jaeger-client==4.3.0
+opentracing==2.3.0
+opentracing-instrumentation==3.2.1
+fastapi-contrib
+starlette_opentracing
 
 
 

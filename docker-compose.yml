@@ -13,6 +13,7 @@ services:
       - .env
     depends_on:
       - redis
+      - jaeger
     command: uvicorn main:app --host 0.0.0.0 --port 8080 --reload
   redis:
     restart: always
@@ -21,3 +22,8 @@ services:
       - "6379:6379"
     volumes:
       - .data/db:/data
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "5776:5776/udp"
+      - "16686:16686"
