@@ -37,7 +37,6 @@ def create_app():
 
     @app.on_event('startup')
     async def startup():
-        print("startup")
         app.state.tracer = tracer
         app.tracer = app.state.tracer
         app.add_middleware(OpentracingMiddleware)

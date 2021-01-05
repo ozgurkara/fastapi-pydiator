@@ -6,7 +6,6 @@ from pydiator_core.mediatr import pydiator
 from app.resources.todo.notifications.todo_cache_remove_handler import TodoChangePublisherRequest
 
 
-
 class AddTodoRequest(BaseModel, BaseRequest):
     title: str = Field("title", title="The title of the item", max_length=300, min_length=1)
 
@@ -24,6 +23,3 @@ class AddTodoUseCase(BaseHandler):
             return AddTodoResponse(success=True)
 
         return AddTodoResponse(success=False)
-
-
-

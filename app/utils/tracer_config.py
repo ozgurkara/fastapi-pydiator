@@ -6,7 +6,6 @@ from app.utils.config import jaeger_host, jaeger_port, jaeger_sampler_rate, jaeg
 
 
 def init_tracer(service_name: str):
-    print("init_tracer")
     config = Config(
         config={
             "local_agent": {

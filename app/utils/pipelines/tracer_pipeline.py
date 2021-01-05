@@ -9,11 +9,12 @@ from fastapi_contrib.tracing.middlewares import request_span
 class TracerPipeline(BasePipeline):
 
     async def handle(self, req: BaseRequest) -> object:
-        # span = request_span.get()
-
         current_span = get_current_span()
         if get_current_span() is None:
-            current_span = request_span.get()
+            try:
+                current_span = request_span.get()
+            except:
+                pass
 
         span_tags = {
             tags.SPAN_KIND: tags.SPAN_KIND_RPC_SERVER,
