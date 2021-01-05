@@ -1,12 +1,8 @@
 from jaeger_client import Config
 from opentracing.scope_managers.asyncio import AsyncioScopeManager
 
-JAEGER_HOST = '0.0.0.0'
-JAEGER_PORT = 5775
-JAEGER_SAMPLER_TYPE = 'probabilistic'
-JAEGER_SAMPLER_RATE = 1.0
-JAEGER_TRACE_ID_HEADER = 'ss'
-JAEGER_IP_TAG_KEY = 1
+from app.utils.config import jaeger_host, jaeger_port, jaeger_sampler_rate, jaeger_sampler_type, jaeger_trace_id_header, \
+    jaeger_service_name
 
 
 def init_tracer(service_name: str):
@@ -14,12 +10,14 @@ def init_tracer(service_name: str):
     config = Config(
         config={
             "local_agent": {
-                "reporting_host": JAEGER_HOST,
-                "reporting_port": JAEGER_PORT,
+                "reporting_host": jaeger_host,
+                "reporting_port": jaeger_port,
             },
-            "sampler": {"type": JAEGER_SAMPLER_TYPE, "param": JAEGER_SAMPLER_RATE},
-            "trace_id_header": JAEGER_TRACE_ID_HEADER,
-            # "generate_128bit_trace_id": JAEGER_TRACEID_128BIT,
+            "sampler": {
+                "type": jaeger_sampler_type,
+                "param": jaeger_sampler_rate
+            },
+            "trace_id_header": jaeger_trace_id_header,
         },
         scope_manager=AsyncioScopeManager(),
         service_name=service_name,
@@ -28,4 +26,4 @@ def init_tracer(service_name: str):
     return config.initialize_tracer()
 
 
-tracer = init_tracer("pydiator-api")
+tracer = init_tracer(jaeger_service_name)

@@ -2,6 +2,7 @@ from app.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataUseC
 from app.utils.config import redis_key_prefix, cache_pipeline_is_active, distributed_cache_is_active
 from app.utils.client_factory import get_distributed_cache_provider
 from app.utils.distributed_cache_provider import DistributedCacheProvider
+from app.utils.pipelines.tracer_pipeline import TracerPipeline
 
 from pydiator_core.mediatr import pydiator
 from pydiator_core.mediatr_container import MediatrContainer
@@ -20,7 +21,6 @@ from app.data.todo.usecases.get_todo_all_data import GetTodoAllDataRequest, GetT
 from app.data.todo.usecases.get_todo_by_id_data import GetTodoByIdDataRequest, GetTodoByIdDataUseCase
 from app.data.todo.usecases.add_todo_data import AddTodoDataUseCase, AddTodoDataRequest
 from app.data.todo.usecases.update_todo_data import UpdateTodoDataRequest, UpdateTodoDataUseCase
-from app.utils.pipelines.tracer_pipeline import TracerPipeline
 
 DistributedCacheProvider.key_prefix = redis_key_prefix
 

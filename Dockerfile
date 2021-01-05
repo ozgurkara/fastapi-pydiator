@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.8
 
 RUN mkdir src
 
@@ -10,5 +10,5 @@ COPY main.py src
 WORKDIR src
 RUN pip install -r requirements.txt
 
-EXPOSE 8080
+EXPOSE 8081
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8081"]

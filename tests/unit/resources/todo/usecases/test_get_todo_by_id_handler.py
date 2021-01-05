@@ -1,9 +1,13 @@
 from unittest import mock
 
+from pytest import raises
+
 from app.data.todo.usecases.get_todo_by_id_data import GetTodoByIdDataResponse
 from pydiator_core.mediatr import pydiator
 from app.resources.todo.usecases.get_todo_by_id import \
     GetTodoByIdRequest, GetTodoByIdResponse, GetTodoByIdUseCase
+from app.utils.error.error_models import ErrorsInfoStack
+from app.utils.exception.exception_types import ServiceException
 from tests.base_test_case import BaseTestCase
 
 
@@ -32,10 +36,10 @@ class TestGetTodoByIdHandler(BaseTestCase):
         # Given
         mock_pydiator.send.side_effect = [self.async_return(None)]
         request = GetTodoByIdRequest(id=1)
-        expected_response = None
 
         # When
-        response = self.async_loop(pydiator.send(request))
+        with raises(ServiceException) as exc:
+            self.async_loop(pydiator.send(request))
 
         # Then
-        assert response == expected_response
+        assert exc.value.error_info == ErrorsInfoStack.todo_not_found_error
