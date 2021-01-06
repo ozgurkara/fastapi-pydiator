@@ -1,14 +1,14 @@
 from pydantic import BaseModel
-from app.utils.client_factory import get_distributed_cache_provider
 from pydiator_core.interfaces import BaseNotification, BaseNotificationHandler
 from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest
+from app.utils.distributed_cache_provider import get_distributed_cache_provider
 
 
-class TodoChangeNotification(BaseModel, BaseNotification):
+class TodoChangePublisherRequest(BaseModel, BaseNotification):
     pass
 
 
-class TodoCacheRemoveNotificationHandler(BaseNotificationHandler):
+class TodoCacheRemoveSubscriber(BaseNotificationHandler):
     def __init__(self):
         self.cache_provider = get_distributed_cache_provider()
 

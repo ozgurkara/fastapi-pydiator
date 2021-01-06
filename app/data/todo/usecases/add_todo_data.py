@@ -14,9 +14,14 @@ class AddTodoDataResponse(BaseModel, BaseResponse):
 class AddTodoDataUseCase(BaseHandler):
 
     async def handle(self, req: AddTodoDataRequest) -> AddTodoDataResponse:
+        id = 1
+        last_item = fake_todo_db[len(fake_todo_db) - 1]
+        if last_item is not None:
+            id = last_item["id"] + 1
+
         fake_todo_db.append({
-            "id": len(fake_todo_db) + 1,
-            "title": req.title
+            "id": id,
+            "title": f"title {id}"
         })
 
         return AddTodoDataResponse(success=True)

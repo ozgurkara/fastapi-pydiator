@@ -1,8 +1,13 @@
 from unittest import mock
 
+from pytest import raises
+
 from app.data.todo.usecases.update_todo_data import UpdateTodoDataUseCase, UpdateTodoDataRequest, \
     UpdateTodoDataResponse
 from pydiator_core.mediatr import pydiator
+
+from app.utils.error.error_models import ErrorInfoContainer
+from app.utils.exception.exception_types import DataException
 from tests.base_test_case import BaseTestCase
 
 
@@ -32,10 +37,10 @@ class TestUpdateTodoDataHandler(BaseTestCase):
         mock_fake_todo_db.__iter__.return_value = []
         title_val = "title 1 updated"
         request = UpdateTodoDataRequest(title=title_val)
-        expected_response = UpdateTodoDataResponse(success=False)
 
         # When
-        response = self.async_loop(pydiator.send(request))
+        with raises(DataException) as exc:
+            self.async_loop(pydiator.send(request))
 
         # Then
-        assert response == expected_response
+        assert exc.value.error_info == ErrorInfoContainer.not_found_error
