@@ -1,7 +1,7 @@
 from app.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataUseCase, DeleteTodoByIdDataRequest
-from app.utils.config import redis_key_prefix, cache_pipeline_is_active, distributed_cache_is_active
-from app.utils.client_factory import get_distributed_cache_provider
-from app.utils.distributed_cache_provider import DistributedCacheProvider
+from app.utils.config import cache_pipeline_is_active, tracer_is_active, log_pipeline_is_active, \
+    tracer_pipeline_is_active
+from app.utils.distributed_cache_provider import get_distributed_cache_provider
 from app.utils.pipelines.tracer_pipeline import TracerPipeline
 
 from pydiator_core.mediatr import pydiator
@@ -22,15 +22,17 @@ from app.data.todo.usecases.get_todo_by_id_data import GetTodoByIdDataRequest, G
 from app.data.todo.usecases.add_todo_data import AddTodoDataUseCase, AddTodoDataRequest
 from app.data.todo.usecases.update_todo_data import UpdateTodoDataRequest, UpdateTodoDataUseCase
 
-DistributedCacheProvider.key_prefix = redis_key_prefix
-
 
 def set_up_pydiator():
     container = MediatrContainer()
-    container.register_pipeline(TracerPipeline())
-    container.register_pipeline(LogPipeline())
 
-    if cache_pipeline_is_active is True:
+    if tracer_is_active and tracer_pipeline_is_active:
+        container.register_pipeline(TracerPipeline())
+
+    if log_pipeline_is_active:
+        container.register_pipeline(LogPipeline())
+
+    if cache_pipeline_is_active:
         cache_pipeline = CachePipeline(get_distributed_cache_provider())
         container.register_pipeline(cache_pipeline)
 

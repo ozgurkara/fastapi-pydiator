@@ -8,7 +8,10 @@ from tests.base_test_case import BaseTestCase
 
 class TestGetTodoByIdHandler(BaseTestCase):
     def setUp(self):
-        self.register_request(GetTodoAllRequest(), GetTodoAllUseCase())
+        self.register_request(GetTodoAllRequest, GetTodoAllUseCase())
+
+    def tearDown(self):
+        pass
 
     @mock.patch("app.resources.todo.usecases.get_todo_all.pydiator")
     def test_handle_return_list(self, mock_pydiator):
@@ -24,7 +27,8 @@ class TestGetTodoByIdHandler(BaseTestCase):
         response = self.async_loop(pydiator.send(request))
 
         # Then
-        assert response == expected_response
+        assert response is not None
+        assert expected_response == response
 
     @mock.patch("app.resources.todo.usecases.get_todo_all.pydiator")
     def test_handle_return_empty_list(self, mock_pydiator):

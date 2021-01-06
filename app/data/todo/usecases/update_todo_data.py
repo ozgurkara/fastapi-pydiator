@@ -24,4 +24,3 @@ class UpdateTodoDataUseCase(BaseHandler):
 
         raise DataException(error_info=ErrorsInfoStack.not_found_error)
 
-        #return UpdateTodoDataResponse(success=False)

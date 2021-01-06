@@ -18,9 +18,11 @@ class TracerPipeline(BasePipeline):
 
         span_tags = {
             tags.SPAN_KIND: tags.SPAN_KIND_RPC_SERVER,
-            req.get_class_name(): req,
+            "request_type": req.get_class_name(),
+            "request_value": req
         }
 
-        with tracer.start_active_span(req.get_class_name(), child_of=current_span, tags=span_tags):
+        with tracer.start_active_span(req.get_class_name(), child_of=current_span, tags=span_tags,
+                                      finish_on_close=True):
             response = await self.next().handle(req)
             return response
