@@ -8,7 +8,6 @@ from app.utils.config import jaeger_host, jaeger_port, jaeger_sampler_rate, jaeg
 def init_tracer(service_name: str):
     config = Config(
         config={
-            "enabled": False,
             "local_agent": {
                 "reporting_host": jaeger_host,
                 "reporting_port": jaeger_port,
@@ -18,7 +17,6 @@ def init_tracer(service_name: str):
                 "param": jaeger_sampler_rate
             },
             "trace_id_header": jaeger_trace_id_header,
-            "logging": False
         },
         scope_manager=AsyncioScopeManager(),
         service_name=service_name,

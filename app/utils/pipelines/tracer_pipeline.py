@@ -11,10 +11,7 @@ class TracerPipeline(BasePipeline):
     async def handle(self, req: BaseRequest) -> object:
         current_span = get_current_span()
         if get_current_span() is None:
-            try:
-                current_span = request_span.get()
-            except:
-                pass
+            current_span = request_span.get()
 
         span_tags = {
             tags.SPAN_KIND: tags.SPAN_KIND_RPC_SERVER,
