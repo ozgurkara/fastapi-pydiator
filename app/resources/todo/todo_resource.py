@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import Response, status
+from fastapi import status
 from fastapi import APIRouter
 
 from pydiator_core.mediatr import pydiator

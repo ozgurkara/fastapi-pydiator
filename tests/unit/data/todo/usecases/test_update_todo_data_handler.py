@@ -6,7 +6,7 @@ from app.data.todo.usecases.update_todo_data import UpdateTodoDataUseCase, Updat
     UpdateTodoDataResponse
 from pydiator_core.mediatr import pydiator
 
-from app.utils.error.error_models import ErrorsInfoStack
+from app.utils.error.error_models import ErrorInfoContainer
 from app.utils.exception.exception_types import DataException
 from tests.base_test_case import BaseTestCase
 
@@ -43,4 +43,4 @@ class TestUpdateTodoDataHandler(BaseTestCase):
             self.async_loop(pydiator.send(request))
 
         # Then
-        assert exc.value.error_info == ErrorsInfoStack.not_found_error
+        assert exc.value.error_info == ErrorInfoContainer.not_found_error

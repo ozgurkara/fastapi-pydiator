@@ -1,5 +1,5 @@
 from typing import List
-from app.utils.error.error_models import ErrorsInfoStack, ErrorResponseModel
+from app.utils.error.error_models import ErrorInfoContainer, ErrorResponseModel
 
 
 class ErrorResponseExample:
@@ -9,8 +9,8 @@ class ErrorResponseExample:
         return {
             "application/json": {
                 "example": ErrorResponseModel(
-                    error_code=ErrorsInfoStack.could_not_get_excepted_response.code,
-                    error_message=ErrorsInfoStack.could_not_get_excepted_response.message
+                    error_code=ErrorInfoContainer.could_not_get_excepted_response.code,
+                    error_message=ErrorInfoContainer.could_not_get_excepted_response.message
                 ).dict()
             }
         }
@@ -20,8 +20,8 @@ class ErrorResponseExample:
         return {
             "application/json": {
                 "example": ErrorResponseModel(
-                    error_code=ErrorsInfoStack.model_validation_error.code,
-                    error_message=ErrorsInfoStack.model_validation_error.message,
+                    error_code=ErrorInfoContainer.model_validation_error.code,
+                    error_message=ErrorInfoContainer.model_validation_error.message,
                     error_detail=[{
                         "loc": invalid_field_location,
                         "msg": "field required",

@@ -6,7 +6,7 @@ from app.data.todo.usecases.get_todo_by_id_data import GetTodoByIdDataResponse
 from pydiator_core.mediatr import pydiator
 from app.resources.todo.usecases.get_todo_by_id import \
     GetTodoByIdRequest, GetTodoByIdResponse, GetTodoByIdUseCase
-from app.utils.error.error_models import ErrorsInfoStack
+from app.utils.error.error_models import ErrorInfoContainer
 from app.utils.exception.exception_types import ServiceException
 from tests.base_test_case import BaseTestCase
 
@@ -42,4 +42,4 @@ class TestGetTodoByIdHandler(BaseTestCase):
             self.async_loop(pydiator.send(request))
 
         # Then
-        assert exc.value.error_info == ErrorsInfoStack.todo_not_found_error
+        assert exc.value.error_info == ErrorInfoContainer.todo_not_found_error
