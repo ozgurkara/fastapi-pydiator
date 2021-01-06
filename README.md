@@ -1,10 +1,13 @@
+![example event parameter](https://github.com/ozgurkara/fastapi-pydiator/workflows/CI/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/ozgurkara/fastapi-pydiator/badge.svg)](https://coveralls.io/github/ozgurkara/fastapi-pydiator)
+
 # What is the purpose of this repository
-This project is an example that how to implement fast-API and the pydiator-core. You can see the detail of the pydiator-core on this link https://github.com/ozgurkara/pydiator-core 
+This project is an example that how to implement FastAPI and the pydiator-core. You can see the detail of the pydiator-core on this link https://github.com/ozgurkara/pydiator-core 
 
 # How to run app
-`uvicorn app.main:app --reload`
+`uvicorn main:app --reload`
+or `docker-compose up`
 
-swagger http://0.0.0.0:8000/docs
+swagger http://0.0.0.0:8000
 
 # How to run Unit & Integration Test
 `coverage run --source app/ -m pytest`
