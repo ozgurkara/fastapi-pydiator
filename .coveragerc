@@ -1,0 +1,8 @@
+[run]
+relative_files = True
+
+[report]
+exclude_lines =
+    pragma: no cover
+    @abstract
+    def __init__
