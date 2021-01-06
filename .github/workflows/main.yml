@@ -38,7 +38,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
         
-      - name: Unit Test
+      - name: Tests
         run: pytest tests/
 
       - name: Coverage
@@ -49,7 +49,7 @@ jobs:
       - name: Coveralls
         uses: AndreMiras/coveralls-python-action@develop
         with:
-          flag-name: Unit Test
+          flag-name: Tests
 
   coveralls_finish:
     needs: build
