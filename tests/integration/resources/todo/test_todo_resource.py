@@ -1,14 +1,11 @@
-from fastapi.testclient import TestClient
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY, HTTP_200_OK
-
-from main import app
+from tests.integration.base_integration_test import client
 
 
 class TestTodo:
-    client = TestClient(app=app)
 
     def test_get_todo_all(self):
-        response = self.client.get("/v1/todos")
+        response = client.get("/v1/todos")
         items = response.json()
 
         assert response.status_code == HTTP_200_OK
@@ -19,14 +16,14 @@ class TestTodo:
         assert items[1]["title"] == "title 2"
 
     def test_get_todo_by_id(self):
-        response = self.client.get("/v1/todos/1")
+        response = client.get("/v1/todos/1")
 
         assert response.status_code == HTTP_200_OK
         assert response.json()["id"] == 1
         assert response.json()["title"] == "title 1"
 
     def test_add_todo(self):
-        response = self.client.post("/v1/todos", json={
+        response = client.post("/v1/todos", json={
             "title": "title 3"
         })
 
@@ -34,12 +31,12 @@ class TestTodo:
         assert response.json()["success"]
 
     def test_add_todo_should_return_unprocessable_when_invalid_entity(self):
-        response = self.client.post("/v1/todos", json=None)
+        response = client.post("/v1/todos", json=None)
 
         assert response.status_code == HTTP_422_UNPROCESSABLE_ENTITY
 
     def test_update_todo(self):
-        response = self.client.put("/v1/todos/1", json={
+        response = client.put("/v1/todos/1", json={
             "title": "title 1 updated"
         })
 
@@ -47,14 +44,14 @@ class TestTodo:
         assert response.json()["success"]
 
     def test_update_todo_should_return_unprocessable_when_invalid_entity(self):
-        response = self.client.put("/v1/todos/1", json={
+        response = client.put("/v1/todos/1", json={
 
         })
 
         assert response.status_code == HTTP_422_UNPROCESSABLE_ENTITY
 
     def test_delete_todo(self):
-        response = self.client.delete("/v1/todos/1")
+        response = client.delete("/v1/todos/1")
 
         assert response.status_code == HTTP_200_OK
         assert response.json()["success"]

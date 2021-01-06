@@ -1,6 +1,7 @@
 from pydantic import ValidationError
 from starlette.exceptions import HTTPException
 
+from app.resources.health_check import health_check_resource
 from app.resources.todo import todo_resource
 from fastapi import FastAPI
 
@@ -16,8 +17,8 @@ from app.utils.exception.exception_types import DataException, ServiceException
 
 def create_app():
     app = FastAPI(
-        title="FastApi Pydiator",
-        description="fastapi pydiator example project",
+        title="FastAPI Pydiator",
+        description="FastAPI pydiator integration project",
         version="1.0.0",
         openapi_url="/openapi.json",
         docs_url="/",
@@ -29,6 +30,12 @@ def create_app():
     app.add_exception_handler(ServiceException, ExceptionHandlers.service_exception)
     app.add_exception_handler(HTTPException, ExceptionHandlers.http_exception)
     app.add_exception_handler(ValidationError, ExceptionHandlers.validation_exception)
+
+    app.include_router(
+        health_check_resource.router,
+        prefix="/health-check",
+        tags=["health check"]
+    )
 
     app.include_router(
         todo_resource.router,

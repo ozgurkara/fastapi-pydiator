@@ -1,6 +1,5 @@
 from typing import List
-from fastapi import status
-from fastapi import APIRouter
+from fastapi import status, APIRouter
 
 from pydiator_core.mediatr import pydiator
 from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest, GetTodoAllResponse
