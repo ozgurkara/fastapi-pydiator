@@ -4,7 +4,7 @@ from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest
 from app.utils.distributed_cache_provider import get_distributed_cache_provider
 
 
-class TodoChangePublisherRequest(BaseModel, BaseNotification):
+class TodoTransactionPublisherRequest(BaseModel, BaseNotification):
     pass
 
 
