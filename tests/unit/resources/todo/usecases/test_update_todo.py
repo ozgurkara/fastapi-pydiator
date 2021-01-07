@@ -4,10 +4,10 @@ from app.data.todo.usecases.update_todo_data import UpdateTodoDataResponse
 from app.resources.todo.usecases.update_todo import \
     UpdateTodoRequest, UpdateTodoResponse, UpdateTodoUseCase
 from pydiator_core.mediatr import pydiator
-from tests.base_test_case import BaseTestCase
+from tests.unit.base_test_case import BaseTestCase
 
 
-class TestAddTodoHandler(BaseTestCase):
+class TestAddTodoUseCase(BaseTestCase):
     def setUp(self):
         self.register_request(UpdateTodoRequest(), UpdateTodoUseCase())
 

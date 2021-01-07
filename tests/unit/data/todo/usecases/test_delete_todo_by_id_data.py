@@ -4,10 +4,10 @@ from app.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataRequ
     DeleteTodoByIdDataResponse
 from pydiator_core.mediatr import pydiator
 from app.resources.todo.usecases.delete_todo_by_id import DeleteTodoByIdResponse
-from tests.base_test_case import BaseTestCase
+from tests.unit.base_test_case import BaseTestCase
 
 
-class TestDeleteTodoByIdDataHandler(BaseTestCase):
+class TestDeleteTodoByIdDataUseCase(BaseTestCase):
     def setUp(self):
         self.register_request(DeleteTodoByIdDataRequest(), DeleteTodoByIdDataUseCase())
 

@@ -1,6 +1,6 @@
 from starlette.status import HTTP_200_OK
 
-from tests.integration.base_integration_test import  client
+from tests.integration.integration_test_helper import  client
 
 
 class TestTodo:

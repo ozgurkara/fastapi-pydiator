@@ -5,10 +5,10 @@ from app.data.todo.usecases.get_todo_all_data import GetTodoAllDataRequest, GetT
 from pydiator_core.interfaces import CacheType
 from pydiator_core.mediatr import pydiator
 from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest
-from tests.base_test_case import BaseTestCase
+from tests.unit.base_test_case import BaseTestCase
 
 
-class TestGetTodoAllDataHandler(BaseTestCase):
+class TestGetTodoAllDataUseCase(BaseTestCase):
     def setUp(self):
         self.register_request(GetTodoAllDataRequest(), GetTodoAllDataUseCase())
 

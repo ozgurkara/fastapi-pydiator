@@ -8,10 +8,10 @@ from pydiator_core.mediatr import pydiator
 
 from app.utils.error.error_models import ErrorInfoContainer
 from app.utils.exception.exception_types import DataException
-from tests.base_test_case import BaseTestCase
+from tests.unit.base_test_case import BaseTestCase
 
 
-class TestUpdateTodoDataHandler(BaseTestCase):
+class TestUpdateTodoDataUseCase(BaseTestCase):
     def setUp(self):
         self.register_request(UpdateTodoDataRequest(), UpdateTodoDataUseCase())
 

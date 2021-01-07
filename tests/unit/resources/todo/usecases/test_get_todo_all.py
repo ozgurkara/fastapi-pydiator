@@ -3,10 +3,10 @@ from unittest import mock
 from app.data.todo.usecases.get_todo_all_data import GetTodoAllDataResponse
 from pydiator_core.mediatr import pydiator
 from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest, GetTodoAllUseCase, GetTodoAllResponse
-from tests.base_test_case import BaseTestCase
+from tests.unit.base_test_case import BaseTestCase
 
 
-class TestGetTodoByIdHandler(BaseTestCase):
+class TestGetTodoByIdUseCase(BaseTestCase):
     def setUp(self):
         self.register_request(GetTodoAllRequest, GetTodoAllUseCase())
 

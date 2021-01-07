@@ -11,7 +11,7 @@ from fastapi_contrib.tracing.middlewares import OpentracingMiddleware
 from app.utils.config import tracer_is_active
 from app.utils.tracer_config import tracer
 from app.utils.exception.exception_handlers import ExceptionHandlers
-from app.pydiator_core_config import set_up_pydiator
+from app.utils.pydiator.pydiator_core_config import set_up_pydiator
 from app.utils.exception.exception_types import DataException, ServiceException
 
 

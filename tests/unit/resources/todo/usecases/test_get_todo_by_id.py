@@ -8,10 +8,10 @@ from app.resources.todo.usecases.get_todo_by_id import \
     GetTodoByIdRequest, GetTodoByIdResponse, GetTodoByIdUseCase
 from app.utils.error.error_models import ErrorInfoContainer
 from app.utils.exception.exception_types import ServiceException
-from tests.base_test_case import BaseTestCase
+from tests.unit.base_test_case import BaseTestCase
 
 
-class TestGetTodoByIdHandler(BaseTestCase):
+class TestGetTodoByIdUseCase(BaseTestCase):
     def setUp(self):
         self.register_request(GetTodoByIdRequest(), GetTodoByIdUseCase())
 

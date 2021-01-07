@@ -3,10 +3,10 @@ from app.data.todo.usecases.add_todo_data import AddTodoDataResponse
 from app.resources.todo.usecases.add_todo import \
     AddTodoRequest, AddTodoResponse, AddTodoUseCase
 from pydiator_core.mediatr import pydiator
-from tests.base_test_case import BaseTestCase
+from tests.unit.base_test_case import BaseTestCase
 
 
-class TestAddTodoHandler(BaseTestCase):
+class TestAddTodoUseCase(BaseTestCase):
 
     def setUp(self):
         self.register_request(AddTodoRequest(), AddTodoUseCase())

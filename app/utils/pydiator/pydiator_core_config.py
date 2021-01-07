@@ -2,12 +2,12 @@ from app.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataUseC
 from app.utils.config import cache_pipeline_is_active, tracer_is_active, log_pipeline_is_active, \
     tracer_pipeline_is_active
 from app.utils.distributed_cache_provider import get_distributed_cache_provider
-from app.utils.pipelines.tracer_pipeline import TracerPipeline
 
 from pydiator_core.mediatr import pydiator
 from pydiator_core.mediatr_container import MediatrContainer
 from pydiator_core.pipelines.cache_pipeline import CachePipeline
 from pydiator_core.pipelines.log_pipeline import LogPipeline
+from app.utils.pydiator.pipelines.tracer_pipeline import TracerPipeline
 
 from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest, GetTodoAllUseCase
 from app.resources.todo.usecases.get_todo_by_id import GetTodoByIdRequest, GetTodoByIdUseCase
