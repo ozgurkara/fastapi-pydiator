@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi_contrib.common.middlewares import StateRequestIDMiddleware
 from fastapi_contrib.tracing.middlewares import OpentracingMiddleware
 
-from app.utils.config import tracer_is_active
+from app.utils.config import TRACER_IS_ENABLED
 from app.utils.tracer_config import tracer
 from app.utils.exception.exception_handlers import ExceptionHandlers
 from app.utils.pydiator.pydiator_core_config import set_up_pydiator
@@ -45,7 +45,7 @@ def create_app():
 
     @app.on_event('startup')
     async def startup():
-        if tracer_is_active:
+        if TRACER_IS_ENABLED:
             app.state.tracer = tracer
             app.tracer = app.state.tracer
             app.add_middleware(OpentracingMiddleware)

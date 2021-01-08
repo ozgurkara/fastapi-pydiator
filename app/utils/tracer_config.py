@@ -1,22 +1,22 @@
 from jaeger_client import Config
 from opentracing.scope_managers.asyncio import AsyncioScopeManager
 
-from app.utils.config import jaeger_host, jaeger_port, jaeger_sampler_rate, jaeger_sampler_type, jaeger_trace_id_header, \
-    jaeger_service_name
+from app.utils.config import JAEGER_HOST, JAEGER_PORT, JAEGER_SAMPLER_RATE, JAEGER_SAMPLER_TYPE, JAEGER_TRACE_ID_HEADER, \
+    JAEGER_SERVICE_NAME
 
 
 def init_tracer(service_name: str):
     config = Config(
         config={
             "local_agent": {
-                "reporting_host": jaeger_host,
-                "reporting_port": jaeger_port,
+                "reporting_host": JAEGER_HOST,
+                "reporting_port": JAEGER_PORT,
             },
             "sampler": {
-                "type": jaeger_sampler_type,
-                "param": jaeger_sampler_rate
+                "type": JAEGER_SAMPLER_TYPE,
+                "param": JAEGER_SAMPLER_RATE
             },
-            "trace_id_header": jaeger_trace_id_header,
+            "trace_id_header": JAEGER_TRACE_ID_HEADER,
         },
         scope_manager=AsyncioScopeManager(),
         service_name=service_name,
@@ -25,4 +25,4 @@ def init_tracer(service_name: str):
     return config.initialize_tracer()
 
 
-tracer = init_tracer(jaeger_service_name)
+tracer = init_tracer(JAEGER_SERVICE_NAME)
