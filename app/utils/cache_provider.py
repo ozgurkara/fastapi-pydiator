@@ -4,8 +4,8 @@ from app.utils import config
 from app.utils.config import REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_KEY_PREFIX
 
 
-class DistributedCacheProvider(BaseCacheProvider):
-    key_prefix = "default_prefix"
+class CacheProvider(BaseCacheProvider):
+    key_prefix = "pydiator"
 
     def __init__(self, client, key_prefix: str = None):
         self.client = client
@@ -34,13 +34,13 @@ class DistributedCacheProvider(BaseCacheProvider):
 
     def __get_client(self):
         if self.client is None:
-            raise Exception('DistributedCacheProvider:client is None')
+            raise Exception('CacheProvider:client is None')
 
         return self.client
 
 
-def get_distributed_cache_provider():
+def get_cache_provider():
     if config.DISTRIBUTED_CACHE_IS_ENABLED:
         client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
-        return DistributedCacheProvider(client=client, key_prefix=REDIS_KEY_PREFIX)
+        return CacheProvider(client=client, key_prefix=REDIS_KEY_PREFIX)
     return None

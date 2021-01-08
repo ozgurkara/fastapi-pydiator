@@ -1,7 +1,7 @@
 from app.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataUseCase, DeleteTodoByIdDataRequest
 from app.utils.config import CACHE_PIPELINE_IS_ENABLED, TRACER_IS_ENABLED, LOG_PIPELINE_IS_ENABLED, \
     TRACER_PIPELINE_IS_ENABLED
-from app.utils.distributed_cache_provider import get_distributed_cache_provider
+from app.utils.cache_provider import get_cache_provider
 
 from pydiator_core.mediatr import pydiator
 from pydiator_core.mediatr_container import MediatrContainer
@@ -33,7 +33,7 @@ def set_up_pydiator():
         container.register_pipeline(LogPipeline())
 
     if CACHE_PIPELINE_IS_ENABLED:
-        cache_pipeline = CachePipeline(get_distributed_cache_provider())
+        cache_pipeline = CachePipeline(get_cache_provider())
         container.register_pipeline(cache_pipeline)
 
     # Service usecases mapping
