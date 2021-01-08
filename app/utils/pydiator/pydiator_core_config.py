@@ -37,6 +37,7 @@ def set_up_pydiator():
         container.register_pipeline(cache_pipeline)
 
     # Service usecases mapping
+    # container.register_request(GetSampleByIdRequest, GetSampleByIdUseCase())
     container.register_request(GetTodoAllRequest, GetTodoAllUseCase())
     container.register_request(GetTodoByIdRequest, GetTodoByIdUseCase())
     container.register_request(AddTodoRequest, AddTodoUseCase())
