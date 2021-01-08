@@ -28,7 +28,7 @@ class TestDeleteTodoByIdDataUseCase(BaseTestCase):
         assert mock_fake_todo_db.remove.call_count == 1
 
     @mock.patch("app.data.todo.usecases.delete_todo_by_id_data.fake_todo_db")
-    def test_handle_return_fail(self, mock_fake_todo_db):
+    def test_handle_return_success_false_when_todo_is_not_exist(self, mock_fake_todo_db):
         # Given
         mock_fake_todo_db.__iter__.return_value = []
         request = DeleteTodoByIdDataRequest(id=1)

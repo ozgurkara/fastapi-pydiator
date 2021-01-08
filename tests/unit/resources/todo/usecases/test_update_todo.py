@@ -32,7 +32,7 @@ class TestAddTodoUseCase(BaseTestCase):
         assert mock_pydiator.publish.called
 
     @mock.patch("app.resources.todo.usecases.update_todo.pydiator")
-    def test_handle_return_fail(self, mock_pydiator):
+    def test_handle_return_false_when_data_response_is_not_successful(self, mock_pydiator):
         # Given
         self.register_request(UpdateTodoRequest(), UpdateTodoUseCase())
         mock_pydiator.send.side_effect = [self.async_return(UpdateTodoDataResponse(success=False))]

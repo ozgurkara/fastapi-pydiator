@@ -32,7 +32,7 @@ class TestUpdateTodoDataUseCase(BaseTestCase):
         assert response == expected_response
 
     @mock.patch("app.data.todo.usecases.update_todo_data.fake_todo_db")
-    def test_handle_return_fail(self, mock_fake_todo_db):
+    def test_handle_return_exception_when_todo_not_found(self, mock_fake_todo_db):
         # Given
         mock_fake_todo_db.__iter__.return_value = []
         title_val = "title 1 updated"
@@ -43,4 +43,4 @@ class TestUpdateTodoDataUseCase(BaseTestCase):
             self.async_loop(pydiator.send(request))
 
         # Then
-        assert exc.value.error_info == ErrorInfoContainer.not_found_error
+        assert exc.value.error_info == ErrorInfoContainer.todo_not_found_error

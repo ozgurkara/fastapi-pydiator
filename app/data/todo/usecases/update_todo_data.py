@@ -22,5 +22,5 @@ class UpdateTodoDataUseCase(BaseHandler):
                 it["title"] = req.title
                 return UpdateTodoDataResponse(success=True)
 
-        raise DataException(error_info=ErrorInfoContainer.not_found_error)
+        raise DataException(error_info=ErrorInfoContainer.todo_not_found_error)
 

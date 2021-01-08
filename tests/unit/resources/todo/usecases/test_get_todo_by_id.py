@@ -32,7 +32,7 @@ class TestGetTodoByIdUseCase(BaseTestCase):
         assert response == expected_response
 
     @mock.patch("app.resources.todo.usecases.get_todo_by_id.pydiator")
-    def test_handle_return_none(self, mock_pydiator):
+    def test_handle_return_none_when_data_response_is_none(self, mock_pydiator):
         # Given
         mock_pydiator.send.side_effect = [self.async_return(None)]
         request = GetTodoByIdRequest(id=1)
