@@ -21,5 +21,5 @@ class TracerPipeline(BasePipeline):
 
         with tracer.start_active_span(req.get_class_name(), child_of=current_span, tags=span_tags,
                                       finish_on_close=True):
-            response = await self.next().handle(req)
+            response = await self.next().handle(req=req)
             return response

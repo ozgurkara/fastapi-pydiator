@@ -22,7 +22,7 @@ router = APIRouter()
                 },
             })
 async def get_todo_all():
-    return await pydiator.send(GetTodoAllRequest())
+    return await pydiator.send(req=GetTodoAllRequest())
 
 
 @router.get("/{id}",
@@ -41,7 +41,7 @@ async def get_todo_all():
                 },
             })
 async def get_todo_by_id(id: int):
-    return await pydiator.send(GetTodoByIdRequest(id=id))
+    return await pydiator.send(req=GetTodoByIdRequest(id=id))
 
 
 @router.post("",
@@ -60,7 +60,7 @@ async def get_todo_by_id(id: int):
                  },
              })
 async def add_todo(req: AddTodoRequest):
-    return await pydiator.send(req)
+    return await pydiator.send(req=req)
 
 
 @router.put("/{id}",
@@ -79,7 +79,7 @@ async def add_todo(req: AddTodoRequest):
             })
 async def update_todo(id: int, req: UpdateTodoRequest):
     req.CustomFields.id = id
-    return await pydiator.send(req)
+    return await pydiator.send(req=req)
 
 
 @router.delete("/{id}",
@@ -97,4 +97,4 @@ async def update_todo(id: int, req: UpdateTodoRequest):
                    },
                })
 async def delete_todo(id: int):
-    return await pydiator.send(DeleteTodoByIdRequest(id=id))
+    return await pydiator.send(req=DeleteTodoByIdRequest(id=id))

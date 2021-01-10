@@ -7,8 +7,6 @@ This project is an example that how to implement FastAPI and the pydiator-core. 
 `uvicorn main:app --reload`
 or `docker-compose up`
 
-swagger http://0.0.0.0:8000
-
 # How to run Tests
 `coverage run --source app/ -m pytest`
 
@@ -31,8 +29,8 @@ This architecture;
 
 There are ready implementations;
 * Redis cache
-* Swagger 
-* Opentracing via Jaeger
+* Swagger (http://0.0.0.0:8080)
+* Opentracing via Jaeger (http://0.0.0.0:16686/)
  
 
 # How to add the new use case? 
@@ -75,7 +73,7 @@ If the cache already exists, the cache pipeline returns with cache data so, the 
 
    ```python
     class GetTodoAllRequest(BaseModel, BaseRequest, BaseCacheable):
-        # uses for cache key.
+        # cache key.
         def get_cache_key(self) -> str:
             return type(self).__name__ # it is cache key
     
@@ -83,7 +81,7 @@ If the cache already exists, the cache pipeline returns with cache data so, the 
         def get_cache_duration(self) -> int: 
             return 600
 
-        # pipeline decides the cache location via this
+        # cache location type
         def get_cache_type(self) -> CacheType:
             return CacheType.DISTRIBUTED
    ```
@@ -97,6 +95,26 @@ Requirements;
 2- Must be activated the below environment variables on the config for using the cache;
     
     DISTRIBUTED_CACHE_IS_ENABLED=True
-    
     CACHE_PIPELINE_IS_ENABLED=True
+
+# Tracing via Jaeger
+Requirements;
+
+1- Must have a jaeger server and should be set the below environment variables
+    
+    JAEGER_HOST = 'jaeger ip'
+    JAEGER_PORT = 'jaeger port'
+
+2- Must be activated the below environment variables on the config for using the jaeger;
+    
+    TRACER_IS_ENABLED=True
+
+![pydiator](https://raw.githubusercontent.com/ozgurkara/pydiator-core/master/assets/jaeger_is_not_enabled.png)
+
+3- If want to trace the handlers, should be activated the below environment variables on the config for using the jaeger. Otherwise, can just see the endpoint trace details.   
+
+    CACHE_PIPELINE_IS_ENABLED=True 
+
+![pydiator](https://raw.githubusercontent.com/ozgurkara/pydiator-core/master/assets/jaeger.png)
+
 
