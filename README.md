@@ -109,12 +109,12 @@ Requirements;
     
     TRACER_IS_ENABLED=True
 
-![pydiator](https://raw.githubusercontent.com/ozgurkara/pydiator-core/master/assets/jaeger_is_not_enabled.png)
+![pydiator](https://raw.githubusercontent.com/ozgurkara/pydiator-core/master/docs/assets/jaeger_is_not_enabled.png)
 
 3- If want to trace the handlers, should be activated the below environment variables on the config for using the jaeger. Otherwise, can just see the endpoint trace details.   
 
     CACHE_PIPELINE_IS_ENABLED=True 
 
-![pydiator](https://raw.githubusercontent.com/ozgurkara/pydiator-core/master/assets/jaeger.png)
+![pydiator](https://raw.githubusercontent.com/ozgurkara/pydiator-core/master/docs/assets/jaeger.png)
 
 
