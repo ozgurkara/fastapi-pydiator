@@ -97,6 +97,8 @@ Requirements;
     DISTRIBUTED_CACHE_IS_ENABLED=True
     CACHE_PIPELINE_IS_ENABLED=True
 
+<hr>
+
 # Tracing via Jaeger
 Requirements;
 
