@@ -45,11 +45,11 @@ def create_app():
 
     @app.on_event('startup')
     async def startup():
+        app.add_middleware(StateRequestIDMiddleware)
         if TRACER_IS_ENABLED:
             app.state.tracer = tracer
             app.tracer = app.state.tracer
             app.add_middleware(OpentracingMiddleware)
-            app.add_middleware(StateRequestIDMiddleware)
 
     set_up_pydiator()
 
