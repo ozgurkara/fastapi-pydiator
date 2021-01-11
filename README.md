@@ -36,7 +36,8 @@ There are ready implementations;
 # How to add the new use case? 
 
 **Add New Use Case** 
-   ```python
+
+```python
     #resources/sample/get_sample_by_id.py
 
     class GetSampleByIdRequest(BaseRequest):
@@ -48,17 +49,17 @@ There are ready implementations;
             self.id = id
             self.title = title 
 
-   class GetSampleByIdUseCase(BaseHandler):
+    class GetSampleByIdUseCase(BaseHandler):
         async def handle(self, req: GetSampleByIdRequest):
             # related codes are here such as business
             return GetSampleByIdResponse(id=req.id, title="hello pydiatr")    
-   ```
+```
 
 **Register Use Case**
-   ```python
+```python
     # utils/pydiator/pydiator_core_config.py set_up_pydiator 
     container.register_request(GetSampleByIdRequest, GetSampleByIdUseCase())
-   ```
+```
  
 Calling Use Case;
    ```python
@@ -66,12 +67,45 @@ Calling Use Case;
    ```
 <hr>
 
+# How to add the new pipeline? 
+
+You can think that the pipeline is middleware for use cases. So, all pipelines are called with the sequence for every use case. 
+You can obtain more features via pipeline such as cache, tracing, log, retry mechanism, authorization.
+You should know and be careful that if you register a pipeline, it runs for every use case calling.
+
+**Add New Pipeline** 
+```python
+    class SamplePipeline(BasePipeline):
+        def __init__(self):
+            pass
+    
+        async def handle(self, req: BaseRequest) -> object:
+            
+            # before executed pipeline and use case
+
+            response = await self.next().handle(req)
+    
+            # after executed next pipeline and use case            
+
+            return response    
+```
+
+**Register Pipeline**
+```python
+    # utils/pydiator/pydiator_core_config.py set_up_pydiator 
+    container.register_pipeline(SamplePipeline())
+```
+
+
+<hr>
+
+
 # How to use the cache? 
 The cache pipeline decides that put to cache or not via the request model. If the request model inherits from the BaseCacheable object, this use case response can be cacheable. 
 <br>
 If the cache already exists, the cache pipeline returns with cache data so, the use case is not called. Otherwise, the use case is called and the response of the use case is added to cache on the cache pipeline.
 
-   ```python
+```python
     class GetTodoAllRequest(BaseModel, BaseRequest, BaseCacheable):
         # cache key.
         def get_cache_key(self) -> str:
@@ -84,7 +118,7 @@ If the cache already exists, the cache pipeline returns with cache data so, the 
         # cache location type
         def get_cache_type(self) -> CacheType:
             return CacheType.DISTRIBUTED
-   ```
+```
 
 Requirements;
 
