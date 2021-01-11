@@ -1,7 +1,7 @@
 uvicorn==0.13.3
 fastapi==0.63.0
 fastapi-contrib==0.2.9
-pydiator-core==1.0.7
+pydiator-core==1.0.8
 pydantic==1.7.3
 redis==3.5.3
 
