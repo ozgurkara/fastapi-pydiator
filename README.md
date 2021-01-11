@@ -1,4 +1,4 @@
-![example event parameter](https://github.com/ozgurkara/fastapi-pydiator/workflows/CI/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/ozgurkara/fastapi-pydiator/badge.svg)](https://coveralls.io/github/ozgurkara/fastapi-pydiator)
+![example event parameter](https://github.com/ozgurkara/fastapi-pydiator/workflows/CI/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/ozgurkara/fastapi-pydiator/badge.svg?branch=master)](https://coveralls.io/github/ozgurkara/fastapi-pydiator?branch=master)
 
 # What is the purpose of this repository
 This project is an example that how to implement FastAPI and the pydiator-core. You can see the detail of the pydiator-core on this link https://github.com/ozgurkara/pydiator-core 
