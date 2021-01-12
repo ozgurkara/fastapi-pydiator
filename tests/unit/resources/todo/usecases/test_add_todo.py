@@ -14,7 +14,7 @@ class TestAddTodoUseCase(BaseTestCase):
     @mock.patch("app.resources.todo.usecases.add_todo.pydiator")
     def test_handle_return_success(self, mock_pydiator):
         # Given
-        mock_pydiator.send.side_effect = [self.async_return(AddTodoDataResponse(success=True))]
+        mock_pydiator.send.side_effect = [self.async_return(AddTodoDataResponse(success=True, id=1))]
         mock_pydiator.publish.side_effect = [self.async_return(True)]
 
         title_val = "title"
@@ -32,7 +32,7 @@ class TestAddTodoUseCase(BaseTestCase):
     @mock.patch("app.resources.todo.usecases.add_todo.pydiator")
     def test_handle_return_success_false_when_data_response_is_not_successful(self, mock_pydiator):
         # Given
-        mock_pydiator.send.side_effect = [self.async_return(AddTodoDataResponse(success=False))]
+        mock_pydiator.send.side_effect = [self.async_return(AddTodoDataResponse(success=False, id=0))]
 
         title_val = "title"
         request = AddTodoRequest(title=title_val)

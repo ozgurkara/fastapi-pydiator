@@ -9,6 +9,7 @@ class AddTodoDataRequest(BaseModel, BaseRequest):
 
 class AddTodoDataResponse(BaseModel, BaseResponse):
     success: bool = Field(...)
+    id: int = Field(0, title="todo id")
 
 
 class AddTodoDataUseCase(BaseHandler):
@@ -24,4 +25,4 @@ class AddTodoDataUseCase(BaseHandler):
             "title": f"title {id}"
         })
 
-        return AddTodoDataResponse(success=True)
+        return AddTodoDataResponse(success=True, id=id)

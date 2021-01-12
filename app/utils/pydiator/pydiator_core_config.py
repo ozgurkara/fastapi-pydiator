@@ -1,4 +1,5 @@
 from app.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataUseCase, DeleteTodoByIdDataRequest
+from app.notification.todo_transaction.log_subscriber import TransactionLogSubscriber
 from app.utils.config import CACHE_PIPELINE_IS_ENABLED, TRACER_IS_ENABLED, LOG_PIPELINE_IS_ENABLED, \
     TRACER_PIPELINE_IS_ENABLED
 from app.utils.cache_provider import get_cache_provider
@@ -14,8 +15,8 @@ from app.resources.todo.usecases.get_todo_by_id import GetTodoByIdRequest, GetTo
 from app.resources.todo.usecases.add_todo import AddTodoRequest, AddTodoUseCase
 from app.resources.todo.usecases.update_todo import UpdateTodoRequest, UpdateTodoUseCase
 from app.resources.todo.usecases.delete_todo_by_id import DeleteTodoByIdRequest, DeleteTodoByIdUseCase
-from app.resources.todo.notifications.todo_transaction import TodoTransactionPublisherRequest, \
-    TodoCacheRemoveSubscriber
+from app.notification.todo_transaction.transaction_notification import TodoTransactionNotification
+from app.notification.todo_transaction.cache_remove_subscriber import TodoCacheRemoveSubscriber
 
 from app.data.todo.usecases.get_todo_all_data import GetTodoAllDataRequest, GetTodoAllDataUseCase
 from app.data.todo.usecases.get_todo_by_id_data import GetTodoByIdDataRequest, GetTodoByIdDataUseCase
@@ -52,7 +53,8 @@ def set_up_pydiator():
     container.register_request(UpdateTodoDataRequest, UpdateTodoDataUseCase())
 
     # Notification mapping
-    container.register_notification(TodoTransactionPublisherRequest, [TodoCacheRemoveSubscriber()])
+    container.register_notification(TodoTransactionNotification,
+                                    [TodoCacheRemoveSubscriber(), TransactionLogSubscriber()])
 
     # Start
     pydiator.ready(container=container)

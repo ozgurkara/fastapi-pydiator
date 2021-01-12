@@ -17,7 +17,7 @@ class TestAddTodoDataUseCase(BaseTestCase):
 
         title_val = "title"
         request = AddTodoDataRequest(title=title_val)
-        expected_response = AddTodoDataResponse(success=True)
+        expected_response = AddTodoDataResponse(success=True, id=1)
 
         # When
         response = self.async_loop(pydiator.send(request))
