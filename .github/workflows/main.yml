@@ -62,6 +62,7 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         
   codacy-coverage-reporter:
+    needs: build
     runs-on: ubuntu-latest
     name: codacy-coverage-reporter
     steps:
