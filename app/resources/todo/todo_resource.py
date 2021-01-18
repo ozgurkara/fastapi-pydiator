@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import status, APIRouter
+from fastapi import status, APIRouter, Response
 
 from pydiator_core.mediatr import pydiator
 from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest, GetTodoAllResponse
@@ -40,8 +40,8 @@ async def get_todo_all():
                     ),
                 },
             })
-async def get_todo_by_id(id: int):
-    return await pydiator.send(req=GetTodoByIdRequest(id=id))
+async def get_todo_by_id(id: int, response: Response):
+    return await pydiator.send(req=GetTodoByIdRequest(id=id), response=response)
 
 
 @router.post("",
