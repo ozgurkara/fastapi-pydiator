@@ -1,5 +1,5 @@
 uvicorn==0.13.3
-fastapi==0.63.0
+fastapi==0.65.2
 fastapi-contrib==0.2.9
 pydiator-core==1.0.9
 pydantic==1.7.4
