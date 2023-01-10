@@ -5,7 +5,7 @@ class TestTodo:
 
     def test_get_todo_all(self, test_app):
         response = test_app.get("/v1/todos")
-        items = response.json()
+        items = response.json()["items"]
 
         assert response.status_code == HTTP_200_OK
         assert len(items) == 2
