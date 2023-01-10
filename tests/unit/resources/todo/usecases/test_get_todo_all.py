@@ -2,7 +2,7 @@ from unittest import mock
 
 from app.data.todo.usecases.get_todo_all_data import GetTodoAllDataResponse
 from pydiator_core.mediatr import pydiator
-from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest, GetTodoAllUseCase, GetTodoAllResponse
+from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest, GetTodoAllUseCase, GetTodoAllResponse, Todo
 from tests.unit.base_test_case import BaseTestCase
 
 
@@ -21,7 +21,7 @@ class TestGetTodoByIdUseCase(BaseTestCase):
         mock_pydiator.send.side_effect = [self.async_return([GetTodoAllDataResponse(id=id_val, title=title_val)])]
 
         request = GetTodoAllRequest(id=id_val)
-        expected_response = [GetTodoAllResponse(id=id_val, title=title_val)]
+        expected_response = GetTodoAllResponse(items=[Todo(id=id_val, title=title_val)])
 
         # When
         response = self.async_loop(pydiator.send(request))
@@ -34,8 +34,8 @@ class TestGetTodoByIdUseCase(BaseTestCase):
     def test_handle_return_empty_list(self, mock_pydiator):
         # Given
         mock_pydiator.send.side_effect = [self.async_return([])]
-        request = GetTodoAllRequest(id=1)
-        expected_response = []
+        request = GetTodoAllRequest()
+        expected_response = GetTodoAllResponse()
 
         # When
         response = self.async_loop(pydiator.send(request))
