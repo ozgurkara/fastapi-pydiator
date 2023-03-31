@@ -3,7 +3,7 @@ fastapi==0.65.2
 fastapi-contrib==0.2.9
 pydiator-core==1.0.11
 pydantic==1.7.4
-redis==3.5.3
+redis==4.4.4
 
 # test
 pytest==6.2.1
