@@ -30,7 +30,6 @@ This architecture;
 There are ready implementations;
 * Redis cache
 * Swagger (http://0.0.0.0:8080)
-* Opentracing via Jaeger (http://0.0.0.0:16686/)
  
 
 # How to add the new use case? 
