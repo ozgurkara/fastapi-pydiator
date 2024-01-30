@@ -39,10 +39,6 @@ def create_app():
         tags=["todo"]
     )
 
-    @app.on_event('startup')
-    async def startup():
-        app.add_middleware(StateRequestIDMiddleware)
-
     set_up_pydiator()
 
     return app
