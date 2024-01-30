@@ -6,10 +6,6 @@ from app.resources.todo import todo_resource
 from fastapi import FastAPI
 
 from fastapi_contrib.common.middlewares import StateRequestIDMiddleware
-from fastapi_contrib.tracing.middlewares import OpentracingMiddleware
-
-from app.utils.config import TRACER_IS_ENABLED
-from app.utils.tracer_config import tracer
 from app.utils.exception.exception_handlers import ExceptionHandlers
 from app.utils.pydiator.pydiator_core_config import set_up_pydiator
 from app.utils.exception.exception_types import DataException, ServiceException
@@ -46,10 +42,6 @@ def create_app():
     @app.on_event('startup')
     async def startup():
         app.add_middleware(StateRequestIDMiddleware)
-        if TRACER_IS_ENABLED:
-            app.state.tracer = tracer
-            app.tracer = app.state.tracer
-            app.add_middleware(OpentracingMiddleware)
 
     set_up_pydiator()
 

@@ -1,14 +1,12 @@
 from app.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataUseCase, DeleteTodoByIdDataRequest
 from app.notification.todo_transaction.transaction_log_subscriber import TransactionLogSubscriber
-from app.utils.config import CACHE_PIPELINE_IS_ENABLED, TRACER_IS_ENABLED, LOG_PIPELINE_IS_ENABLED, \
-    TRACER_PIPELINE_IS_ENABLED
+from app.utils.config import CACHE_PIPELINE_IS_ENABLED, LOG_PIPELINE_IS_ENABLED
 from app.utils.cache_provider import get_cache_provider
 
 from pydiator_core.mediatr import pydiator
 from pydiator_core.mediatr_container import MediatrContainer
 from pydiator_core.pipelines.cache_pipeline import CachePipeline
 from pydiator_core.pipelines.log_pipeline import LogPipeline
-from app.utils.pydiator.pipelines.tracer_pipeline import TracerPipeline
 
 from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest, GetTodoAllUseCase
 from app.resources.todo.usecases.get_todo_by_id import GetTodoByIdRequest, GetTodoByIdUseCase
@@ -27,8 +25,6 @@ from app.data.todo.usecases.update_todo_data import UpdateTodoDataRequest, Updat
 def set_up_pydiator():
     container = MediatrContainer()
 
-    if TRACER_IS_ENABLED and TRACER_PIPELINE_IS_ENABLED:
-        container.register_pipeline(TracerPipeline())
 
     if LOG_PIPELINE_IS_ENABLED:
         container.register_pipeline(LogPipeline())
