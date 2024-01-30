@@ -178,24 +178,5 @@ Requirements;
 
 <hr>
 
-# Tracing via Jaeger
-Requirements;
-
-1- Must have a jaeger server and should be set the below environment variables
-    
-    JAEGER_HOST = 'jaeger ip'
-    JAEGER_PORT = 'jaeger port'
-
-2- Must be activated the below environment variables on the config for using the jaeger;
-    
-    TRACER_IS_ENABLED=True
-
-![pydiator](https://raw.githubusercontent.com/ozgurkara/fastapi-pydiator/master/docs/assets/jaeger_pipeline_is_not_enabled.png)
-
-3- If want to trace the handlers, should be activated the below environment variables on the config for using the jaeger. Otherwise, can just see the endpoint trace details.   
-
-    CACHE_PIPELINE_IS_ENABLED=True 
-
-![pydiator](https://raw.githubusercontent.com/ozgurkara/fastapi-pydiator/master/docs/assets/jaeger.png)
 
 
