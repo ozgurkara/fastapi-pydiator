@@ -1,4 +1,4 @@
-from app.utils.error.error_models import ErrorInfoModel
+from app.infra.util.error.error_models import ErrorInfoModel
 
 
 class ApplicationException(Exception):

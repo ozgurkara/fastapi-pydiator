@@ -3,8 +3,8 @@ from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
 from pydiator_core.mediatr import pydiator
 
 from app.data.todo.usecases.get_todo_by_id_data import GetTodoByIdDataRequest
-from app.utils.error.error_models import ErrorInfoContainer
-from app.utils.exception.exception_types import ServiceException
+from app.infra.util.error.error_models import ErrorInfoContainer
+from app.infra.exception.exception_types import ServiceException
 
 
 class GetTodoByIdRequest(BaseModel, BaseRequest):

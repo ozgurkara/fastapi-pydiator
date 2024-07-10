@@ -6,9 +6,9 @@ from fastapi.encoders import jsonable_encoder
 from starlette import status
 from starlette.responses import JSONResponse
 
-from app.utils.error.error_models import ErrorInfoModel
-from app.utils.error.error_response import ErrorResponseModel, ErrorInfoContainer
-from app.utils.exception.exception_types import DataException, ServiceException
+from app.infra.util.error.error_models import ErrorInfoModel
+from app.infra.util.error.error_response import ErrorResponseModel, ErrorInfoContainer
+from app.infra.exception.exception_types import DataException, ServiceException
 
 
 class ExceptionHandlers:

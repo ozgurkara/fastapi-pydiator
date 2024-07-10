@@ -1,7 +1,7 @@
 import redis
 from pydiator_core.interfaces import BaseCacheProvider
-from app.utils import config
-from app.utils.config import REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_KEY_PREFIX
+from app.infra.config import app_config
+from app.infra.config.app_config import REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_KEY_PREFIX
 
 
 class CacheProvider(BaseCacheProvider):
@@ -40,7 +40,7 @@ class CacheProvider(BaseCacheProvider):
 
 
 def get_cache_provider():
-    if config.DISTRIBUTED_CACHE_IS_ENABLED:
+    if app_config.DISTRIBUTED_CACHE_IS_ENABLED:
         client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
         return CacheProvider(client=client, key_prefix=REDIS_KEY_PREFIX)
     return None

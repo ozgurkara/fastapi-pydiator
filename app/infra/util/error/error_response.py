@@ -1,5 +1,5 @@
 from typing import List
-from app.utils.error.error_models import ErrorInfoContainer, ErrorResponseModel
+from app.infra.util.error.error_models import ErrorInfoContainer, ErrorResponseModel
 
 
 class ErrorResponseExample:

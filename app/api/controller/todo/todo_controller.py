@@ -2,12 +2,12 @@ from typing import List
 from fastapi import status, APIRouter, Response
 
 from pydiator_core.mediatr import pydiator
-from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest, GetTodoAllResponse
-from app.resources.todo.usecases.get_todo_by_id import GetTodoByIdRequest, GetTodoByIdResponse
-from app.resources.todo.usecases.add_todo import AddTodoRequest, AddTodoResponse
-from app.resources.todo.usecases.update_todo import UpdateTodoRequest, UpdateTodoResponse
-from app.resources.todo.usecases.delete_todo_by_id import DeleteTodoByIdRequest, DeleteTodoByIdResponse
-from app.utils.error.error_response import ErrorResponseModel, ErrorResponseExample
+from app.core.service.todo.get_todo_all import GetTodoAllRequest, GetTodoAllResponse
+from app.core.service.todo.get_todo_by_id import GetTodoByIdRequest, GetTodoByIdResponse
+from app.core.service.todo.add_todo import AddTodoRequest, AddTodoResponse
+from app.core.service.todo.update_todo import UpdateTodoRequest, UpdateTodoResponse
+from app.core.service.todo.delete_todo_by_id import DeleteTodoByIdRequest, DeleteTodoByIdResponse
+from app.infra.util.error.error_response import ErrorResponseModel, ErrorResponseExample
 
 router = APIRouter()
 

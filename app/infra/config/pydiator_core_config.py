@@ -1,18 +1,18 @@
 from app.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataUseCase, DeleteTodoByIdDataRequest
 from app.notification.todo_transaction.transaction_log_subscriber import TransactionLogSubscriber
-from app.utils.config import CACHE_PIPELINE_IS_ENABLED, LOG_PIPELINE_IS_ENABLED
-from app.utils.cache_provider import get_cache_provider
+from app.infra.config.app_config import CACHE_PIPELINE_IS_ENABLED, LOG_PIPELINE_IS_ENABLED
+from app.infra.cache_provider import get_cache_provider
 
 from pydiator_core.mediatr import pydiator
 from pydiator_core.mediatr_container import MediatrContainer
 from pydiator_core.pipelines.cache_pipeline import CachePipeline
 from pydiator_core.pipelines.log_pipeline import LogPipeline
 
-from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest, GetTodoAllUseCase
-from app.resources.todo.usecases.get_todo_by_id import GetTodoByIdRequest, GetTodoByIdUseCase
-from app.resources.todo.usecases.add_todo import AddTodoRequest, AddTodoUseCase
-from app.resources.todo.usecases.update_todo import UpdateTodoRequest, UpdateTodoUseCase
-from app.resources.todo.usecases.delete_todo_by_id import DeleteTodoByIdRequest, DeleteTodoByIdUseCase
+from app.core.service.todo.get_todo_all import GetTodoAllRequest, GetTodoAllUseCase
+from app.core.service.todo.get_todo_by_id import GetTodoByIdRequest, GetTodoByIdUseCase
+from app.core.service.todo.add_todo import AddTodoRequest, AddTodoUseCase
+from app.core.service.todo.update_todo import UpdateTodoRequest, UpdateTodoUseCase
+from app.core.service.todo.delete_todo_by_id import DeleteTodoByIdRequest, DeleteTodoByIdUseCase
 from app.notification.todo_transaction.transaction_notification import TodoTransactionNotification
 from app.notification.todo_transaction.remove_cache_subscriber import TodoRemoveCacheSubscriber
 

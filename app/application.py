@@ -1,14 +1,14 @@
 from pydantic import ValidationError
 from starlette.exceptions import HTTPException
 
-from app.resources.health_check import health_check_resource
-from app.resources.todo import todo_resource
+from app.api.controller.health_check import health_check_controller
+from app.api.controller.todo import todo_controller
 from fastapi import FastAPI
 
-from fastapi_contrib.common.middlewares import StateRequestIDMiddleware
-from app.utils.exception.exception_handlers import ExceptionHandlers
-from app.utils.pydiator.pydiator_core_config import set_up_pydiator
-from app.utils.exception.exception_types import DataException, ServiceException
+from app.infra.exception.exception_handlers import ExceptionHandlers
+from app.infra.exception.exception_types import DataException, ServiceException
+from app.infra.config.pydiator_core_config import set_up_pydiator
+
 
 
 def create_app():
@@ -28,13 +28,13 @@ def create_app():
     app.add_exception_handler(ValidationError, ExceptionHandlers.validation_exception)
 
     app.include_router(
-        health_check_resource.router,
+        health_check_controller.router,
         prefix="/health-check",
         tags=["health check"]
     )
 
     app.include_router(
-        todo_resource.router,
+        todo_controller.router,
         prefix="/v1/todos",
         tags=["todo"]
     )
