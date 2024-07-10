@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
-from app.db.fake_db import fake_todo_db
+from app.infra.adapter.repository.fake_db import fake_todo_db
 
 
 class AddTodoDataRequest(BaseModel, BaseRequest):

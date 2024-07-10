@@ -3,7 +3,7 @@ from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler, Bas
 from typing import List
 from pydiator_core.mediatr import pydiator
 
-from app.data.todo.usecases.get_todo_all_data import GetTodoAllDataRequest
+from app.infra.adapter.repository.todo.get_todo_all_data import GetTodoAllDataRequest
 
 
 class GetTodoAllRequest(BaseModel, BaseRequest, BaseCacheable):

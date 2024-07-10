@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
 from pydiator_core.mediatr import pydiator
 
-from app.data.todo.usecases.get_todo_by_id_data import GetTodoByIdDataRequest
+from app.infra.adapter.repository.todo.get_todo_by_id_data import GetTodoByIdDataRequest
 from app.infra.util.error.error_models import ErrorInfoContainer
 from app.infra.exception.exception_types import ServiceException
 

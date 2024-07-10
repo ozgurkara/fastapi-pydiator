@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-from app.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataRequest
+from app.infra.adapter.repository.todo.delete_todo_by_id_data import DeleteTodoByIdDataRequest
 from pydiator_core.mediatr import pydiator
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
 from app.notification.todo_transaction.transaction_notification import TodoTransactionNotification

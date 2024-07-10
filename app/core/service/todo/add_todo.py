@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-from app.data.todo.usecases.add_todo_data import AddTodoDataRequest, AddTodoDataResponse
+from app.infra.adapter.repository.todo.add_todo_data import AddTodoDataRequest, AddTodoDataResponse
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
 from pydiator_core.mediatr import pydiator
 from app.notification.todo_transaction.transaction_notification import TodoTransactionNotification
