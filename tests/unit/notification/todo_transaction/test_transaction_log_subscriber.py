@@ -1,6 +1,6 @@
 from unittest import mock
-from app.notification.todo_transaction.transaction_log_subscriber import TransactionLogSubscriber
-from app.notification.todo_transaction.transaction_notification import TodoTransactionNotification
+from src.notification.todo_transaction.transaction_log_subscriber import TransactionLogSubscriber
+from src.notification.todo_transaction.transaction_notification import TodoTransactionNotification
 from tests.unit.base_test_case import BaseTestCase
 
 

@@ -1,9 +1,9 @@
 from unittest import mock
 
-from app.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataRequest, DeleteTodoByIdDataUseCase, \
+from src.data.todo.usecases.delete_todo_by_id_data import DeleteTodoByIdDataRequest, DeleteTodoByIdDataUseCase, \
     DeleteTodoByIdDataResponse
 from pydiator_core.mediatr import pydiator
-from app.resources.todo.usecases.delete_todo_by_id import DeleteTodoByIdResponse
+from src.resources.todo.usecases.delete_todo_by_id import DeleteTodoByIdResponse
 from tests.unit.base_test_case import BaseTestCase
 
 

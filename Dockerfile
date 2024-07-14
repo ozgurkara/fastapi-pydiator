@@ -3,7 +3,7 @@ FROM python:3.8
 RUN mkdir src
 
 COPY requirements.txt src
-COPY app src/app
+COPY src src/app
 COPY .env src
 COPY main.py src
 

@@ -1,8 +1,8 @@
 from unittest import mock
 
-from app.notification.todo_transaction.remove_cache_subscriber import TodoRemoveCacheSubscriber
-from app.notification.todo_transaction.transaction_notification import TodoTransactionNotification
-from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest
+from src.notification.todo_transaction.remove_cache_subscriber import TodoRemoveCacheSubscriber
+from src.notification.todo_transaction.transaction_notification import TodoTransactionNotification
+from src.resources.todo.usecases.get_todo_all import GetTodoAllRequest
 from tests.unit.base_test_case import BaseTestCase
 
 

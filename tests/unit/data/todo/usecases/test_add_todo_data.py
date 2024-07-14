@@ -1,6 +1,6 @@
 from unittest import mock
 
-from app.data.todo.usecases.add_todo_data import AddTodoDataUseCase, AddTodoDataRequest, AddTodoDataResponse
+from src.data.todo.usecases.add_todo_data import AddTodoDataUseCase, AddTodoDataRequest, AddTodoDataResponse
 from pydiator_core.mediatr import pydiator
 from tests.unit.base_test_case import BaseTestCase
 

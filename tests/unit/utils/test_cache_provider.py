@@ -2,7 +2,7 @@ from unittest import mock
 
 from pytest import raises
 
-from app.utils.cache_provider import CacheProvider
+from src.utils.cache_provider import CacheProvider
 from tests.unit.base_test_case import BaseTestCase
 
 

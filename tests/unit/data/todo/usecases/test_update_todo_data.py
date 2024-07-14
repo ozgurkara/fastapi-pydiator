@@ -2,12 +2,12 @@ from unittest import mock
 
 from pytest import raises
 
-from app.data.todo.usecases.update_todo_data import UpdateTodoDataUseCase, UpdateTodoDataRequest, \
+from src.data.todo.usecases.update_todo_data import UpdateTodoDataUseCase, UpdateTodoDataRequest, \
     UpdateTodoDataResponse
 from pydiator_core.mediatr import pydiator
 
-from app.utils.error.error_models import ErrorInfoContainer
-from app.utils.exception.exception_types import DataException
+from src.utils.error.error_models import ErrorInfoContainer
+from src.utils.exception.exception_types import DataException
 from tests.unit.base_test_case import BaseTestCase
 
 

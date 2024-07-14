@@ -1,10 +1,10 @@
 from unittest import mock
 
-from app.data.todo.usecases.get_todo_all_data import GetTodoAllDataRequest, GetTodoAllDataResponse, \
+from src.data.todo.usecases.get_todo_all_data import GetTodoAllDataRequest, GetTodoAllDataResponse, \
     GetTodoAllDataUseCase
 from pydiator_core.interfaces import CacheType
 from pydiator_core.mediatr import pydiator
-from app.resources.todo.usecases.get_todo_all import GetTodoAllRequest
+from src.resources.todo.usecases.get_todo_all import GetTodoAllRequest
 from tests.unit.base_test_case import BaseTestCase
 
 
