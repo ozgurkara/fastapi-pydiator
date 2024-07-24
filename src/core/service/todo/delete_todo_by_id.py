@@ -3,6 +3,8 @@ from pydantic import BaseModel, Field
 from src.infra.adapter.repository.todo.delete_todo_by_id_data import DeleteTodoByIdDataRequest
 from pydiator_core.mediatr import pydiator
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
+
+from src.infra.adapter.repository.todo.todo_repository import TodoRepository
 from src.notification.todo_transaction.transaction_notification import TodoTransactionNotification
 
 
@@ -17,8 +19,8 @@ class DeleteTodoByIdResponse(BaseModel, BaseResponse):
 class DeleteTodoByIdUseCase(BaseHandler):
 
     async def handle(self, req: DeleteTodoByIdRequest) -> DeleteTodoByIdResponse:
-        data_response = await pydiator.send(DeleteTodoByIdDataRequest(id=req.id))
-        if data_response.success:
+        data_response = await TodoRepository.delete(req.id)
+        if data_response:
             await pydiator.publish(TodoTransactionNotification(id=req.id))
             return DeleteTodoByIdResponse(success=True)
 

@@ -1,9 +1,8 @@
+from typing import List
 from pydantic import BaseModel, Field
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler, BaseCacheable, CacheType
-from typing import List
-from pydiator_core.mediatr import pydiator
 
-from src.infra.adapter.repository.todo.get_todo_all_data import GetTodoAllDataRequest
+from src.infra.adapter.repository.todo.todo_repository import TodoRepository
 
 
 class GetTodoAllRequest(BaseModel, BaseRequest, BaseCacheable):
@@ -30,7 +29,7 @@ class GetTodoAllUseCase(BaseHandler):
 
     async def handle(self, req: GetTodoAllRequest) -> GetTodoAllResponse:
         response = GetTodoAllResponse()
-        todo_data = await pydiator.send(GetTodoAllDataRequest())
+        todo_data = await TodoRepository.gel_all()
         for item in todo_data:
             response.items.append(Todo(id=item.id, title=item.title))
 

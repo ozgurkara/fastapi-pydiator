@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field, Extra
 
-from src.infra.adapter.repository.todo.update_todo_data import UpdateTodoDataRequest
+from src.infra.adapter.repository.todo.model.update_models import UpdateTodoInputModel
+from src.infra.adapter.repository.todo.todo_repository import TodoRepository
 from pydiator_core.interfaces import BaseRequest, BaseResponse, BaseHandler
 from pydiator_core.mediatr import pydiator
 from src.notification.todo_transaction.transaction_notification import TodoTransactionNotification
@@ -20,7 +21,7 @@ class UpdateTodoResponse(BaseModel, BaseResponse):
 class UpdateTodoUseCase(BaseHandler):
 
     async def handle(self, req: UpdateTodoRequest) -> UpdateTodoResponse:
-        data_response = await pydiator.send(UpdateTodoDataRequest(id=req.CustomFields.id, title=req.title))
+        data_response = await TodoRepository.update(UpdateTodoInputModel(id=req.CustomFields.id, title=req.title))
         if data_response.success:
             await pydiator.publish(TodoTransactionNotification(id=req.CustomFields.id))
             return UpdateTodoResponse(success=True)

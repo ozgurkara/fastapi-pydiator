@@ -1,4 +1,3 @@
-from src.infra.adapter.repository.todo.delete_todo_by_id_data import DeleteTodoByIdDataUseCase, DeleteTodoByIdDataRequest
 from src.notification.todo_transaction.transaction_log_subscriber import TransactionLogSubscriber
 from src.infra.config.app_config import CACHE_PIPELINE_IS_ENABLED, LOG_PIPELINE_IS_ENABLED
 from src.infra.pydiator.cache_provider import get_cache_provider
@@ -16,15 +15,9 @@ from src.core.service.todo.delete_todo_by_id import DeleteTodoByIdRequest, Delet
 from src.notification.todo_transaction.transaction_notification import TodoTransactionNotification
 from src.notification.todo_transaction.remove_cache_subscriber import TodoRemoveCacheSubscriber
 
-from src.infra.adapter.repository.todo.get_todo_all_data import GetTodoAllDataRequest, GetTodoAllDataUseCase
-from src.infra.adapter.repository.todo.get_todo_by_id_data import GetTodoByIdDataRequest, GetTodoByIdDataUseCase
-from src.infra.adapter.repository.todo.add_todo_data import AddTodoDataUseCase, AddTodoDataRequest
-from src.infra.adapter.repository.todo.update_todo_data import UpdateTodoDataRequest, UpdateTodoDataUseCase
-
 
 def set_up_pydiator():
     container = MediatrContainer()
-
 
     if LOG_PIPELINE_IS_ENABLED:
         container.register_pipeline(LogPipeline())
@@ -39,13 +32,6 @@ def set_up_pydiator():
     container.register_request(AddTodoRequest, AddTodoUseCase())
     container.register_request(UpdateTodoRequest, UpdateTodoUseCase())
     container.register_request(DeleteTodoByIdRequest, DeleteTodoByIdUseCase())
-
-    # Data usecases mapping
-    container.register_request(GetTodoAllDataRequest, GetTodoAllDataUseCase())
-    container.register_request(GetTodoByIdDataRequest, GetTodoByIdDataUseCase())
-    container.register_request(AddTodoDataRequest, AddTodoDataUseCase())
-    container.register_request(DeleteTodoByIdDataRequest, DeleteTodoByIdDataUseCase())
-    container.register_request(UpdateTodoDataRequest, UpdateTodoDataUseCase())
 
     # Notification mapping
     container.register_notification(TodoTransactionNotification,
