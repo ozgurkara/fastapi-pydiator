@@ -1,3 +1,4 @@
+from src.infra.adapter.repository.todo.in_memory_todo_repository import InMemoryTodoRepository
 from src.notification.todo_transaction.transaction_log_subscriber import TransactionLogSubscriber
 from src.infra.config.app_config import CACHE_PIPELINE_IS_ENABLED, LOG_PIPELINE_IS_ENABLED
 from src.infra.pydiator.cache_provider import get_cache_provider
@@ -27,11 +28,11 @@ def set_up_pydiator():
         container.register_pipeline(cache_pipeline)
 
     # Service usecases mapping
-    container.register_request(GetTodoAllRequest, GetTodoAllUseCase())
-    container.register_request(GetTodoByIdRequest, GetTodoByIdUseCase())
-    container.register_request(AddTodoRequest, AddTodoUseCase())
-    container.register_request(UpdateTodoRequest, UpdateTodoUseCase())
-    container.register_request(DeleteTodoByIdRequest, DeleteTodoByIdUseCase())
+    container.register_request(GetTodoAllRequest, GetTodoAllUseCase(InMemoryTodoRepository()))
+    container.register_request(GetTodoByIdRequest, GetTodoByIdUseCase(InMemoryTodoRepository()))
+    container.register_request(AddTodoRequest, AddTodoUseCase(InMemoryTodoRepository()))
+    container.register_request(UpdateTodoRequest, UpdateTodoUseCase(InMemoryTodoRepository()))
+    container.register_request(DeleteTodoByIdRequest, DeleteTodoByIdUseCase(InMemoryTodoRepository()))
 
     # Notification mapping
     container.register_notification(TodoTransactionNotification,
